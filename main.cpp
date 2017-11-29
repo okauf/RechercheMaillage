@@ -5,5 +5,5 @@ using namespace std;
 int main(){
     
     Maillage m("maillage2.msh");
-    return 2;
+    return 0;
 }

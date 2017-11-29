@@ -1,0 +1,65 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{picins}
+\usepackage{amsthm}
+\usepackage{bbm}
+
+\setlength{\voffset}{-28.4mm}
+\setlength{\hoffset}{-1in}
+\setlength{\topmargin}{20mm}
+\setlength{\oddsidemargin}{25mm}
+\setlength{\evensidemargin}{25mm}
+\setlength{\textwidth}{160mm}
+
+\setlength{\parindent}{0pt}
+
+\setlength{\textheight}{235mm}
+%\setlength{\footskip}{20mm}
+\setlength{\headsep}{50pt}
+\setlength{\headheight}{0pt}
+
+\begin{document}
+	
+\title{Recherche rapide d’un triangle contenant un point dans un maillage}
+
+\section{}
+
+R3: $<,>,<=,>=$\\
+ordre lexicographie sur les pair est deja dans la stl
+
+\subsection{Multimaps}
+(Requires a less-than comparison function.)\\
+
+$ O(3 n_T)$: jede Kante jedes Dreiecks als Schlüssel\\
+$|K| \ O(log(n_T)):$ Zugriff auf Container fur jede Kante\\
+$\Rightarrow O(n_T log(n_T))$\\
+speichern in 2dim Array: Zugriff in konstanter Zeit\\
+
+\textbf{unordered map}(hash tables) has constant time performance on all operations provided no collisions occur. When collisions occur, traversal of a linked list containing all elements of the same bucket (those that hash to the same value) is necessary, and in the worst case, there is only one bucket; hence O(n)\\
+
+\subsection{Listen}
+
+$ O(3 n_T)$, push front(): jede Kante jedes Dreiecks einfügen\\
+$ O(N logN)$, container size $N$: sort(): definiere hierfür $<$ für R3 (Nach ersten und dann nach zweitem Element sortieren etc)\\
+
+\textbf{doppelt verlinkt! und dann mit Kante und Sommet prev und next von Listenelement!}\\
+konstanter Zugriff mit Iterator!\\
+
+$ O(3 n_T)$: pop front und speichern in 2 dim array\\
+
+Alternative für 2D array für konstanten Zugriff?\\
+Daten könnten direkt in 2D array gespeichert werden, Listen und Maps überflüssig\\
+
+\subsection{aire}
+
+orientierter Flächeninhalt
+$$ (a_i,b_i,p) = (a_i \times b_i ) \cdot p = \det(a_i,b_i,p) $$
+bei det Vektoren in Zeilen
+
+
+\end{document}
+
+
+
