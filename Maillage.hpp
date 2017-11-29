@@ -14,12 +14,17 @@ class Maillage{
 private:
     T3<double>* sommets;
     T3<int>* triangles;
+	int numbSommets, numbTri;
 public:
 	Maillage(char* const input):sommets(LoadNodes(input)), triangles(LoadTriangles(input)){};
 	
 	T3<double>* GetSommets() {return sommets;}
 	T3<int>* GetTriangles() {return triangles;}
-};
+	int GetNumbSommets() {return numbSommets;}
+	int GetNumbTri() {return numbTri;}
+	
+	void SetNumbSommets(int n) { numbSommets = n; }
+	void SetNumbTri(int n) { numbTri = n; }
 
 T3<double>* LoadNodes(char* const input){
     
@@ -37,6 +42,7 @@ T3<double>* LoadNodes(char* const input){
     getline(mshmaillage,line);
     // saving the number of sommets
     int numbSommets = stoi(line);
+	SetNumbSommets(numbSommets);
     
     //generating the tableau of R3
     T3<double> * tab = new T3<double>[numbSommets];
@@ -79,6 +85,7 @@ T3<int>* LoadTriangles(char* const input){
     
     // saving the number of triangles
     int numbTri = stoi(line);
+	SetNumbTri(numbTri);
     
     //generating the tableau of triangles
     T3<int>* triangles = new T3<int>[numbTri];
@@ -100,4 +107,6 @@ T3<int>* LoadTriangles(char* const input){
     
     return triangles;
 }
+
+};
 
