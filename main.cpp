@@ -5,9 +5,11 @@ using namespace std;
 
 int main(){
     
-    Maillage m("maillage1.msh");
-	T3<double>* Sommets = m.GetSommets();
-	T3<int>* Triangles = m.GetTriangles();
+	char nom[255] = "maillage1.msh";
+	char* const pnom = nom;
+    Maillage m(pnom);
+	// T3<double>* Sommets = m.GetSommets();
+	// T3<int>* Triangles = m.GetTriangles();
 	
 //	cout << " Number Sommets " << m.GetNumbSommets() << endl;
 //	for (int i = 0; i < m.GetNumbSommets(); i++){

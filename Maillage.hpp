@@ -6,9 +6,6 @@
 #include <iostream>
 using namespace std;
 
-T3<double>* LoadNodes(char* const);
-T3<int>* LoadTriangles(char* const);
-
 class Maillage{
     
 private:
@@ -141,6 +138,8 @@ void exportGnuplot(Maillage m){
     GnuCom.close();
     
     system("gnuplot GnuExe.txt ");
+	
+	// plot "Output.txt" with lines
     
 }
 
