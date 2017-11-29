@@ -6,20 +6,17 @@
 #include <iostream>
 using namespace std;
 
-
 T3<double>* LoadNodes(char* const);
 T3<int>* LoadTriangles(char* const);
 
 class Maillage{
     
-
 private:
     T3<double>* sommets;
     T3<int>* triangles;
-public: 
+public:
     Maillage(char* const input):sommets(LoadNodes(input)), triangles(LoadTriangles(input)){};
 };
-
 T3<double>* LoadNodes(char* const input){
     
     int numbSommets;
