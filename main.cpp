@@ -4,7 +4,7 @@ using namespace std;
 
 int main(){
     
-    Maillage m("maillage2.msh");
+    Maillage m("maillage1.msh");
 	// T3<double> vec;
 	// T3<int> vec2(1,2,3);
     return 0;
