@@ -62,3 +62,7 @@ T3 T3::operator +(const T3 &v){
 
 inline T produit_mixte(const T3 & A, const T3 & P, const T3 & Q) {return A.produit_mixte(P,Q);}
 
+
+
+//in order to define an object of the class T3 write T3<datatype> name;
+
