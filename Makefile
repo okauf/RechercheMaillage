@@ -15,7 +15,7 @@ main.o: main.cpp
 
 #remove not necessary files 
 clean:
-	rm -rf *o main 
+	rm -rf *o *txt main 
 
 
 do: main
