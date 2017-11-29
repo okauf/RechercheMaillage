@@ -60,7 +60,6 @@ T3<double>* LoadNodes(char* const input){
         
         //declaring the T3 objects
         tab[i] = T3<double>(a,b,c);
-        cout << tab[i] << endl;
         i++;
     }
     
@@ -92,10 +91,8 @@ T3<int>* LoadTriangles(char* const input){
     
     // saving the number of triangles
     numbTri = stoi(line);
-    cout << "Number of triangles: " << numbTri << endl;
+    
     //generating the tableau of triangles
-    
-    
     T3<int>* triangles = new T3<int>[numbTri];
     
     //ignoring the next line
@@ -108,7 +105,6 @@ T3<int>* LoadTriangles(char* const input){
         stringstream linestream;
         linestream << line;
         linestream >> a >>  b >> c;
-        cout << "numbers of necessary points for the triangle were: " << a <<  " " <<  b << " " << c << endl;
         triangles[i] = T3<int>(a,b,c);
         i++;
         
