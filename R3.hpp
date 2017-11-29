@@ -1,10 +1,3 @@
-//
-//  main.cpp
-//  NetworkAndTriangles
-//
-//  Created by Arne Heimendahl on 23/10/2017.
-//  Copyright © 2017 Arne Heimendahl. All rights reserved.
-//
 
 #include <iostream>
 #include <cmath>
