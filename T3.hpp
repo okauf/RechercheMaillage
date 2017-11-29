@@ -5,7 +5,8 @@
 #include <cstdlib>
 using namespace std;
 
-template <typename T>;
+template<typename T>
+
 class T3{
     
     friend std::ostream& operator <<(std::ostream& f, const T3 &v){   //friend in order to get private variables
@@ -60,7 +61,7 @@ public:
 //    return  sqrt(x*v.x+y*v.y+z*v.z);
 //}
 
-inline T produit_mixte(const T3 & A, const T3 & P, const T3 & Q) {return A.produit_mixte(P,Q);}
+// inline T produit_mixte(const T3 & A, const T3 & P, const T3 & Q) {return A.produit_mixte(P,Q);}
 
 
 

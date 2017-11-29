@@ -1,4 +1,4 @@
-#include "R3.hpp"
+#include "T3.hpp"
 #include <fstream>
 #include <string>
 #include <sstream>
@@ -7,20 +7,20 @@
 using namespace std;
 
 
-R3* LoadNodes(char* const);
-R3* LoadTriangles(char* const);
+T3<double>* LoadNodes(char* const);
+T3<int>* LoadTriangles(char* const);
 
 class Maillage{
     
 
 private:
-    R3* sommets;
-    R3* triangles;
+    T3<double>* sommets;
+    T3<int>* triangles;
 public: 
     Maillage(char* const input):sommets(LoadNodes(input)), triangles(LoadTriangles(input)){};
 };
 
-R3* LoadNodes(char* const input){
+T3<double>* LoadNodes(char* const input){
     
     int numbSommets;
     string   line;
@@ -46,8 +46,8 @@ R3* LoadNodes(char* const input){
     
     
     
-    //generating the tableau of R3
-    R3 * tab = new R3[numbSommets];
+    //generating the tableau of T3
+    T3<double> * tab = new T3<double>[numbSommets];
     
     
     int i = 0;
@@ -61,8 +61,8 @@ R3* LoadNodes(char* const input){
         linestream << line;
         linestream >> a >>  b >> c;
         
-        //declaring the R3 objects
-        tab[i] = R3(a,b,c);
+        //declaring the T3 objects
+        tab[i] = T3<double>(a,b,c);
         cout << tab[i] << endl;
         i++;
     }
@@ -73,7 +73,7 @@ R3* LoadNodes(char* const input){
     return tab;
 }
 
-R3* LoadTriangles(char* const input){
+T3<int>* LoadTriangles(char* const input){
     
     int numbTri;
     string line;
@@ -99,7 +99,7 @@ R3* LoadTriangles(char* const input){
     //generating the tableau of triangles
     
     
-    R3* triangles = new R3[numbTri];
+    T3<int>* triangles = new T3<int>[numbTri];
     
     //ignoring the next line
     getline(mshmaillage,line);
@@ -112,7 +112,7 @@ R3* LoadTriangles(char* const input){
         linestream << line;
         linestream >> a >>  b >> c;
         cout << "numbers of necessary points for the triangle were: " << a <<  " " <<  b << " " << c << endl;
-        triangles[i] = R3(a,b,c);
+        triangles[i] = T3<int>(a,b,c);
         i++;
         
     }
