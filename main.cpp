@@ -9,7 +9,9 @@ int main(){
 	char* const pnom = nom;
     Maillage m(pnom);
 	// T3<double>* Sommets = m.GetSommets();
-	T3<int>* Triangles = m.GetTriangles();
+    setAdjacencyViaMultiMap(m);
+    
+        
 	
 //	cout << " Number Sommets " << m.GetNumbSommets() << endl;
 //	for (int i = 0; i < m.GetNumbSommets(); i++){
@@ -21,17 +23,19 @@ int main(){
 //		cout << Triangles[i] << endl;
 //	}
 
-	T3<int> T = T3<int>(1,18,5); // also in Maillage1: 1 18 16
-	// T3<int> T = Triangles[5];
-	T3<int> N = m.Adjacency(T,2);
-	cout << T << endl;
-	cout << N << endl;
+//	Triangle T = Triangle(1,18,5); // also in Maillage1: 1 18 16
+//	// Triangle T = Triangles[5];
+//	Triangle N = m.Adjacency(T,2);
+//	cout << T << endl;
+//	cout << N << endl;
 	
 	// const T3<double> p = T3<double>(0,0,0);
-	// T3<int> P = m.Promenade(T, p); // Fehler in Wahl des Nachbardreiecks, Abbruchbedingung einfügen
+	// Triangle P = m.Promenade(T, p); // Fehler in Wahl des Nachbardreiecks, Abbruchbedingung einfügen
 	// cout << P << endl;
 	
-    // exportGnuplot(m);
+  //   exportGnuplot(m);
+    
+    
     
     return 0;
 }

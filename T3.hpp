@@ -69,3 +69,50 @@ public:
 
 //in order to define an object of the class T3 write T3<datatype> name;
 
+
+
+//Class triangle which is a derived class from the class T3<int>; it has as additional members the neighbors
+class Triangle: public T3<int>{
+private:
+    //Neighbors are described by their position in the list of triangles in Maillage
+    int neighbor1, neighbor2, neighbor3;
+public:
+    //Constructor of the base class has to be defined for the derived class
+    Triangle(): T3<int>(){}
+    Triangle(int x, int y, int z): T3<int>(x,y,z){}
+    
+    //Getter and setter who are necessary for adjacency functions
+    
+    int getNeighbor1(){
+        return neighbor1;
+    }
+    int getNeighbor2(){
+        return neighbor2;
+    }
+    int getNeighbor3(){
+        return neighbor3;
+    }
+    void setNeighbor1(int pos){
+        neighbor1 = pos;
+    }
+    void setNeighbor2(int pos){
+        neighbor2 = pos;
+    }
+    void setNeighbor3(int pos){
+        neighbor3 = pos;
+    }
+    
+};
+
+
+
+
+
+
+
+
+
+
+
+
+

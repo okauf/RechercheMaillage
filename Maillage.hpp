@@ -5,19 +5,20 @@
 #include <cstdlib>
 #include <iostream>
 #include <list>
+#include <map>
 using namespace std;
 
 class Maillage{
     
 private:
     T3<double>* sommets;
-    T3<int>* triangles;
+    Triangle* triangles;
 	int numbSommets, numbTri;
 public:
 	Maillage(char* const input):sommets(LoadNodes(input)), triangles(LoadTriangles(input)){};
 	
 	T3<double>* GetSommets() {return sommets;}
-	T3<int>* GetTriangles() {return triangles;}
+	Triangle* GetTriangles() {return triangles;}
 	int GetNumbSommets() {return numbSommets;}
 	int GetNumbTri() {return numbTri;}
 	
@@ -65,7 +66,7 @@ T3<double>* LoadNodes(char* const input){
     return tab;
 }
 
-T3<int>* LoadTriangles(char* const input){
+Triangle* LoadTriangles(char* const input){
 	
     string line;
     
@@ -86,7 +87,7 @@ T3<int>* LoadTriangles(char* const input){
 	SetNumbTri(numbTri);
     
     //generating the tableau of triangles
-    T3<int>* triangles = new T3<int>[numbTri];
+    Triangle* triangles = new Triangle[numbTri];
     
     //ignoring the nextline
     getline(mshmaillage,line);
@@ -98,7 +99,7 @@ T3<int>* LoadTriangles(char* const input){
         stringstream linestream;
         linestream << line;
         linestream >> a >>  b >> c;
-        triangles[i] = T3<int>(a,b,c);
+        triangles[i] = Triangle(a,b,c);
         i++;
     }
     mshmaillage.close();
@@ -106,12 +107,12 @@ T3<int>* LoadTriangles(char* const input){
     return triangles;
 }
 
-T3<int> Adjacency(const T3<int> & T, int i){
+Triangle Adjacency(const Triangle & T, int i){
 	
 	assert(i <= 2 && i >= 0);
 	
 	// initialisation
-	list<T3<int>> l;
+	list<Triangle> l;
 	int n0, n1, n2, m01, m02, m12, M01, M02, M12;
 	for (int i = 0; i < numbTri; i++){
 		n0 = triangles[i][0];
@@ -119,9 +120,9 @@ T3<int> Adjacency(const T3<int> & T, int i){
 		n2 = triangles[i][2];
 		m01 = min(n0,n1); m02 = min(n0,n2); m12 = min(n1,n2);
 		M01 = max(n0,n1); M02 = max(n0,n2); M12 = max(n1,n2);
-		l.push_front(T3<int>(m01,M01,n2));
-		l.push_front(T3<int>(m02,M02,n1));
-		l.push_front(T3<int>(m12,M12,n0));
+		l.push_front(Triangle(m01,M01,n2));
+		l.push_front(Triangle(m02,M02,n1));
+		l.push_front(Triangle(m12,M12,n0));
 	}
 	// lexicographical ordering in O(NlogN) where N is the container size
 	l.sort();
@@ -133,12 +134,12 @@ T3<int> Adjacency(const T3<int> & T, int i){
 		l.pop_front();
 	}
 	
-	// list<T3<int>>::iterator it = l.begin();
+	// list<Triangle>::iterator it = l.begin();
 	// cout << *it << endl;
 	return !l.empty() ? l.front() : T;
 }
 
-T3<int> Promenade(const T3<int> & T, const T3<double> & p){
+Triangle Promenade(const Triangle & T, const T3<double> & p){
 	cout << T << endl;
 	double a1, a2, a3;
 	T3<double> c1 = sommets[T[0]], c2 = sommets[T[1]], c3 = sommets[T[2]];
@@ -150,12 +151,90 @@ T3<int> Promenade(const T3<int> & T, const T3<double> & p){
 		return T;
 	} else {
 		int i = rand()%3; // random number between 0 and 2
-		T3<int> RandomNeighbor = Adjacency(T,i);
+		Triangle RandomNeighbor = Adjacency(T,i);
 		return Promenade(RandomNeighbor,p);
 	}
 }
 
 };
+
+void setAdjacencyViaMultiMap(Maillage m){
+    Triangle* triangles = m.GetTriangles();
+    
+    
+    multimap<pair<int,int>,int> adjacency;
+    // each traingle defines three edges which will serve as keys for the multimap, the mapped value will be the position of triangle int list triangles
+    int numbTriangles = m.GetNumbTri();
+    for(int i = 0; i < numbTriangles; i++){
+        pair<int,int> edge1  (triangles[i][0],triangles[i][1]);
+        adjacency.insert(make_pair(edge1,i));
+        
+        pair<int,int> edge2  (triangles[i][0],triangles[i][2]);
+        adjacency.insert(make_pair(edge2,i));
+        
+        pair<int,int> edge3  (triangles[i][1],triangles[i][2]);
+        adjacency.insert(make_pair(edge3,i));
+    }
+    
+    //find the adjacent triangles
+    //therefore, it has to be ranged over the multimap again
+    //pos2 will be changed to the postion of the neighbored triangle if it exists
+    int pos2 = -1;
+    
+    multimap<pair<int,int>,int>:: iterator it;
+    for(it = adjacency.begin(); it != adjacency.end(); ++it){
+        pair<int,int> commonEdge = it->first;
+        int pos1 = it->second;
+        cout << "Considering edge (" << commonEdge.first << "," << commonEdge.second << ") in the triangle " << triangles[pos1] << endl;
+        //erase the element, happens constant time
+        adjacency.erase(it);
+        
+        //find the neighborded triangle if it exists and save the key
+        map<pair<int,int>,int>::iterator itemp = adjacency.find(commonEdge);
+        if(itemp != adjacency.end()){
+           pos2 = itemp->second;
+            cout << "The neighbor is " << triangles[pos2] << endl;
+            //set the reference to the neighbor at the right position if it exists
+            if(triangles[pos1][0] != commonEdge.first && triangles[pos1][0] != commonEdge.second)
+                triangles[pos1].setNeighbor1(pos2);
+            else {
+                if(triangles[pos1][1] != commonEdge.first && triangles[pos1][1] != commonEdge.second)
+                    triangles[pos1].setNeighbor2(pos2);
+                    else
+                        triangles[pos1].setNeighbor3(pos2);
+                }
+           
+                if(triangles[pos2][0] != commonEdge.first && triangles[pos2][0] != commonEdge.second)
+                    triangles[pos2].setNeighbor1(pos1);
+                else {
+                    if(triangles[pos2][1] != commonEdge.first && triangles[pos2][1] != commonEdge.second)
+                        triangles[pos2].setNeighbor2(pos1);
+                    else
+                        triangles[pos2].setNeighbor3(pos1);
+                }
+        }
+        
+    }
+
+
+
+    
+
+        
+        
+                
+            
+        
+    
+        
+        
+            
+    
+
+
+
+
+}
 
 void exportGnuplot(Maillage m){
     ofstream TriangleData;
@@ -163,15 +242,18 @@ void exportGnuplot(Maillage m){
     TriangleData << "#Coordiantes" << endl;
     TriangleData << "#X \t Y \t Z" << endl;
     
-    T3<int>* triangles = m.GetTriangles();
+    Triangle* triangles = m.GetTriangles();
     T3<double>* sommets = m.GetSommets();
+    cout << endl;
+   
     
     for(int i = 0; i < m.GetNumbTri(); i++){
         TriangleData << "#Triangle " << i+1 << endl;
         for(int j = 0; j < 3; j++){
-            TriangleData << sommets[triangles[i][j]] << endl;
+            TriangleData << sommets[triangles[i][j]-1] << endl;
         }
-        TriangleData << sommets[triangles[i][0]] << endl;
+        cout << endl;
+        TriangleData << sommets[triangles[i][0]-1] << endl;
         //insert the last point again in order to connect the points
         TriangleData << endl;  //This creates blocks of points which will be connected by lines
     }
