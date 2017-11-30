@@ -11,7 +11,6 @@ int main(){
 	// T3<double>* Sommets = m.GetSommets();
     setAdjacencyViaMultiMap(m);
     
-        
 	
 //	cout << " Number Sommets " << m.GetNumbSommets() << endl;
 //	for (int i = 0; i < m.GetNumbSommets(); i++){
