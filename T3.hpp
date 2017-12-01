@@ -77,9 +77,13 @@ private:
     //Neighbors are described by their position in the list of triangles in Maillage
     int neighbor1, neighbor2, neighbor3;
 public:
+    //The default constructor sets the neoghbors to -1, this is changed lateron when a neighbor exists
+    Triangle():neighbor1(-1),neighbor2(-1),neighbor3(-1) {}
+    
     //Constructor of the base class has to be defined for the derived class
-    Triangle(): T3<int>(){}
-    Triangle(int x, int y, int z): T3<int>(x,y,z){}
+    Triangle(int x, int y, int z): T3<int>(x,y,z){
+        neighbor1 = -1;neighbor2 = -1;neighbor3 = -1;
+    }
     
     //Getter and setter who are necessary for adjacency functions
     
