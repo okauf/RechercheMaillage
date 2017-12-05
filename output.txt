@@ -1,0 +1,2 @@
+#Coordiantes
+#X 	 Y 	 Z
