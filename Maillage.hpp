@@ -123,11 +123,11 @@ Triangle Promenade(const Triangle & T, const T3<double> & p, vector<Triangle> pa
 	} else {
 		// evtl rand()%3 zwischen 0 und 2
 		if (a1 < a2 && a1 < a3){
-			Triangle RandomNeighbor = T.getNeighbor3();
+			Triangle RandomNeighbor = Triangles[T.getNeighbor3()];
 		} else if ( a2 < a1 && a2 < a3){
-			Triangle RandomNeighbor = T.getNeighbor1();
+			Triangle RandomNeighbor = Triangles[T.getNeighbor1()];
 		} else {
-			Triangle RandomNeighbor = T.getNeighbor2();
+			Triangle RandomNeighbor = Trinagles[T.getNeighbor2()];
 		}
 		return Promenade(RandomNeighbor, p, path);
 	}
