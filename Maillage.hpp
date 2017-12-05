@@ -114,9 +114,9 @@ Triangle Promenade(Triangle & T, const T3<double> & p, vector<Triangle> path){
 	path.push_back(T);
 	
 	T3<double> c1 = sommets[T[0]], c2 = sommets[T[1]], c3 = sommets[T[2]];
-	double a1 = c1.produit_mixte(c2,p);
-	double a2 = c2.produit_mixte(c3,p);
-	double a3 = c3.produit_mixte(c1,p);
+	double a1 = c1.oriented_vol(c2,p);
+	double a2 = c2.oriented_vol(c3,p);
+	double a3 = c3.oriented_vol(c1,p);
     cout << "oriented volumes are " << a1 << " " << a3 <<  " " << " " << a3 << endl;
     
 	if (a1 >= 0 && a2 >= 0 && a3 >= 0){
