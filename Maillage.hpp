@@ -121,7 +121,7 @@ Triangle Promenade(const Triangle & T, const T3<double> & p, vector<Triangle> pa
 	if (a1 >= 0 && a2 >= 0 && a3 >= 0){
 		return T;
 	} else {
-		// evtl rand()
+		// evtl rand()%3 zwischen 0 und 2
 		if (a1 < a2 && a1 < a3){
 			Triangle RandomNeighbor = T.getNeighbor3();
 		} else if ( a2 < a1 && a2 < a3){
@@ -132,29 +132,11 @@ Triangle Promenade(const Triangle & T, const T3<double> & p, vector<Triangle> pa
 		return Promenade(RandomNeighbor, p, path);
 	}
 }
-
-// Triangle Promenade(const Triangle & T, const T3<double> & p){
-	// cout << T << endl;
-	// double a1, a2, a3;
-	// T3<double> c1 = sommets[T[0]], c2 = sommets[T[1]], c3 = sommets[T[2]];
-	// a1 = c1.produit_mixte(c2,p);
-	// a2 = c2.produit_mixte(c3,p);
-	// a3 = c3.produit_mixte(c1,p);
-	
-	// if (a1 > 0 && a2 > 0 && a3 > 0){
-		// return T;
-	// } else {
-		// int i = rand()%3; // random number between 0 and 2
-		// Triangle RandomNeighbor = Adjacency(T,i);
-		// return Promenade(RandomNeighbor,p);
-	// }
-// }
     
 };
 
 void setAdjacencyViaMultiMap(Maillage m){
     Triangle* triangles = m.GetTriangles();
-    
     
     multimap<pair<int,int>,int> adjacency;
     // each traingle defines three edges which will serve as keys for the multimap, the mapped value will be the position of triangle int list triangles
@@ -295,7 +277,7 @@ int findNeighbor(Triangle t, int i){
 
 
 
-void exportGnuplot(Maillage m){
+void exportGnuplot(Maillage m, vector<Triangle> path){
     ofstream TriangleData;
     TriangleData.open("output.txt");
     TriangleData << "#Coordiantes" << endl;
@@ -304,18 +286,30 @@ void exportGnuplot(Maillage m){
     Triangle* triangles = m.GetTriangles();
     T3<double>* sommets = m.GetSommets();
     cout << endl;
-   
-    
-    for(int i = 0; i < m.GetNumbTri(); i++){
-        TriangleData << "#Triangle " << i+1 << endl;
+	
+	int i = 0;
+	for (vector<Triangle>::iterator it = path.begin(); it != path.end(); it++){
+        TriangleData << "#Triangle " << endl;
         for(int j = 0; j < 3; j++){
-            TriangleData << sommets[triangles[i][j]-1] << endl;
+            TriangleData << sommets[path[i][j]-1] << endl;
         }
         cout << endl;
-        TriangleData << sommets[triangles[i][0]-1] << endl;
-        //insert the last point again in order to connect the points
+        TriangleData << sommets[path[i][0]-1] << endl;
+        // insert the last point again in order to connect the points
         TriangleData << endl;  //This creates blocks of points which will be connected by lines
-    }
+		i++;
+    }   
+    
+    // for(int i = 0; i < m.GetNumbTri(); i++){
+        // TriangleData << "#Triangle " << i+1 << endl;
+        // for(int j = 0; j < 3; j++){
+            // TriangleData << sommets[triangles[i][j]-1] << endl;
+        // }
+        // cout << endl;
+        // TriangleData << sommets[triangles[i][0]-1] << endl;
+        // // insert the last point again in order to connect the points
+        // TriangleData << endl;  //This creates blocks of points which will be connected by lines
+    // }
     TriangleData.close();
     
     //Script for Gnuplot
