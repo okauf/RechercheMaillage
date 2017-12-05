@@ -110,7 +110,7 @@ Triangle* LoadTriangles(char* const input){
 
 
 Triangle Promenade(Triangle & T, const T3<double> & p, vector<Triangle> path){
-	cout << T << endl;
+	cout << " first triangle" << T << endl;
 	path.push_back(T);
 	
 	T3<double> c1 = sommets[T[0]], c2 = sommets[T[1]], c3 = sommets[T[2]];
@@ -124,14 +124,20 @@ Triangle Promenade(Triangle & T, const T3<double> & p, vector<Triangle> path){
 	} else {
 		// evtl rand()%3 zwischen 0 und 2
 		if (a1 < a2 && a1 < a3){
-			Triangle RandomNeighbor = triangles[T.getNeighbor3()];
-			return Promenade(RandomNeighbor, p, path);
+            cout << "neighbor is " << T.getNeighbor3() << endl;
+			Triangle Neighbor = triangles[T.getNeighbor3()];
+            cout << "next one is" << Neighbor << endl;
+			return Promenade(Neighbor, p, path);
 		} else if ( a2 < a1 && a2 < a3){
-			Triangle RandomNeighbor = triangles[T.getNeighbor1()];
-			return Promenade(RandomNeighbor, p, path);
+            cout << "neighbor is " << T.getNeighbor3() << endl;
+			Triangle Neighbor = triangles[T.getNeighbor1()];
+            cout << "next one is" << Neighbor << endl;
+			return Promenade(Neighbor, p, path);
 		} else {
-			Triangle RandomNeighbor = triangles[T.getNeighbor2()];
-			return Promenade(RandomNeighbor, p, path);
+            cout << "neighbor is " << T.getNeighbor3() << endl;
+			Triangle Neighbor = triangles[T.getNeighbor2()];
+            cout << "next one is" << Neighbor << endl;
+			return Promenade(Neighbor, p, path);
 		}
 	}
 }
@@ -167,7 +173,7 @@ void setAdjacencyViaMultiMap(Maillage m){
     while(it != adjacency.end()){
         pair<int,int> commonEdge = it->first;
         int pos1 = it->second;
-        cout << "Considering edge (" << commonEdge.first << "," << commonEdge.second << ") in the triangle " << triangles[pos1] << endl;
+       
         
         //erase the element, happens in constant time
         //directly erasing by using the iterator is not working
@@ -180,7 +186,7 @@ void setAdjacencyViaMultiMap(Maillage m){
         map<pair<int,int>,int>::iterator itemp = adjacency.find(commonEdge);
         if(itemp != adjacency.end()){
            pos2 = itemp->second;
-            cout << "The neighbor is " << triangles[pos2] << endl;
+            
             
             //set the reference to the neighbor at the right position if it exists
             if(triangles[pos1][0] != commonEdge.first && triangles[pos1][0] != commonEdge.second){
@@ -203,7 +209,7 @@ void setAdjacencyViaMultiMap(Maillage m){
                         triangles[pos2].setNeighbor3(pos1);
                 }
         }
-        cout << "After the iteration the triangle " << triangles[pos1] << "has neighbors " << triangles[pos1].getNeighbor1() << " " << triangles[pos1].getNeighbor2() << " " << triangles[pos1].getNeighbor3() << endl;
+        
         
       }
     
