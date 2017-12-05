@@ -9,13 +9,15 @@ int main(){
 	char* const pnom = nom;
     Maillage m(pnom);
 	// T3<double>* Sommets = m.GetSommets();
-    setAdjacencyViaMultiMap(m);
-    Triangle* triangles = m.GetTriangles();
+    // setAdjacencyViaMultiMap(m);
+    // Triangle* triangles = m.GetTriangles();
     
-    for(int i = 0; i < m.GetNumbTri(); i++){
-        cout << "Triangle " << triangles[i] << " has neighbors " << endl << triangles[i].getNeighbor1() << " " << triangles[i].getNeighbor2() << " " << triangles[i].getNeighbor3() << endl;
+    // for(int i = 0; i < m.GetNumbTri(); i++){
+        // cout << "Triangle " << triangles[i] << " has neighbors " << endl << triangles[i].getNeighbor1() << " " << triangles[i].getNeighbor2() << " " << triangles[i].getNeighbor3() << endl;
 
-    }
+    // }
+	
+	setAdjacencyViaList(m);
     
 	
 //	cout << " Number Sommets " << m.GetNumbSommets() << endl;

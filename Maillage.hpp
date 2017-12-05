@@ -232,6 +232,44 @@ void setAdjacencyViaMultiMap(Maillage m){
     
 }
 
+void setAdjacencyViaList(Maillage m){
+	
+	Triangle* triangles = m.GetTriangles();
+	
+	// initialisation
+	list<Triangle> adjacency;
+	int numbTriangles = m.GetNumbTri();
+	
+	int n0, n1, n2, m01, m02, m12, M01, M02, M12;
+	for (int i = 0; i < numbTriangles; i++){
+		n0 = triangles[i][0];
+		n1 = triangles[i][1];
+		n2 = triangles[i][2];
+		m01 = min(n0,n1); m02 = min(n0,n2); m12 = min(n1,n2);
+		M01 = max(n0,n1); M02 = max(n0,n2); M12 = max(n1,n2);
+		adjacency.push_front(Triangle(m01,M01,i)); // letzter Eintrag als zugehöriges Dreieck definieren
+		adjacency.push_front(Triangle(m02,M02,i));
+		adjacency.push_front(Triangle(m12,M12,i));
+	}
+	// lexicographical ordering in O(NlogN) where N is the container size
+	adjacency.sort();
+	
+	Triangle prev_tri = adjacency.front();
+	adjacency.pop_front();
+	Triangle curr_tri;
+	while (!adjacency.empty()){
+		curr_tri = adjacency.front();
+		adjacency.pop_front();
+		// cout << prev_tri << " next: " << curr_tri << endl;
+		if (curr_tri[0] == prev_tri[0] && curr_tri[1] == prev_tri[1]){
+			// triangles[curr_tri[2]].setNeighbor(prev_tri[2]);
+			// triangles[prev_tri[2]].setNeighbor(curr_tri[2]);
+		}
+		prev_tri = curr_tri;
+	}
+    
+}
+
 int findNeighbor(Triangle t, int i){
     //the function returns the postion of the neighbor in the list of triangles
     assert(3 >= i && i > 0);
