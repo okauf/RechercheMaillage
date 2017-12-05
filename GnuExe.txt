@@ -1,2 +1,0 @@
-plot 'output.txt' with lines 
-pause -1 'Hit any key to continue' 

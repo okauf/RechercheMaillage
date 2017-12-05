@@ -20,13 +20,22 @@ int main(){
 	
 	//setAdjacencyViaList(m);
     setAdjacencyViaMultiMap(m);
-	 const T3<double> p = T3<double>(0,0,0);
+    
+    cout << "beginning promende" << endl;
+    
+    const T3<double> p = T3<double>(0,0,0);
     vector<Triangle> path;
     Triangle T = m.GetTriangles()[rand()%m.GetNumbTri()];
-    Triangle P = m.Promenade(T, p, path); // Fehler in Wahl des Nachbardreiecks, Abbruchbedingung einfügen
+    Triangle P = m.Promenade(T, p, path);
+    
+    cout << endl;
+    cout << P << endl;
+    
+    // Fehler in Wahl des Nachbardreiecks, Abbruchbedingung einfügen
 	// cout << P << endl;
 	
-     exportGnuplot(m,path);
+    
+     //exportGnuplot(m,path);
     
     
     
