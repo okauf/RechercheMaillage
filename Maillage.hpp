@@ -292,7 +292,7 @@ void setAdjacencyViaList(Maillage m){
 	while (!adjacency.empty()){
 		curr_tri = adjacency.front();
 		adjacency.pop_front();
-		// cout << prev_tri << " next: " << curr_tri << endl;
+		cout << prev_tri << " next: " << curr_tri << endl;
 		if (curr_tri[0] == prev_tri[0] && curr_tri[1] == prev_tri[1]){
 			
 			// cout << "first  triangle points " <<triangles[curr_tri[2]] << endl;
@@ -349,7 +349,34 @@ int findNeighbor(Triangle t, int i){
 }
 
 
+Triangle* findSommets(Maillage & m, Maillage & M){
+	
+	int numbSommets_m = m.GetNumbSommets();
+	T3<double> * sommets_m = m.GetSommets();
+	Triangle * triangles_m = m.GetTriangles();
+	
+	int numbSommets_M = M.GetNumbSommets();
+	int numbTri_M = M.GetNumbTri();
+	T3<double> * sommets_M = M.GetSommets();
+	Triangle * triangles_M = M.GetTriangles();
+	
+	Triangle* coveringTriangles = new Triangle[numbSommets_m];
+	
+	setAdjacencyViaMultiMap(M);
+	setAdjacencyViaMultiMap(m);
 
+	T3<double> firstSommet = sommets_m[triangles_m[0][0]-1];
+	
+	Triangle Start = triangles_M[rand()%numbTri_M];
+	vector<Triangle> path;
+	
+	coveringTriangles[triangles_m[0][0]-1] = M.Promenade2(Start, firstSommet, path);
+	
+	
+	
+	return coveringTriangles;
+	
+}
 
 
 
