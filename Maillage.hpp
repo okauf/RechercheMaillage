@@ -110,31 +110,43 @@ Triangle* LoadTriangles(char* const input){
 
 
 Triangle Promenade(Triangle & T, const T3<double> & p, vector<Triangle> path){
-	cout << " first triangle" << T << endl;
+	cout << " current triangle" << T << endl;
 	path.push_back(T);
 	
+	double a1, a2, a3;
 	T3<double> c1 = sommets[T[0]], c2 = sommets[T[1]], c3 = sommets[T[2]];
-	double a1 = c1.oriented_vol(c2,p);
-	double a2 = c2.oriented_vol(c3,p);
-	double a3 = c3.oriented_vol(c1,p);
-    cout << "oriented volumes are " << a1 << " " << a3 <<  " " << " " << a3 << endl;
+	// cout << c1.oriented_vol(c2,c3) << endl;
+	// cout << c2.oriented_vol(c1,c3) << endl;
+	if (c1.oriented_vol(c2,c3) > 0){
+		// cout << " case 1 " << endl;
+		a1 = c2.oriented_vol(c3,p);
+		a2 = c3.oriented_vol(c1,p);
+		a3 = c1.oriented_vol(c2,p);
+	} else {
+		// cout << " case 2 " << endl;
+		a1 = c3.oriented_vol(c2,p);
+		a2 = c1.oriented_vol(c3,p);
+		a3 = c2.oriented_vol(c1,p);
+	}
+	
+    cout << "oriented volumes are " << a1 << " " << a2 <<  " " << a3 << endl;
     
 	if (a1 >= 0 && a2 >= 0 && a3 >= 0){
 		return T;
 	} else {
 		// evtl rand()%3 zwischen 0 und 2
-		if (a1 < a2 && a1 < a3){
+		if (a3 < a1 && a3 < a2){
             cout << "neighbor is " << T.getNeighbor3() << endl;
 			Triangle Neighbor = triangles[T.getNeighbor3()];
             cout << "next one is" << Neighbor << endl;
 			return Promenade(Neighbor, p, path);
-		} else if ( a2 < a1 && a2 < a3){
-            cout << "neighbor is " << T.getNeighbor3() << endl;
+		} else if ( a1 < a2 && a1 < a3){
+            cout << "neighbor is " << T.getNeighbor1() << endl;
 			Triangle Neighbor = triangles[T.getNeighbor1()];
             cout << "next one is" << Neighbor << endl;
 			return Promenade(Neighbor, p, path);
 		} else {
-            cout << "neighbor is " << T.getNeighbor3() << endl;
+            cout << "neighbor is " << T.getNeighbor2() << endl;
 			Triangle Neighbor = triangles[T.getNeighbor2()];
             cout << "next one is" << Neighbor << endl;
 			return Promenade(Neighbor, p, path);
