@@ -55,9 +55,9 @@ public:
 	// T3 crossproduct(const T3 &v) {return T3(y*v.z-z*v.y, z*v.x-x*v.z, x*v.y-y*v.x);}
 	
 	// lexicographical order
-//	bool operator<(const T3 &v){
-//		if (x<v.x) return 1; else if (x==v.x && y<v.y) return 1; else if (x==v.x && y==v.y && z<v.z) return 1; else return 0;
-//	}
+	bool operator<(const T3 &v){
+		if (x<v.x) return 1; else if (x==v.x && y<v.y) return 1; else if (x==v.x && y==v.y && z<v.z) return 1; else return 0;
+	}
 
 	
 	// T produit_mixte(const T3 & P, const T3 & Q) const {return  x*P.y*Q.z + P.x*Q.y*z + Q.x*y*P.z - z*P.y*Q.x - y*P.x*Q.z - x*P.z*Q.y;} // produit mixte

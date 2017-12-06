@@ -13,22 +13,23 @@ int main(){
     
      Triangle* triangles = m.GetTriangles();
     
-    // for(int i = 0; i < m.GetNumbTri(); i++){
-        // cout << "Triangle " << triangles[i] << " has neighbors " << endl << triangles[i].getNeighbor1() << " " << triangles[i].getNeighbor2() << " " << triangles[i].getNeighbor3() << endl;
-
-    // }
+    
 	
 	//setAdjacencyViaList(m);
     setAdjacencyViaMultiMap(m);
-    
-    
-    Triangle t(1,2,3);
-    
-//    
+    vector<Triangle> path;
+//    Triangle neighbor1 = triangles[triangles[53].getNeighbor1()];
+//    Triangle neighbor2 = triangles[triangles[53].getNeighbor2()];
+//    Triangle neighbor3 = triangles[triangles[53].getNeighbor3()];
+//    path.push_back(neighbor1);
+//    path.push_back(neighbor2);
+//    path.push_back(neighbor3);
+//    exportGnuplot(m,path);
+//
 //    cout << "beginning promende" << endl;
 //    
 //    const T3<double> p = T3<double>(0,0,0);
-//    vector<Triangle> path;
+
 //    Triangle T = m.GetTriangles()[5];
 //    Triangle P = m.Promenade(T, p, path);
 //    
