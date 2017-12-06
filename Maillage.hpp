@@ -4,6 +4,7 @@
 #include <sstream>
 #include <cstdlib>
 #include <iostream>
+#include <cmath>
 #include <list>
 #include <map>
 #include <vector>
@@ -109,25 +110,31 @@ Triangle* LoadTriangles(char* const input){
 }
 
 
-Triangle Promenade(Triangle & T, const T3<double> & p, vector<Triangle> path){
+Triangle Promenade(Triangle & T, const T3<double> & p, vector<Triangle> path, int length_path){
 	cout << " current triangle" << T << endl;
 	path.push_back(T);
+	
+	length_path++;
 	
 	double a1, a2, a3;
 	T3<double> c1 = sommets[T[0]], c2 = sommets[T[1]], c3 = sommets[T[2]];
 	// cout << c1.oriented_vol(c2,c3) << endl;
 	// cout << c2.oriented_vol(c1,c3) << endl;
-	if (c1.oriented_vol(c2,c3) > 0){
+	// if (c1.oriented_vol(c2,c3) > 0){
 		// cout << " case 1 " << endl;
-		a1 = c2.oriented_vol(c3,p);
-		a2 = c3.oriented_vol(c1,p);
-		a3 = c1.oriented_vol(c2,p);
-	} else {
+		// a1 = c2.oriented_vol(c3,p);
+		// a2 = c3.oriented_vol(c1,p);
+		// a3 = c1.oriented_vol(c2,p);
+	// } else {
 		// cout << " case 2 " << endl;
+		// cout << (length_path%2==1?-1:1) << endl;
+		// a1 = (length_path%2==1?-1:1)*c3.oriented_vol(c2,p);
+		// a2 = (length_path%2==1?-1:1)*c1.oriented_vol(c3,p);
+		// a3 = (length_path%2==1?-1:1)*c2.oriented_vol(c1,p);
 		a1 = c3.oriented_vol(c2,p);
 		a2 = c1.oriented_vol(c3,p);
 		a3 = c2.oriented_vol(c1,p);
-	}
+	// }
 	
     cout << "oriented volumes are " << a1 << " " << a2 <<  " " << a3 << endl;
     
@@ -139,21 +146,48 @@ Triangle Promenade(Triangle & T, const T3<double> & p, vector<Triangle> path){
             cout << "neighbor is " << T.getNeighbor3() << endl;
 			Triangle Neighbor = triangles[T.getNeighbor3()];
             cout << "next one is" << Neighbor << endl;
-			return Promenade(Neighbor, p, path);
+			return Promenade(Neighbor, p, path,length_path);
 		} else if ( a1 < a2 && a1 < a3){
             cout << "neighbor is " << T.getNeighbor1() << endl;
 			Triangle Neighbor = triangles[T.getNeighbor1()];
             cout << "next one is" << Neighbor << endl;
-			return Promenade(Neighbor, p, path);
+			return Promenade(Neighbor, p, path, length_path);
 		} else {
             cout << "neighbor is " << T.getNeighbor2() << endl;
 			Triangle Neighbor = triangles[T.getNeighbor2()];
             cout << "next one is" << Neighbor << endl;
-			return Promenade(Neighbor, p, path);
+			return Promenade(Neighbor, p, path, length_path);
 		}
 	}
 }
-    
+
+Triangle Promenade2(Triangle & T, const T3<double> & p, vector<Triangle> path){
+	cout << " current triangle" << T << endl;
+	path.push_back(T);
+	
+	
+	T3<double> c1 = sommets[T[0]], c2 = sommets[T[1]], c3 = sommets[T[2]];
+	if (p.wheretogo(c1,c2,c3)) {
+		cout << "neighbor is " << T.getNeighbor3() << endl;
+		Triangle Neighbor = triangles[T.getNeighbor3()];
+        cout << "next one is" << Neighbor << endl;
+		return Promenade2(Neighbor, p, path);
+	} else if (p.wheretogo(c2,c3,c1)) {
+		cout << "neighbor is " << T.getNeighbor1() << endl;
+		Triangle Neighbor = triangles[T.getNeighbor1()];
+        cout << "next one is" << Neighbor << endl;
+		return Promenade2(Neighbor, p, path);
+	} else if (p.wheretogo(c3,c1,c2)) {
+		cout << "neighbor is " << T.getNeighbor2() << endl;
+		Triangle Neighbor = triangles[T.getNeighbor2()];
+        cout << "next one is" << Neighbor << endl;
+		return Promenade2(Neighbor, p, path);
+	} else {
+		return T;
+	}
+	
+}
+	    
 };
 
 void setAdjacencyViaMultiMap(Maillage m){

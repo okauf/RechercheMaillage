@@ -69,6 +69,14 @@ public:
 		// T3 cross = (v-this).crossproduct(w-v);
 		return (v.x-x)*(w.y-v.y) - (v.y-y)*(w.x-v.x);
 	}
+	
+	bool wheretogo(const T3 &u, const T3 &v, const T3 &w) const {
+		T3 norm = T3(-u.y+v.y,u.x-v.x,0);
+		// T val1 = norm,w;
+		// T val2 = norm,this;
+		// cout << " test u  - v " << u,norm == v,norm << endl;
+		return ((norm,*this)<(norm,u) && (norm,u)<(norm,w)) || ((norm,w)<(norm,u) && (norm,u)<(norm,*this));
+	}
     
 };
 
