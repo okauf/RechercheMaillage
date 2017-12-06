@@ -54,10 +54,13 @@ public:
 	
 	// T3 crossproduct(const T3 &v) {return T3(y*v.z-z*v.y, z*v.x-x*v.z, x*v.y-y*v.x);}
 	
-	// lexicographical order
-	bool operator<(const T3 &v){
-		if (x<v.x) return 1; else if (x==v.x && y<v.y) return 1; else if (x==v.x && y==v.y && z<v.z) return 1; else return 0;
-	}
+    // lexicographical order
+    bool operator<(const T3& v){
+        if (x<v.x) return 1; else if (x==v.x && y<v.y) return 1; else if (x==v.x && y==v.y && z<v.z) return 1; else return 0;
+    }
+//    bool comp(const T3 &u, const T3 &v){
+//        if (u.x<v.x) return 1; else if (u.x==v.x && u.y<v.y) return 1; else if (u.x==v.x && u.y==v.y && u.z<v.z) return 1; else return 0;
+//    }
 
 	
 	// T produit_mixte(const T3 & P, const T3 & Q) const {return  x*P.y*Q.z + P.x*Q.y*z + Q.x*y*P.z - z*P.y*Q.x - y*P.x*Q.z - x*P.z*Q.y;} // produit mixte
@@ -68,6 +71,8 @@ public:
 	}
     
 };
+
+
 
 
 //T T::double dist(const T3 &v){                       //by & the function accepts just the refence of the variable
@@ -116,6 +121,11 @@ public:
     void setNeighbor3(int pos){
         neighbor3 = pos;
     }
+    
+//    bool operator<(const Triangle &v){
+//        if (x<v.x) return 1; else if (x==v.x && y<v.y) return 1; else if (x==v.x && y==v.y && z<v.z) return 1; else return 0;
+//    }
+
     
 };
 

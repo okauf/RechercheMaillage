@@ -13,8 +13,11 @@ int main(){
     
      Triangle* triangles = m.GetTriangles();
     
+    Triangle t1(1,2,3);
+    Triangle t2(2,1,3);
+    Triangle t3(1,2,4);
+   
     
-	
 	//setAdjacencyViaList(m);
     setAdjacencyViaMultiMap(m);
     vector<Triangle> path;
