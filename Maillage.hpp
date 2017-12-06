@@ -117,23 +117,23 @@ Triangle Promenade(Triangle & T, const T3<double> & p, vector<Triangle> path, in
 	length_path++;
 	
 	double a1, a2, a3;
-	T3<double> c1 = sommets[T[0]], c2 = sommets[T[1]], c3 = sommets[T[2]];
+	T3<double> c1 = sommets[T[0]-1], c2 = sommets[T[1]-1], c3 = sommets[T[2]-1];
 	// cout << c1.oriented_vol(c2,c3) << endl;
 	// cout << c2.oriented_vol(c1,c3) << endl;
 	// if (c1.oriented_vol(c2,c3) > 0){
 		// cout << " case 1 " << endl;
-		// a1 = c2.oriented_vol(c3,p);
-		// a2 = c3.oriented_vol(c1,p);
-		// a3 = c1.oriented_vol(c2,p);
+//		 a1 = c2.oriented_vol(c3,p);
+//		 a2 = c3.oriented_vol(c1,p);
+//		 a3 = c1.oriented_vol(c2,p);
 	// } else {
 		// cout << " case 2 " << endl;
 		// cout << (length_path%2==1?-1:1) << endl;
-		// a1 = (length_path%2==1?-1:1)*c3.oriented_vol(c2,p);
-		// a2 = (length_path%2==1?-1:1)*c1.oriented_vol(c3,p);
-		// a3 = (length_path%2==1?-1:1)*c2.oriented_vol(c1,p);
-		a1 = c3.oriented_vol(c2,p);
-		a2 = c1.oriented_vol(c3,p);
-		a3 = c2.oriented_vol(c1,p);
+		 a1 = (length_path%2==1?-1:1)*c3.oriented_vol(c2,p);
+		 a2 = (length_path%2==1?-1:1)*c1.oriented_vol(c3,p);
+		 a3 = (length_path%2==1?-1:1)*c2.oriented_vol(c1,p);
+//		a1 = c3.oriented_vol(c2,p);
+//		a2 = c1.oriented_vol(c3,p);
+//		a3 = c2.oriented_vol(c1,p);
 	// }
 	
     cout << "oriented volumes are " << a1 << " " << a2 <<  " " << a3 << endl;
@@ -161,12 +161,13 @@ Triangle Promenade(Triangle & T, const T3<double> & p, vector<Triangle> path, in
 	}
 }
 
-Triangle Promenade2(Triangle & T, const T3<double> & p, vector<Triangle> path){
+Triangle Promenade2(Triangle & T, const T3<double> & p, vector<Triangle> & path){
 	cout << " current triangle" << T << endl;
+    
 	path.push_back(T);
 	
 	
-	T3<double> c1 = sommets[T[0]], c2 = sommets[T[1]], c3 = sommets[T[2]];
+	T3<double> c1 = sommets[T[0]-1], c2 = sommets[T[1]-1], c3 = sommets[T[2]-1];
 	if (p.wheretogo(c1,c2,c3)) {
 		cout << "neighbor is " << T.getNeighbor3() << endl;
 		Triangle Neighbor = triangles[T.getNeighbor3()];
@@ -283,7 +284,7 @@ void setAdjacencyViaList(Maillage m){
 		adjacency.push_front(Triangle(triangles[i][1],triangles[i][2],i));
 	}
 	// lexicographical ordering in O(NlogN) where N is the container size
-	adjacency.sort();
+	//adjacency.sort();
 	
 	Triangle prev_tri = adjacency.front();
 	adjacency.pop_front();
@@ -332,7 +333,7 @@ int findNeighbor(Triangle t, int i){
 
 
 
-void exportGnuplot(Maillage m, vector<Triangle> path){
+void exportGnuplot(Maillage m, vector<Triangle>  path){
     ofstream TriangleData;
     TriangleData.open("output.txt");
     TriangleData << "#Coordiantes" << endl;

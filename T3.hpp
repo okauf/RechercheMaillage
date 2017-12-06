@@ -72,8 +72,11 @@ public:
 	
 	bool wheretogo(const T3 &u, const T3 &v, const T3 &w) const {
 		T3 norm = T3(-u.y+v.y,u.x-v.x,0);
-		// T val1 = norm,w;
-		// T val2 = norm,this;
+//        cout << "norm is " << norm << endl;
+//		cout << "norm * 3rd point " <<  (norm,w) << endl;
+//        cout << "norm * 1st or 2nd point " << (norm,u) <<  " " << (norm,v) << endl;
+//		cout << "norm * this " <<  (norm,*this) << endl;
+        
 		// cout << " test u  - v " << u,norm == v,norm << endl;
 		return ((norm,*this)<(norm,u) && (norm,u)<(norm,w)) || ((norm,w)<(norm,u) && (norm,u)<(norm,*this));
 	}
