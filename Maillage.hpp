@@ -284,7 +284,9 @@ void setAdjacencyViaList(Maillage m){
 		adjacency.push_front(Triangle(triangles[i][1],triangles[i][2],i));
 	}
 	// lexicographical ordering in O(NlogN) where N is the container size
-	adjacency.sort();
+	
+    //// just for compiling (Arne)
+    //adjacency.sort();
 	
 	Triangle prev_tri = adjacency.front();
 	adjacency.pop_front();
@@ -384,10 +386,10 @@ Triangle* findSommets(Maillage & m, Maillage & M){
 
 
 void exportGnuplot(Maillage m, vector<Triangle>  path){
-    ofstream TriangleData;
-    TriangleData.open("output.txt");
-    TriangleData << "#Coordiantes" << endl;
-    TriangleData << "#X \t Y \t Z" << endl;
+    ofstream PathData;
+    PathData.open("outputPath.txt");
+    PathData << "#Coordiantes" << endl;
+    PathData << "#X \t Y \t Z" << endl;
     
     Triangle* triangles = m.GetTriangles();
     T3<double>* sommets = m.GetSommets();
@@ -395,35 +397,40 @@ void exportGnuplot(Maillage m, vector<Triangle>  path){
 	
 	int i = 0;
 	for (vector<Triangle>::iterator it = path.begin(); it != path.end(); it++){
-        TriangleData << "#Triangle " << endl;
+        PathData << "#Triangle " << endl;
         for(int j = 0; j < 3; j++){
-            TriangleData << sommets[path[i][j]-1] << endl;
+            PathData << sommets[path[i][j]-1] << endl;
         }
         cout << endl;
-        TriangleData << sommets[path[i][0]-1] << endl;
+        PathData << sommets[path[i][0]-1] << endl;
         // insert the last point again in order to connect the points
-        TriangleData << endl;  //This creates blocks of points which will be connected by lines
+        PathData << endl;  //This creates blocks of points which will be connected by lines
 		i++;
     }   
+    PathData.close();
     
-    // for(int i = 0; i < m.GetNumbTri(); i++){
-        // TriangleData << "#Triangle " << i+1 << endl;
-        // for(int j = 0; j < 3; j++){
-            // TriangleData << sommets[triangles[i][j]-1] << endl;
-        // }
-        // cout << endl;
-        // TriangleData << sommets[triangles[i][0]-1] << endl;
-        // // insert the last point again in order to connect the points
-        // TriangleData << endl;  //This creates blocks of points which will be connected by lines
-    // }
-    TriangleData.close();
+    ofstream NetworkData;
+    NetworkData.open("outputNetwork.txt");
+    
+     for(int i = 0; i < m.GetNumbTri(); i++){
+         NetworkData << "#Triangle " << i+1 << endl;
+         for(int j = 0; j < 3; j++){
+             NetworkData << sommets[triangles[i][j]-1] << endl;
+         }
+         cout << endl;
+         NetworkData << sommets[triangles[i][0]-1] << endl;
+         // insert the last point again in order to connect the points
+         NetworkData << endl;  //This creates blocks of points which will be connected by lines
+     }
+    NetworkData.close();
     
     //Script for Gnuplot
     ofstream GnuCom;
     GnuCom.open("GnuExe.txt");
     
     
-    GnuCom << "plot 'output.txt' with lines " << endl;
+    GnuCom << "plot 'outputPath.txt' with lines, \ " << endl;
+    GnuCom << "plot 'outputNetwork.txt' with lines " << endl; 
     // In order to keep the file open
     GnuCom << "pause -1 'Hit any key to continue' " << endl;
     GnuCom.close();
