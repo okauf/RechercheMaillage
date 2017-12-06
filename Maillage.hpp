@@ -284,7 +284,7 @@ void setAdjacencyViaList(Maillage m){
 		adjacency.push_front(Triangle(triangles[i][1],triangles[i][2],i));
 	}
 	// lexicographical ordering in O(NlogN) where N is the container size
-	//adjacency.sort();
+	adjacency.sort();
 	
 	Triangle prev_tri = adjacency.front();
 	adjacency.pop_front();
@@ -292,12 +292,35 @@ void setAdjacencyViaList(Maillage m){
 	while (!adjacency.empty()){
 		curr_tri = adjacency.front();
 		adjacency.pop_front();
-		cout << prev_tri << " next: " << curr_tri << endl;
+		// cout << prev_tri << " next: " << curr_tri << endl;
 		if (curr_tri[0] == prev_tri[0] && curr_tri[1] == prev_tri[1]){
 			
-			// triangles[curr_tri[2]].setNeighbor(prev_tri[2]);
-			// triangles[prev_tri[2]].setNeighbor(curr_tri[2]);
-		}
+			// cout << "first  triangle points " <<triangles[curr_tri[2]] << endl;
+			// cout << "second triangle points " <<triangles[prev_tri[2]] << endl;
+			// cout << endl;
+			
+			//set the reference to the neighbor at the right position if it exists
+            if(triangles[prev_tri[2]][0] != curr_tri[0] && triangles[prev_tri[2]][0] != curr_tri[1]){
+                triangles[prev_tri[2]].setNeighbor1(curr_tri[2]);
+            }
+            else {
+                if(triangles[prev_tri[2]][1] != curr_tri[0] && triangles[prev_tri[2]][1] != curr_tri[1]){
+                    triangles[prev_tri[2]].setNeighbor2(curr_tri[2]);
+                }
+                    else
+                        triangles[prev_tri[2]].setNeighbor3(curr_tri[2]);
+                }
+            
+            if(triangles[curr_tri[2]][0] != curr_tri[0] && triangles[curr_tri[2]][0] != curr_tri[1])
+                    triangles[curr_tri[2]].setNeighbor1(prev_tri[2]);
+            else {
+                if(triangles[curr_tri[2]][1] != curr_tri[0] && triangles[curr_tri[2]][1] != curr_tri[1])
+                    triangles[curr_tri[2]].setNeighbor2(prev_tri[2]);
+                else
+                        triangles[curr_tri[2]].setNeighbor3(prev_tri[2]);
+                }
+        }
+		
 		prev_tri = curr_tri;
 	}
     

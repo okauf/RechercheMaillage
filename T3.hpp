@@ -44,15 +44,12 @@ public:
     T operator,(const T3 &v){
         return x*v.x+y*v.y+z*v.z;
     }
-    T3 operator+(const T3 &v){
-        return T3(x+v.x, y+v.y, z+v.z);
-    }
-	
+    // T3 operator+(const T3 &v){
+        // return T3(x+v.x, y+v.y, z+v.z);
+    // }
 	// T3 operator-(const T3 &v){
 		// return T3(x-v.x, y-v.y, z-v.z);
 	// }
-	
-	// T3 crossproduct(const T3 &v) {return T3(y*v.z-z*v.y, z*v.x-x*v.z, x*v.y-y*v.x);}
 	
     // lexicographical order
     bool operator<(const T3& v){
@@ -63,10 +60,7 @@ public:
 //    }
 
 	
-	// T produit_mixte(const T3 & P, const T3 & Q) const {return  x*P.y*Q.z + P.x*Q.y*z + Q.x*y*P.z - z*P.y*Q.x - y*P.x*Q.z - x*P.z*Q.y;} // produit mixte
-	
 	T oriented_vol(const T3 &v, const T3 &w){
-		// T3 cross = (v-this).crossproduct(w-v);
 		return (v.x-x)*(w.y-v.y) - (v.y-y)*(w.x-v.x);
 	}
 	
@@ -76,26 +70,10 @@ public:
 //		cout << "norm * 3rd point " <<  (norm,w) << endl;
 //        cout << "norm * 1st or 2nd point " << (norm,u) <<  " " << (norm,v) << endl;
 //		cout << "norm * this " <<  (norm,*this) << endl;
-        
-		// cout << " test u  - v " << u,norm == v,norm << endl;
 		return ((norm,*this)<(norm,u) && (norm,u)<(norm,w)) || ((norm,w)<(norm,u) && (norm,u)<(norm,*this));
 	}
     
 };
-
-
-
-
-//T T::double dist(const T3 &v){                       //by & the function accepts just the refence of the variable
-//    return  sqrt(x*v.x+y*v.y+z*v.z);
-//}
-
-// inline T produit_mixte(const T3 & A, const T3 & P, const T3 & Q) {return A.produit_mixte(P,Q);}
-
-
-
-//in order to define an object of the class T3 write T3<datatype> name;
-
 
 
 //Class triangle which is a derived class from the class T3<int>; it has as additional members the neighbors
