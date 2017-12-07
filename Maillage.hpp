@@ -194,6 +194,62 @@ Triangle Promenade2(Triangle & T, const T3<double> & p, vector<Triangle> & path)
 	}
 	
 }
+
+Triangle Promenade3(Triangle & T, const T3<double> & p, vector<Triangle> path, int last_neighbor){
+	cout << " current triangle" << T << endl;
+	
+	
+	double a1, a2, a3;
+	T3<double> c1 = sommets[T[0]-1], c2 = sommets[T[1]-1], c3 = sommets[T[2]-1];
+	a1 = c3.oriented_vol(c2,p);
+	a2 = c1.oriented_vol(c3,p);
+	a3 = c2.oriented_vol(c1,p);
+	if (path.size() > 0){
+		Triangle prev_T = path[path.size()-1];
+		T3<double> c1_prev = sommets[prev_T[0]-1], c2_prev = sommets[prev_T[1]-1], c3_prev = sommets[prev_T[2]-1];
+		cout << " prev traingle" << prev_T << endl;
+		switch(last_neighbor) {
+			case 1 :
+				if ((c2_prev == c1 && c3_prev == c2) || (c2_prev == c2 && c3_prev == c3)){
+				a1 = -a1; a2 = -a2; a3 = -a3;}
+				break;
+			case 2 : 
+				if (c1_prev == c1 && c3_prev == c3){
+				a1 = -a1; a2 = -a2; a3 = -a3;}
+				break;
+			case 3 :
+				if ((c1_prev == c1 && c2_prev == c2) || (c1_prev == c2 && c2_prev == c3)){
+				a1 = -a1; a2 = -a2; a3 = -a3;}
+				break;
+		}
+	}
+	
+	path.push_back(T);
+	
+    cout << "oriented volumes are " << a1 << " " << a2 <<  " " << a3 << endl;
+    
+	if (a1 >= 0 && a2 >= 0 && a3 >= 0){
+		return T;
+	} else {
+		// evtl rand()%3 zwischen 0 und 2
+		if (a3 < a1 && a3 < a2){
+            cout << "neighbor is " << T.getNeighbor3() << endl;
+			Triangle Neighbor = triangles[T.getNeighbor3()];
+            cout << "next one is" << Neighbor << endl;
+			return Promenade3(Neighbor, p, path,3);
+		} else if ( a1 < a2 && a1 < a3){
+            cout << "neighbor is " << T.getNeighbor1() << endl;
+			Triangle Neighbor = triangles[T.getNeighbor1()];
+            cout << "next one is" << Neighbor << endl;
+			return Promenade3(Neighbor, p, path,1);
+		} else {
+            cout << "neighbor is " << T.getNeighbor2() << endl;
+			Triangle Neighbor = triangles[T.getNeighbor2()];
+            cout << "next one is" << Neighbor << endl;
+			return Promenade3(Neighbor, p, path,2);
+		}
+	}
+}
 	    
 };
 
