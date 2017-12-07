@@ -169,20 +169,26 @@ Triangle Promenade2(Triangle & T, const T3<double> & p, vector<Triangle> & path)
 	
 	T3<double> c1 = sommets[T[0]-1], c2 = sommets[T[1]-1], c3 = sommets[T[2]-1];
 	if (p.wheretogo(c1,c2,c3)) {
-		cout << "neighbor is " << T.getNeighbor3() << endl;
-		Triangle Neighbor = triangles[T.getNeighbor3()];
-        cout << "next one is" << Neighbor << endl;
-		return Promenade2(Neighbor, p, path);
+        if(T.getNeighbor3() > 0)
+            return Promenade2(triangles[T.getNeighbor3()], p, path);
+        else {
+            cout << "point is not in the network" << endl;
+            return T;
+        }
 	} else if (p.wheretogo(c2,c3,c1)) {
-		cout << "neighbor is " << T.getNeighbor1() << endl;
-		Triangle Neighbor = triangles[T.getNeighbor1()];
-        cout << "next one is" << Neighbor << endl;
-		return Promenade2(Neighbor, p, path);
+        if(T.getNeighbor1() > 0)
+            return Promenade2(triangles[T.getNeighbor1()], p, path);
+        else {
+            cout << "point is not in the network" << endl;
+            return T;
+        }
 	} else if (p.wheretogo(c3,c1,c2)) {
-		cout << "neighbor is " << T.getNeighbor2() << endl;
-		Triangle Neighbor = triangles[T.getNeighbor2()];
-        cout << "next one is" << Neighbor << endl;
-		return Promenade2(Neighbor, p, path);
+        if(T.getNeighbor2() > 0)
+            return Promenade2(triangles[T.getNeighbor2()], p, path);
+        else {
+            cout << "point is not in the network" << endl;
+            return T; 
+        }
 	} else {
 		return T;
 	}
@@ -385,11 +391,11 @@ Triangle* findSommets(Maillage & m, Maillage & M){
 
 
 
-void exportGnuplot(Maillage m, vector<Triangle>  path){
-    ofstream PathData;
-    PathData.open("outputPath.txt");
-    PathData << "#Coordiantes" << endl;
-    PathData << "#X \t Y \t Z" << endl;
+void exportGnuplot(Maillage m, vector<Triangle>  path, T3<double> p){
+    ofstream Data;
+    Data.open("outputPath.txt");
+    Data << "#Coordiantes" << endl;
+    Data << "#X \t Y \t Z" << endl;
     
     Triangle* triangles = m.GetTriangles();
     T3<double>* sommets = m.GetSommets();
@@ -397,40 +403,44 @@ void exportGnuplot(Maillage m, vector<Triangle>  path){
 	
 	int i = 0;
 	for (vector<Triangle>::iterator it = path.begin(); it != path.end(); it++){
-        PathData << "#Triangle " << endl;
+        Data << "#Triangle " << endl;
         for(int j = 0; j < 3; j++){
-            PathData << sommets[path[i][j]-1] << endl;
+            Data << sommets[path[i][j]-1] << endl;
         }
         cout << endl;
-        PathData << sommets[path[i][0]-1] << endl;
+        Data << sommets[path[i][0]-1] << endl;
         // insert the last point again in order to connect the points
-        PathData << endl;  //This creates blocks of points which will be connected by lines
+        Data << endl;  //This creates blocks of points which will be connected by lines
 		i++;
     }   
-    PathData.close();
+    Data.close();
     
-    ofstream NetworkData;
-    NetworkData.open("outputNetwork.txt");
+    
+    Data.open("outputNetwork.txt");
     
      for(int i = 0; i < m.GetNumbTri(); i++){
-         NetworkData << "#Triangle " << i+1 << endl;
+         Data << "#Triangle " << i+1 << endl;
          for(int j = 0; j < 3; j++){
-             NetworkData << sommets[triangles[i][j]-1] << endl;
+             Data << sommets[triangles[i][j]-1] << endl;
          }
          cout << endl;
-         NetworkData << sommets[triangles[i][0]-1] << endl;
+         Data << sommets[triangles[i][0]-1] << endl;
          // insert the last point again in order to connect the points
-         NetworkData << endl;  //This creates blocks of points which will be connected by lines
+         Data << endl;  //This creates blocks of points which will be connected by lines
      }
-    NetworkData.close();
+    Data.close();
+    
+    Data.open("outputPoint.txt");
+    Data << "#Point" << endl << p << endl;
+    Data.close();
+
     
     //Script for Gnuplot
     ofstream GnuCom;
     GnuCom.open("GnuExe.txt");
     
+    GnuCom << "plot 'outputNetwork.txt' with lines linetype 4,  'outputPath.txt' with lines lt -1, 'outputPoint.txt' " << endl;
     
-    GnuCom << "plot 'outputPath.txt' with lines, \ " << endl;
-    GnuCom << "plot 'outputNetwork.txt' with lines " << endl; 
     // In order to keep the file open
     GnuCom << "pause -1 'Hit any key to continue' " << endl;
     GnuCom.close();

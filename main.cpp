@@ -74,14 +74,14 @@ int main(){
 
   cout << "beginning promende" << endl;
   
-   const T3<double> p = T3<double>(1,0,0);
+   const T3<double> p = T3<double>(0,-3,0);
 
    Triangle T = m.GetTriangles()[0];
     Triangle P = m.Promenade2(T, p, path);
     cout << P << endl;
 	
     
-    exportGnuplot(m,path);
+    exportGnuplot(m,path,p);
     
     
     
