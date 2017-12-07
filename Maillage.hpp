@@ -187,7 +187,7 @@ Triangle Promenade2(Triangle & T, const T3<double> & p, vector<Triangle> & path)
             return Promenade2(triangles[T.getNeighbor2()], p, path);
         else {
             cout << "point is not in the network" << endl;
-            return T; 
+            return T;
         }
 	} else {
 		return T;
