@@ -1,8 +1,12 @@
 \documentclass[10pt,a4paper]{article}
+
+\usepackage[french]{babel}
+
+
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{graphicx}
-\usepackage{picins}
+%\usepackage{picins}
 \usepackage{amsthm}
 \usepackage{bbm}
 
@@ -19,6 +23,8 @@
 %\setlength{\footskip}{20mm}
 \setlength{\headsep}{50pt}
 \setlength{\headheight}{0pt}
+
+\usepackage[french]{babel}
 
 \begin{document}
 	
@@ -58,8 +64,30 @@ orientierter Flächeninhalt
 $$ (a_i,b_i,p) = (a_i \times b_i ) \cdot p = \det(a_i,b_i,p) $$
 bei det Vektoren in Zeilen
 
+\section{Première tentative de documentation}
+
+\subsection{Trouver le triangle adjacent}
+
+
+\centering
+ {\large \itshape{setAdjacencyViaMultimap} } 
+ 
+\raggedright
+
+Le but de cette méthode est l'initialisation des membres {\itshape neighbor1, neighbor2, neighbor3} de la classe triangle. Les membres sont décrits pas leurs position dans la liste des triangles. L'initialisation est réalisé en utilisant le container {\itshape multimaps}.  Pour chaque triangle $(a_1,a_2,a_3)$ on ajoute trois éléments au multimap où les arêtes $\{a_i,a_j \}, \, i,j \in \{1,2,3\}, \ i \neq j $ présentent les clés et le numéro de triangle est le valeur appliqué. Par conséquent, l'initialisation se produit dans $ O(3 n_T)$ et si deux triangles $(t_1,t_2) $ sont adjacents par l'arête $\{a,b\}$, les éléments $ ( \{a,b\}, t_1), \, \{a,b\}, t_2) $ ont les mêmes clés. 
+Les triangles suivants sont trouvés par la procédure suivante: 
+\begin{enumerate}
+	\item On parcourt sur l'entière multimap en sauvegardant l'indice de  triangle $t_1 = (a_1,a_2,a_3) $ associé à l'arête $ \{a_i,a_j\} $ récente et écrasant l'élément $(\{a_i,a_j\}, t) $ de la map. La complexité est $ O(3 n_T)$.
+	\item On cherche si le clé $ \{a_i,a_j\} $ est associé à un autre triangle $t_2$. Dans ce cas les triangles $t_1,t_2$ sont adjacents. 
+	L'opération de recherche se passe selon la recherche dans un multimap dans $O(log N_T) $.
+	\item On met $t_2 $ comme voisin $k \in \{1,2,3\}$ si le sommet de $t_1 $ au position $k$ n'est pas un sommet de $t_2 $ et vice versa. Cet opération est réalisé dans un temps constant. 
+\end{enumerate}
+
+
 
 \end{document}
+
+
 
 
 
