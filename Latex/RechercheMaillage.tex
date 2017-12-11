@@ -71,7 +71,7 @@ bei det Vektoren in Zeilen
 
 \centering
  {\large \itshape{setAdjacencyViaMultimap} } 
- 
+  
 \raggedright
 
 Le but de cette méthode est l'initialisation des membres {\itshape neighbor1, neighbor2, neighbor3} de la classe triangle. Les membres sont décrits pas leurs position dans la liste des triangles. L'initialisation est réalisé en utilisant le container {\itshape multimaps}.  Pour chaque triangle $(a_1,a_2,a_3)$ on ajoute trois éléments au multimap où les arêtes $\{a_i,a_j \}, \, i,j \in \{1,2,3\}, \ i \neq j $ présentent les clés et le numéro de triangle est le valeur appliqué. Par conséquent, l'initialisation se produit dans $ O(3 n_T)$ et si deux triangles $(t_1,t_2) $ sont adjacents par l'arête $\{a,b\}$, les éléments $ ( \{a,b\}, t_1), \, \{a,b\}, t_2) $ ont les mêmes clés. 
