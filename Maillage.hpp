@@ -10,8 +10,6 @@
 #include <vector>
 using namespace std;
 
-int findNeighbor(Triangle & t, int i);
-
 class Maillage{
     
 private:
@@ -112,55 +110,58 @@ Triangle* LoadTriangles(char* const input){
 }
 
 
-Triangle Promenade(Triangle & T, const T3<double> & p, vector<Triangle> path, int length_path){
+Triangle Promenade(Triangle & T, const T3<double> & p, vector<Triangle> & path){
 	cout << " current triangle" << T << endl;
 	path.push_back(T);
 	
-	length_path++;
-	
-	double a1, a2, a3;
 	T3<double> c1 = sommets[T[0]-1], c2 = sommets[T[1]-1], c3 = sommets[T[2]-1];
-	// cout << c1.oriented_vol(c2,c3) << endl;
-	// cout << c2.oriented_vol(c1,c3) << endl;
-	// if (c1.oriented_vol(c2,c3) > 0){
-		// cout << " case 1 " << endl;
-//		 a1 = c2.oriented_vol(c3,p);
-//		 a2 = c3.oriented_vol(c1,p);
-//		 a3 = c1.oriented_vol(c2,p);
+	
+	double aire = c1.oriented_vol(c2,c3);
+	double a1 = c2.oriented_vol(c3,p), a2 = c3.oriented_vol(c1,p), a3 = c1.oriented_vol(c2,p);
+	
+	if (aire < 0){
+		a1 = -a1; a2 = -a2; a3 = -a3;
+	}
+	
+	cout << "a1 " << a1 << " a2 " << a2 << " a3 " << a3 << endl;
+	
+	switch (min_neg(a1,a2,a3)) {
+		case -1:
+			return T;
+		case 1:
+			return (T.getNeighbor1() < 0) ?  T : Promenade(triangles[T.getNeighbor1()],p,path);
+		case 2:
+			if (T.getNeighbor2() < 0){
+				cout << "Kein Nachbar" << endl;
+				return T;
+			} else { return Promenade(triangles[T.getNeighbor2()],p,path); }
+		case 3:
+			if (T.getNeighbor3() < 0){
+				cout << "Kein Nachbar" << endl;
+				return T;
+			} else { return Promenade(triangles[T.getNeighbor3()],p,path); }
+	}
+	
+	
+	// if (a1 < 0){
+		// if (T.getNeighbor1() < 0){
+			// cout << "Kein Nachbar" << endl;
+			// return T;
+		// } else { return Promenade(triangles[T.getNeighbor1()],p,path); }
+	// } else if (a2 < 0) {
+		// if (T.getNeighbor2() < 0){
+			// cout << "Kein Nachbar" << endl;
+			// return T;
+		// } else { return Promenade(triangles[T.getNeighbor2()],p,path); }
+	// } else if (a3 < 0) {
+		// if (T.getNeighbor3() < 0){
+			// cout << "Kein Nachbar" << endl;
+			// return T;
+		// } else { return Promenade(triangles[T.getNeighbor3()],p,path); }
 	// } else {
-		// cout << " case 2 " << endl;
-		// cout << (length_path%2==1?-1:1) << endl;
-		 a1 = (length_path%2==1?-1:1)*c3.oriented_vol(c2,p);
-		 a2 = (length_path%2==1?-1:1)*c1.oriented_vol(c3,p);
-		 a3 = (length_path%2==1?-1:1)*c2.oriented_vol(c1,p);
-//		a1 = c3.oriented_vol(c2,p);
-//		a2 = c1.oriented_vol(c3,p);
-//		a3 = c2.oriented_vol(c1,p);
+		// return T;
 	// }
 	
-    cout << "oriented volumes are " << a1 << " " << a2 <<  " " << a3 << endl;
-    
-	if (a1 >= 0 && a2 >= 0 && a3 >= 0){
-		return T;
-	} else {
-		// evtl rand()%3 zwischen 0 und 2
-		if (a3 < a1 && a3 < a2){
-            cout << "neighbor is " << T.getNeighbor3() << endl;
-			Triangle Neighbor = triangles[T.getNeighbor3()];
-            cout << "next one is" << Neighbor << endl;
-			return Promenade(Neighbor, p, path,length_path);
-		} else if ( a1 < a2 && a1 < a3){
-            cout << "neighbor is " << T.getNeighbor1() << endl;
-			Triangle Neighbor = triangles[T.getNeighbor1()];
-            cout << "next one is" << Neighbor << endl;
-			return Promenade(Neighbor, p, path, length_path);
-		} else {
-            cout << "neighbor is " << T.getNeighbor2() << endl;
-			Triangle Neighbor = triangles[T.getNeighbor2()];
-            cout << "next one is" << Neighbor << endl;
-			return Promenade(Neighbor, p, path, length_path);
-		}
-	}
 }
 
 Triangle Promenade2(Triangle & T, const T3<double> & p, vector<Triangle> & path){
@@ -171,21 +172,21 @@ Triangle Promenade2(Triangle & T, const T3<double> & p, vector<Triangle> & path)
 	
 	T3<double> c1 = sommets[T[0]-1], c2 = sommets[T[1]-1], c3 = sommets[T[2]-1];
 	if (p.wheretogo(c1,c2,c3)) {
-        if (findNeighbor(T, 3) > 0) //(T.getNeighbor3() > 0)
+        if (T.getNeighbor3() > 0)
             return Promenade2(triangles[T.getNeighbor3()], p, path);
         else {
             cout << "point is not in the network" << endl;
             return T;
         }
 	} else if (p.wheretogo(c2,c3,c1)) {
-        if (findNeighbor(T, 1) > 0) //(T.getNeighbor1() > 0)
+        if (T.getNeighbor1() > 0)
             return Promenade2(triangles[T.getNeighbor1()], p, path);
         else {
             cout << "point is not in the network" << endl;
             return T;
         }
 	} else if (p.wheretogo(c3,c1,c2)) {
-        if (findNeighbor(T, 2) > 0) //(T.getNeighbor2() > 0)
+        if (T.getNeighbor2() > 0)
             return Promenade2(triangles[T.getNeighbor2()], p, path);
         else {
             cout << "point is not in the network" << endl;
@@ -197,62 +198,7 @@ Triangle Promenade2(Triangle & T, const T3<double> & p, vector<Triangle> & path)
 	
 }
 
-Triangle Promenade3(Triangle & T, const T3<double> & p, vector<Triangle> path, int last_neighbor){
-	cout << " current triangle" << T << endl;
-	
-	
-	double a1, a2, a3;
-	T3<double> c1 = sommets[T[0]-1], c2 = sommets[T[1]-1], c3 = sommets[T[2]-1];
-	a1 = c3.oriented_vol(c2,p);
-	a2 = c1.oriented_vol(c3,p);
-	a3 = c2.oriented_vol(c1,p);
-	if (path.size() > 0){
-		Triangle prev_T = path[path.size()-1];
-		T3<double> c1_prev = sommets[prev_T[0]-1], c2_prev = sommets[prev_T[1]-1], c3_prev = sommets[prev_T[2]-1];
-		cout << " prev traingle" << prev_T << endl;
-		switch(last_neighbor) {
-			case 1 :
-				if ((c2_prev == c1 && c3_prev == c2) || (c2_prev == c2 && c3_prev == c3)){
-				a1 = -a1; a2 = -a2; a3 = -a3;}
-				break;
-			case 2 : 
-				if (c1_prev == c1 && c3_prev == c3){
-				a1 = -a1; a2 = -a2; a3 = -a3;}
-				break;
-			case 3 :
-				if ((c1_prev == c1 && c2_prev == c2) || (c1_prev == c2 && c2_prev == c3)){
-				a1 = -a1; a2 = -a2; a3 = -a3;}
-				break;
-		}
-	}
-	
-	path.push_back(T);
-	
-    cout << "oriented volumes are " << a1 << " " << a2 <<  " " << a3 << endl;
     
-	if (a1 >= 0 && a2 >= 0 && a3 >= 0){
-		return T;
-	} else {
-		// evtl rand()%3 zwischen 0 und 2
-		if (a3 < a1 && a3 < a2){
-            cout << "neighbor is " << T.getNeighbor3() << endl;
-			Triangle Neighbor = triangles[T.getNeighbor3()];
-            cout << "next one is" << Neighbor << endl;
-			return Promenade3(Neighbor, p, path,3);
-		} else if ( a1 < a2 && a1 < a3){
-            cout << "neighbor is " << T.getNeighbor1() << endl;
-			Triangle Neighbor = triangles[T.getNeighbor1()];
-            cout << "next one is" << Neighbor << endl;
-			return Promenade3(Neighbor, p, path,1);
-		} else {
-            cout << "neighbor is " << T.getNeighbor2() << endl;
-			Triangle Neighbor = triangles[T.getNeighbor2()];
-            cout << "next one is" << Neighbor << endl;
-			return Promenade3(Neighbor, p, path,2);
-		}
-	}
-}
-	    
 };
 
 void setAdjacencyViaMultiMap(Maillage m){
@@ -358,7 +304,7 @@ void setAdjacencyViaList(Maillage m){ // Nachbarschaften auf -1 -> Ende von Prom
 	while (!adjacency.empty()){
 		curr_tri = adjacency.front();
 		adjacency.pop_front();
-		cout << prev_tri << " next: " << curr_tri << endl;
+		// cout << prev_tri << " next: " << curr_tri << endl;
 		if (curr_tri[0] == prev_tri[0] && curr_tri[1] == prev_tri[1]){
 			
 			//set the reference to the neighbor at the right position if it exists
@@ -388,27 +334,27 @@ void setAdjacencyViaList(Maillage m){ // Nachbarschaften auf -1 -> Ende von Prom
     
 }
 
-int findNeighbor(Triangle & t, int i){
-    //the function returns the postion of the neighbor in the list of triangles
-    assert(3 >= i && i > 0);
-    switch (i) {
-        case 1:
-                return t.getNeighbor1();
-            break;
-        case 2:
-                return t.getNeighbor2();
-            break;
-        case 3:
-                return t.getNeighbor3();
-            break;
-        default:
-            //if there is no neighbor the function returns -1
-            return -1;
-            break;
-    }
-    return -1;
+// int findNeighbor(Triangle & t, int i){
+    // // the function returns the position of the neighbor in the list of triangles
+    // assert(3 >= i && i > 0);
+    // switch (i) {
+        // case 1:
+                // return t.getNeighbor1();
+            // break;
+        // case 2:
+                // return t.getNeighbor2();
+            // break;
+        // case 3:
+                // return t.getNeighbor3();
+            // break;
+        // default:
+            // // if there is no neighbor the function returns -1
+            // return -1;
+            // break;
+    // }
+    // return -1;
     
-}
+// }
 
 
 Triangle* findSommets(Maillage & m, Maillage & M){

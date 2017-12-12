@@ -75,6 +75,40 @@ public:
     
 };
 
+int max_neg(const double & x, const double & y, const double & z){
+	if (x>=0 && y>=0 && z>=0){
+		return -1;
+	} else if (x < 0 && ((y<x && z<x) || (y<x&&z>0) || (z<x&&y>0) || (y>0 && z>0))) {
+		return 1;
+	} else if (y < 0 && ((x<y && z<y) || (x<y&&z>0) || (z<y&&x>0) || (x>0 && z>0))) {
+		return 2;
+	} else { return 3;}
+};
+
+int min_neg(const double & x, const double & y, const double & z){
+	if (x>=0 && y>=0 && z>=0){
+		return -1;
+	} else if (x < 0 && x<=y && x<=z) {
+		return 1;
+	} else if (y < 0 && y<=x && y<=z) {
+		return 2;
+	} else { return 3;}
+};
+
+// int random_neg(const double & x, const double & y, const double & z){
+	// if (x>=0 && y>=0 && z>=0){
+		// return -1;
+	// }
+	// T3<double> = T3(x,y,z);
+	// int rand_num = rand()%3;
+	// if (T3[rand_num] < 0) {
+		// return rand_num;
+	// } else {
+		// int help = rand()%2;
+	// }
+	
+// };
+
 
 //Class triangle which is a derived class from the class T3<int>; it has as additional members the neighbors
 class Triangle: public T3<int>{
