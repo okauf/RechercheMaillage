@@ -6,9 +6,14 @@ using namespace std;
 
 int main(){
     
-	char nom[255] = "maillage2.msh";
+	char nom[255] = "maillage1.msh";
 	char* const pnom = nom;
     Maillage m(pnom);
+	
+	char nom_M[255] = "maillage2.msh";
+	char* const pnom_M = nom_M;
+    Maillage M(pnom_M);
+	
 	 T3<double>* sommets = m.GetSommets();
     
      Triangle* triangles = m.GetTriangles();
@@ -72,17 +77,19 @@ int main(){
  // cout << x << endl;
 
 
-  cout << "beginning promende" << endl;
+  // cout << "beginning promende" << endl;
   
    // const T3<double> p = T3<double>(0,-3,0);
-   const T3<double> p = T3<double>(-0.185,0.0718,0);
+   // const T3<double> p = T3<double>(-0.185,0.0718,0);
 
-   Triangle T = m.GetTriangles()[0];
-    Triangle P = m.Promenade(T, p, path);
-    cout << P << endl;
+   // Triangle T = m.GetTriangles()[0];
+    // Triangle P = m.Promenade(T, p, path);
+    // cout << P << endl;
 	
     
-    exportGnuplot(m,path,p);
+    // exportGnuplot(m,path,p);
+	
+	Triangle* coveringTriangles = findSommets(m, M);
     
     
     

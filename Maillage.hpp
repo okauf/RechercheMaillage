@@ -359,6 +359,8 @@ void setAdjacencyViaList(Maillage m){ // Nachbarschaften auf -1 -> Ende von Prom
 
 Triangle* findSommets(Maillage & m, Maillage & M){
 	
+	// suche nach Knoten von m in M
+	
 	int numbSommets_m = m.GetNumbSommets();
 	T3<double> * sommets_m = m.GetSommets();
 	Triangle * triangles_m = m.GetTriangles();
@@ -373,16 +375,32 @@ Triangle* findSommets(Maillage & m, Maillage & M){
 	setAdjacencyViaMultiMap(M);
 	setAdjacencyViaMultiMap(m);
 
-	T3<double> firstSommet = sommets_m[triangles_m[0][0]-1];
+	Triangle firstTriangle_m = triangles_m[0];
+	T3<double> firstSommet = sommets_m[firstTriangle_m[0]-1];
 	
 	Triangle Start = triangles_M[rand()%numbTri_M];
 	vector<Triangle> path;
 	
-	coveringTriangles[triangles_m[0][0]-1] = M.Promenade2(Start, firstSommet, path);
+	coveringTriangles[firstTriangle_m[0]-1] = M.Promenade(Start, firstSommet, path); // empty path
+	coveringTriangles[firstTriangle_m[1]-1] = M.Promenade(coveringTriangles[firstTriangle_m[0]-1], sommets_m[firstTriangle_m[1]-1], path);
+	coveringTriangles[firstTriangle_m[2]-1] = M.Promenade(coveringTriangles[firstTriangle_m[1]-1], sommets_m[firstTriangle_m[2]-1], path);
 	
-	
+	// Triangle Neighbor1_m = triangles_m[firstTriangle_m.getNeighbor1()-1];
+	// if (Neighbor1_m[0] != firstTriangle_m[1] && Neighbor1_m[0] != firstTriangle_m[2]){
+		// coveringTriangles[Neighbor1_m[0]-1] = M.Promenade(coveringTriangles[firstTriangle_m[1]-1], sommets[Neighbor1_m[0]-1] , path);
+	// } else if (Neighbor1_m[1] != firstTriangle_m[1] && Neighbor1_m[1] != firstTriangle_m[2]){
+		// coveringTriangles[Neighbor1_m[1]-1] = M.Promenade(coveringTriangles[firstTriangle_m[2]-1], sommets[Neighbor1_m[1]-1] , path);
+	// } else {
+		// coveringTriangles[Neighbor1_m[2]-1] = M.Promenade(coveringTriangles[firstTriangle_m[0]-1], sommets[Neighbor1_m[2]-1] , path);
+	// }
+		
 	
 	return coveringTriangles;
+	
+	
+}
+
+void Triangle_Recurrence(Triangle* coveringTriangles){
 	
 }
 
