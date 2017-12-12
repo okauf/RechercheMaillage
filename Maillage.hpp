@@ -10,6 +10,8 @@
 #include <vector>
 using namespace std;
 
+int findNeighbor(Triangle & t, int i);
+
 class Maillage{
     
 private:
@@ -169,21 +171,21 @@ Triangle Promenade2(Triangle & T, const T3<double> & p, vector<Triangle> & path)
 	
 	T3<double> c1 = sommets[T[0]-1], c2 = sommets[T[1]-1], c3 = sommets[T[2]-1];
 	if (p.wheretogo(c1,c2,c3)) {
-        if(T.getNeighbor3() > 0)
+        if (findNeighbor(T, 3) > 0) //(T.getNeighbor3() > 0)
             return Promenade2(triangles[T.getNeighbor3()], p, path);
         else {
             cout << "point is not in the network" << endl;
             return T;
         }
 	} else if (p.wheretogo(c2,c3,c1)) {
-        if(T.getNeighbor1() > 0)
+        if (findNeighbor(T, 1) > 0) //(T.getNeighbor1() > 0)
             return Promenade2(triangles[T.getNeighbor1()], p, path);
         else {
             cout << "point is not in the network" << endl;
             return T;
         }
 	} else if (p.wheretogo(c3,c1,c2)) {
-        if(T.getNeighbor2() > 0)
+        if (findNeighbor(T, 2) > 0) //(T.getNeighbor2() > 0)
             return Promenade2(triangles[T.getNeighbor2()], p, path);
         else {
             cout << "point is not in the network" << endl;
@@ -257,7 +259,7 @@ void setAdjacencyViaMultiMap(Maillage m){
     Triangle* triangles = m.GetTriangles();
     
     multimap<pair<int,int>,int> adjacency;
-    // each traingle defines three edges which will serve as keys for the multimap, the mapped value will be the position of triangle int list triangles
+    // each triangle defines three edges which will serve as keys for the multimap, the mapped value will be the position of triangle int list triangles
     int numbTriangles = m.GetNumbTri();
     for(int i = 0; i < numbTriangles; i++){
         
@@ -275,7 +277,7 @@ void setAdjacencyViaMultiMap(Maillage m){
     
     //find the adjacent triangles
     //therefore, it has to be ranged over the multimap again
-    //pos2 will be changed to the postion of the neighbored triangle if it exists
+    //pos2 will be changed to the position of the neighbored triangle if it exists
     int pos2 = -1;
     
     multimap<pair<int,int>,int>:: iterator it = adjacency.begin();
@@ -324,7 +326,7 @@ void setAdjacencyViaMultiMap(Maillage m){
     
 }
 
-void setAdjacencyViaList(Maillage m){
+void setAdjacencyViaList(Maillage m){ // Nachbarschaften auf -1 -> Ende von Promenade
 	
 	Triangle* triangles = m.GetTriangles();
 	
@@ -341,14 +343,14 @@ void setAdjacencyViaList(Maillage m){
 		// adjacency.push_front(Triangle(m12,M12,i));
 		
 		// min / max above not necessary for maillage files -> already ordered
-		adjacency.push_front(Triangle(triangles[i][0],triangles[i][1],i));
-		adjacency.push_front(Triangle(triangles[i][0],triangles[i][2],i));
-		adjacency.push_front(Triangle(triangles[i][1],triangles[i][2],i));
+		adjacency.push_front(Triangle(triangles[i][0],triangles[i][1],i+1)); // + 1??? XXXXX
+		adjacency.push_front(Triangle(triangles[i][0],triangles[i][2],i+1));
+		adjacency.push_front(Triangle(triangles[i][1],triangles[i][2],i+1));
 	}
 	// lexicographical ordering in O(NlogN) where N is the container size
 	
     //// just for compiling (Arne)
-    //adjacency.sort();
+    // adjacency.sort();
 	
 	Triangle prev_tri = adjacency.front();
 	adjacency.pop_front();
@@ -359,29 +361,25 @@ void setAdjacencyViaList(Maillage m){
 		cout << prev_tri << " next: " << curr_tri << endl;
 		if (curr_tri[0] == prev_tri[0] && curr_tri[1] == prev_tri[1]){
 			
-			// cout << "first  triangle points " <<triangles[curr_tri[2]] << endl;
-			// cout << "second triangle points " <<triangles[prev_tri[2]] << endl;
-			// cout << endl;
-			
 			//set the reference to the neighbor at the right position if it exists
-            if(triangles[prev_tri[2]][0] != curr_tri[0] && triangles[prev_tri[2]][0] != curr_tri[1]){
-                triangles[prev_tri[2]].setNeighbor1(curr_tri[2]);
+            if(triangles[prev_tri[2]-1][0] != curr_tri[0] && triangles[prev_tri[2]-1][0] != curr_tri[1]){
+                triangles[prev_tri[2]-1].setNeighbor1(curr_tri[2]);
             }
             else {
-                if(triangles[prev_tri[2]][1] != curr_tri[0] && triangles[prev_tri[2]][1] != curr_tri[1]){
-                    triangles[prev_tri[2]].setNeighbor2(curr_tri[2]);
+                if(triangles[prev_tri[2]-1][1] != curr_tri[0] && triangles[prev_tri[2]-1][1] != curr_tri[1]){
+                    triangles[prev_tri[2]-1].setNeighbor2(curr_tri[2]);
                 }
                     else
-                        triangles[prev_tri[2]].setNeighbor3(curr_tri[2]);
+                        triangles[prev_tri[2]-1].setNeighbor3(curr_tri[2]);
                 }
             
-            if(triangles[curr_tri[2]][0] != curr_tri[0] && triangles[curr_tri[2]][0] != curr_tri[1])
-                    triangles[curr_tri[2]].setNeighbor1(prev_tri[2]);
+            if(triangles[curr_tri[2]-1][0] != curr_tri[0] && triangles[curr_tri[2]-1][0] != curr_tri[1])
+                    triangles[curr_tri[2]-1].setNeighbor1(prev_tri[2]);
             else {
-                if(triangles[curr_tri[2]][1] != curr_tri[0] && triangles[curr_tri[2]][1] != curr_tri[1])
-                    triangles[curr_tri[2]].setNeighbor2(prev_tri[2]);
+                if(triangles[curr_tri[2]-1][1] != curr_tri[0] && triangles[curr_tri[2]-1][1] != curr_tri[1])
+                    triangles[curr_tri[2]-1].setNeighbor2(prev_tri[2]);
                 else
-                        triangles[curr_tri[2]].setNeighbor3(prev_tri[2]);
+                        triangles[curr_tri[2]-1].setNeighbor3(prev_tri[2]);
                 }
         }
 		
@@ -390,7 +388,7 @@ void setAdjacencyViaList(Maillage m){
     
 }
 
-int findNeighbor(Triangle t, int i){
+int findNeighbor(Triangle & t, int i){
     //the function returns the postion of the neighbor in the list of triangles
     assert(3 >= i && i > 0);
     switch (i) {
@@ -502,8 +500,6 @@ void exportGnuplot(Maillage m, vector<Triangle>  path, T3<double> p){
     GnuCom.close();
     
     system("gnuplot GnuExe.txt ");
-	
-	// plot "Output.txt" with lines
     
 }
 

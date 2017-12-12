@@ -18,7 +18,7 @@ int main(){
 //    Triangle t3(1,2,4);
    
     
-	//setAdjacencyViaList(m);
+	// setAdjacencyViaList(m);
     setAdjacencyViaMultiMap(m);
 	
 	// Nachbarschaften ausgeben
