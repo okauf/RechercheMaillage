@@ -52,7 +52,7 @@ public:
 	// }
 	
     // lexicographical order
-    bool operator<(const T3& v){
+    bool operator<(const T3& v) const {
         if (x<v.x) return 1; else if (x==v.x && y<v.y) return 1; else if (x==v.x && y==v.y && z<v.z) return 1; else return 0;
     }
 //    bool comp(const T3 &u, const T3 &v){

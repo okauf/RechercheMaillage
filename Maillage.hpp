@@ -350,7 +350,7 @@ void setAdjacencyViaList(Maillage m){ // Nachbarschaften auf -1 -> Ende von Prom
 	// lexicographical ordering in O(NlogN) where N is the container size
 	
     //// just for compiling (Arne)
-    // adjacency.sort();
+    adjacency.sort();
 	
 	Triangle prev_tri = adjacency.front();
 	adjacency.pop_front();
