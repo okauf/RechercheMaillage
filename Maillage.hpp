@@ -272,7 +272,7 @@ void setAdjacencyViaMultiMap(Maillage m){
     
 }
 
-void setAdjacencyViaList(Maillage m){ // Nachbarschaften auf -1 -> Ende von Promenade
+void setAdjacencyViaList(Maillage m){
 	
 	Triangle* triangles = m.GetTriangles();
 	
@@ -289,14 +289,13 @@ void setAdjacencyViaList(Maillage m){ // Nachbarschaften auf -1 -> Ende von Prom
 		// adjacency.push_front(Triangle(m12,M12,i));
 		
 		// min / max above not necessary for maillage files -> already ordered
-		adjacency.push_front(Triangle(triangles[i][0],triangles[i][1],i+1)); // + 1??? XXXXX
-		adjacency.push_front(Triangle(triangles[i][0],triangles[i][2],i+1));
-		adjacency.push_front(Triangle(triangles[i][1],triangles[i][2],i+1));
+		adjacency.push_front(Triangle(triangles[i][0],triangles[i][1],i)); // + 1??? XXXXX
+		adjacency.push_front(Triangle(triangles[i][0],triangles[i][2],i));
+		adjacency.push_front(Triangle(triangles[i][1],triangles[i][2],i));
 	}
 	// lexicographical ordering in O(NlogN) where N is the container size
 	
-    //// just for compiling (Arne)
-    // adjacency.sort();
+    adjacency.sort();
 	
 	Triangle prev_tri = adjacency.front();
 	adjacency.pop_front();
@@ -308,24 +307,24 @@ void setAdjacencyViaList(Maillage m){ // Nachbarschaften auf -1 -> Ende von Prom
 		if (curr_tri[0] == prev_tri[0] && curr_tri[1] == prev_tri[1]){
 			
 			//set the reference to the neighbor at the right position if it exists
-            if(triangles[prev_tri[2]-1][0] != curr_tri[0] && triangles[prev_tri[2]-1][0] != curr_tri[1]){
-                triangles[prev_tri[2]-1].setNeighbor1(curr_tri[2]);
+            if(triangles[prev_tri[2]][0] != curr_tri[0] && triangles[prev_tri[2]][0] != curr_tri[1]){
+                triangles[prev_tri[2]].setNeighbor1(curr_tri[2]);
             }
             else {
-                if(triangles[prev_tri[2]-1][1] != curr_tri[0] && triangles[prev_tri[2]-1][1] != curr_tri[1]){
-                    triangles[prev_tri[2]-1].setNeighbor2(curr_tri[2]);
+                if(triangles[prev_tri[2]][1] != curr_tri[0] && triangles[prev_tri[2]][1] != curr_tri[1]){
+                    triangles[prev_tri[2]].setNeighbor2(curr_tri[2]);
                 }
                     else
-                        triangles[prev_tri[2]-1].setNeighbor3(curr_tri[2]);
+                        triangles[prev_tri[2]].setNeighbor3(curr_tri[2]);
                 }
             
-            if(triangles[curr_tri[2]-1][0] != curr_tri[0] && triangles[curr_tri[2]-1][0] != curr_tri[1])
-                    triangles[curr_tri[2]-1].setNeighbor1(prev_tri[2]);
+            if(triangles[curr_tri[2]][0] != curr_tri[0] && triangles[curr_tri[2]][0] != curr_tri[1])
+                    triangles[curr_tri[2]].setNeighbor1(prev_tri[2]);
             else {
-                if(triangles[curr_tri[2]-1][1] != curr_tri[0] && triangles[curr_tri[2]-1][1] != curr_tri[1])
-                    triangles[curr_tri[2]-1].setNeighbor2(prev_tri[2]);
+                if(triangles[curr_tri[2]][1] != curr_tri[0] && triangles[curr_tri[2]][1] != curr_tri[1])
+                    triangles[curr_tri[2]].setNeighbor2(prev_tri[2]);
                 else
-                        triangles[curr_tri[2]-1].setNeighbor3(prev_tri[2]);
+                        triangles[curr_tri[2]].setNeighbor3(prev_tri[2]);
                 }
         }
 		

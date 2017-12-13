@@ -6,25 +6,25 @@ using namespace std;
 
 int main(){
     
-	char nom[255] = "maillage1.msh";
-	char* const pnom = nom;
-    Maillage m(pnom);
+	// char nom[255] = "maillage1.msh";
+	// char* const pnom = nom;
+    // Maillage m(pnom);
 	
 	char nom_M[255] = "maillage2.msh";
 	char* const pnom_M = nom_M;
     Maillage M(pnom_M);
 	
-	 T3<double>* sommets = m.GetSommets();
+	 // T3<double>* sommets = m.GetSommets();
     
-     Triangle* triangles = m.GetTriangles();
+     // Triangle* triangles = m.GetTriangles();
     
 //    Triangle t1(1,2,3);
 //    Triangle t2(2,1,3);
 //    Triangle t3(1,2,4);
    
     
-	setAdjacencyViaList(m);
-    // setAdjacencyViaMultiMap(m);
+	setAdjacencyViaList(M);
+    // setAdjacencyViaMultiMap(M);
 	
 	// Nachbarschaften ausgeben
 	// for (int i = 0; i < m.GetNumbTri(); i ++ ){
@@ -77,17 +77,18 @@ int main(){
  // cout << x << endl;
 
 
-  cout << "beginning promende" << endl;
+   cout << "beginning promende" << endl;
   
    const T3<double> p = T3<double>(0,-3,0);
    // const T3<double> p = T3<double>(-0.185,0.0718,0);
 
-   Triangle T = m.GetTriangles()[0];
-    Triangle P = m.Promenade(T, p, path);
+    Triangle T = M.GetTriangles()[0];
+    Triangle P = M.Promenade(T, p, path);
+	
     cout << P << endl;
 	
     
-    exportGnuplot(m,path,p);
+    exportGnuplot(M,path,p);
 	
 	// Triangle* coveringTriangles = findSommets(m, M);
     
