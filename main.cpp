@@ -23,8 +23,8 @@ int main(){
 //    Triangle t3(1,2,4);
    
     
-	// setAdjacencyViaList(m);
-    setAdjacencyViaMultiMap(m);
+	setAdjacencyViaList(m);
+    // setAdjacencyViaMultiMap(m);
 	
 	// Nachbarschaften ausgeben
 	// for (int i = 0; i < m.GetNumbTri(); i ++ ){
@@ -77,19 +77,19 @@ int main(){
  // cout << x << endl;
 
 
-  // cout << "beginning promende" << endl;
+  cout << "beginning promende" << endl;
   
-   // const T3<double> p = T3<double>(0,-3,0);
+   const T3<double> p = T3<double>(0,-3,0);
    // const T3<double> p = T3<double>(-0.185,0.0718,0);
 
-   // Triangle T = m.GetTriangles()[0];
-    // Triangle P = m.Promenade(T, p, path);
-    // cout << P << endl;
+   Triangle T = m.GetTriangles()[0];
+    Triangle P = m.Promenade(T, p, path);
+    cout << P << endl;
 	
     
-    // exportGnuplot(m,path,p);
+    exportGnuplot(m,path,p);
 	
-	Triangle* coveringTriangles = findSommets(m, M);
+	// Triangle* coveringTriangles = findSommets(m, M);
     
     
     

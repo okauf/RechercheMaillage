@@ -405,10 +405,6 @@ void Triangle_Recurrence(Triangle* coveringTriangles){
 }
 
 
-
-
-
-
 void exportGnuplot(Maillage m, vector<Triangle>  path, T3<double> p){
     ofstream Data;
     Data.open("outputPath.txt");
@@ -417,7 +413,6 @@ void exportGnuplot(Maillage m, vector<Triangle>  path, T3<double> p){
     
     Triangle* triangles = m.GetTriangles();
     T3<double>* sommets = m.GetSommets();
-    cout << endl;
 	
 	int i = 0;
 	for (vector<Triangle>::iterator it = path.begin(); it != path.end(); it++){
@@ -425,7 +420,6 @@ void exportGnuplot(Maillage m, vector<Triangle>  path, T3<double> p){
         for(int j = 0; j < 3; j++){
             Data << sommets[path[i][j]-1] << endl;
         }
-        cout << endl;
         Data << sommets[path[i][0]-1] << endl;
         // insert the last point again in order to connect the points
         Data << endl;  //This creates blocks of points which will be connected by lines
@@ -441,7 +435,6 @@ void exportGnuplot(Maillage m, vector<Triangle>  path, T3<double> p){
          for(int j = 0; j < 3; j++){
              Data << sommets[triangles[i][j]-1] << endl;
          }
-         cout << endl;
          Data << sommets[triangles[i][0]-1] << endl;
          // insert the last point again in order to connect the points
          Data << endl;  //This creates blocks of points which will be connected by lines
