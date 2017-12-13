@@ -337,6 +337,45 @@ void setAdjacencyViaList(Maillage m){
 // }
 
 
+int selectAdjacentPoint(Triangle firstTriangle_m, Triangle Neighbor1_m){
+	if (Neighbor1_m[0] != firstTriangle_m[1] && Neighbor1_m[0] != firstTriangle_m[2]){
+		return 0;
+	} else if (Neighbor1_m[1] != firstTriangle_m[1] && Neighbor1_m[1] != firstTriangle_m[2]){
+		return 1;
+	} else {
+		return 2;
+	}
+}
+
+void Triangle_Recurrence(Triangle* coveringTriangles, Maillage & m, Maillage & M, Triangle firstTriangle_m){
+	
+	Triangle * triangles_m = m.GetTriangles();
+	
+	Triangle Neighbor1_m = triangles_m[firstTriangle_m.getNeighbor1()-1];
+	Triangle Neighbor2_m = triangles_m[firstTriangle_m.getNeighbor2()-1];
+	Triangle Neighbor3_m = triangles_m[firstTriangle_m.getNeighbor3()-1];
+	
+	Triangle firstTriangle_M = coveringTriangles[firstTriangle_m[0]-1];
+	Triangle secondTriangle_M = coveringTriangles[firstTriangle_m[1]-1];
+	Triangle thirdTriangle_M = coveringTriangles[firstTriangle_m[2]-1];
+	
+	int adjPoint = selectAdjacentPoint(firstTriangle_m, Neighbor1_m);
+	
+	Triangle Start;
+	if (adjPoint == 0) {
+		Start = secondTriangle_M;
+	} else if (adjPoint == 1){
+		Start = thirdTriangle_M;
+	} else { Start = firstTriangle_M; }
+	
+	if (coveringTriangles[Neighbor1_m[adjPoint]-1] == Triangle(0,0,0)){
+		coveringTriangles[Neighbor1_m[adjPoint]-1] = M.Promenade(Start, sommets[Neighbor1_m[adjPoint]-1], path);
+		Triangle_Recurrence(coveringTriangles, m, M, Neighbor1_m);
+	}
+	
+}
+
+
 Triangle* findSommets(Maillage & m, Maillage & M){
 	
 	// suche nach Knoten von m in M
@@ -356,34 +395,28 @@ Triangle* findSommets(Maillage & m, Maillage & M){
 	setAdjacencyViaMultiMap(m);
 
 	Triangle firstTriangle_m = triangles_m[0];
+	
 	T3<double> firstSommet = sommets_m[firstTriangle_m[0]-1];
-	
-	Triangle Start = triangles_M[rand()%numbTri_M];
+	Triangle firstStartTri = triangles_M[rand()%numbTri_M];
 	vector<Triangle> path;
+	Triangle firstTriangle_M = M.Promenade(firstStartTri, firstSommet, path);
+	coveringTriangles[firstTriangle_m[0]-1] = firstTriangle_M;
 	
-	coveringTriangles[firstTriangle_m[0]-1] = M.Promenade(Start, firstSommet, path); // empty path
-	coveringTriangles[firstTriangle_m[1]-1] = M.Promenade(coveringTriangles[firstTriangle_m[0]-1], sommets_m[firstTriangle_m[1]-1], path);
-	coveringTriangles[firstTriangle_m[2]-1] = M.Promenade(coveringTriangles[firstTriangle_m[1]-1], sommets_m[firstTriangle_m[2]-1], path);
+	T3<double> secondSommet = sommets_m[firstTriangle_m[1]-1];
+	Triangle secondStartTri = firstTriangle_M;
+	Triangle secondTriangle_M = M.Promenade(secondStartTri, secondSommet, path);
+	coveringTriangles[firstTriangle_m[1]-1] = secondTriangle_M;
 	
-	// Triangle Neighbor1_m = triangles_m[firstTriangle_m.getNeighbor1()-1];
-	// if (Neighbor1_m[0] != firstTriangle_m[1] && Neighbor1_m[0] != firstTriangle_m[2]){
-		// coveringTriangles[Neighbor1_m[0]-1] = M.Promenade(coveringTriangles[firstTriangle_m[1]-1], sommets[Neighbor1_m[0]-1] , path);
-	// } else if (Neighbor1_m[1] != firstTriangle_m[1] && Neighbor1_m[1] != firstTriangle_m[2]){
-		// coveringTriangles[Neighbor1_m[1]-1] = M.Promenade(coveringTriangles[firstTriangle_m[2]-1], sommets[Neighbor1_m[1]-1] , path);
-	// } else {
-		// coveringTriangles[Neighbor1_m[2]-1] = M.Promenade(coveringTriangles[firstTriangle_m[0]-1], sommets[Neighbor1_m[2]-1] , path);
-	// }
-		
+	T3<double> thirdSommet = sommets_m[firstTriangle_m[2]-1];
+	Triangle thirdStartTri = secondTriangle_M;
+	Triangle thirdTriangle_M = M.Promenade(secondTriangle_M, thirdSommet, path);
+	coveringTriangles[firstTriangle_m[2]-1] = thirdTriangle_M;
+	
+	Triangle_Recurrence(coveringTriangles, m, M, firstTriangle_m);	
 	
 	return coveringTriangles;
 	
-	
 }
-
-void Triangle_Recurrence(Triangle* coveringTriangles){
-	
-}
-
 
 void exportGnuplot(Maillage m, vector<Triangle>  path, T3<double> p){
     ofstream Data;
