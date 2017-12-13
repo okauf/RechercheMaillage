@@ -103,7 +103,7 @@ int min_neg(const double & x, const double & y, const double & z){
      }
      else{
          int rand_numb = rand()%2;
-         cout << " rand number is " << rand_numb << endl; 
+         // cout << " rand number is " << rand_numb << endl; 
          if(boolx == 0)
              return 2 + rand_numb;
          if(booly == 0)

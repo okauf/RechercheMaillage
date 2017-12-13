@@ -6,9 +6,9 @@ using namespace std;
 
 int main(){
     
-	// char nom[255] = "maillage1.msh";
-	// char* const pnom = nom;
-    // Maillage m(pnom);
+	char nom[255] = "maillage1.msh";
+	char* const pnom = nom;
+    Maillage m(pnom);
 	
 	char nom_M[255] = "maillage2.msh";
 	char* const pnom_M = nom_M;
@@ -23,7 +23,7 @@ int main(){
 //    Triangle t3(1,2,4);
    
     
-	setAdjacencyViaList(M);
+	// setAdjacencyViaList(M);
     // setAdjacencyViaMultiMap(M);
 	
 	// Nachbarschaften ausgeben
@@ -77,20 +77,20 @@ int main(){
  // cout << x << endl;
 
 
-   cout << "beginning promende" << endl;
+   // cout << "beginning promende" << endl;
   
-   const T3<double> p = T3<double>(-1,0.2,0);
+   // const T3<double> p = T3<double>(-1,0.2,0);
    // const T3<double> p = T3<double>(-0.185,0.0718,0);
 
-    Triangle T = M.GetTriangles()[0];
-    Triangle P = M.Promenade(T, p, path);
+    // Triangle T = M.GetTriangles()[0];
+    // Triangle P = M.Promenade(T, p, path);
 	
-    cout << P << endl;
+    // cout << P << endl;
 	
     
-    exportGnuplot(M,path,p);
+    // exportGnuplot(M,path,p);
 	
-	// Triangle* coveringTriangles = findSommets(m, M);
+	Triangle* coveringTriangles = findSommets(m, M);
     
     
     
