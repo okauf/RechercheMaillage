@@ -473,26 +473,29 @@ vector<Triangle> findSommets(Maillage & m, Maillage & M, vector<Triangle> & cove
 	
 }
 
-void exportGnuplot(Maillage m, vector<Triangle>  path, T3<double> p){
+void exportGnuplot(Maillage m, vector<Triangle> triangles, const T3<double>* points, int numbPoints){
+    //if just one point shall be depicted, give the function a T3<double>* pointer to an array of length 1 and set numbPoints to one
+    cout << "Creating the plot" << endl;
+    
     ofstream Data;
-    Data.open("outputPath.txt");
+    Data.open("outputTriangles.txt");
     Data << "#Coordiantes" << endl;
     Data << "#X \t Y \t Z" << endl;
     
-    Triangle* triangles = m.GetTriangles();
+    Triangle* trianglesOfMaillage = m.GetTriangles();
     T3<double>* sommets = m.GetSommets();
 	
 	int i = 0;
-	for (vector<Triangle>::iterator it = path.begin(); it != path.end(); it++){
+	for (vector<Triangle>::iterator it = triangles.begin(); it != triangles.end(); it++){
         Data << "#Triangle " << endl;
         for(int j = 0; j < 3; j++){
-            Data << sommets[path[i][j]-1] << endl;
+            Data << sommets[triangles[i][j]-1] << endl;
         }
-        Data << sommets[path[i][0]-1] << endl;
+        Data << sommets[triangles[i][0]-1] << endl;
         // insert the last point again in order to connect the points
         Data << endl;  //This creates blocks of points which will be connected by lines
 		i++;
-    }   
+    }
     Data.close();
     
     
@@ -501,16 +504,24 @@ void exportGnuplot(Maillage m, vector<Triangle>  path, T3<double> p){
      for(int i = 0; i < m.GetNumbTri(); i++){
          Data << "#Triangle " << i+1 << endl;
          for(int j = 0; j < 3; j++){
-             Data << sommets[triangles[i][j]-1] << endl;
+             Data << sommets[trianglesOfMaillage[i][j]-1] << endl;
          }
-         Data << sommets[triangles[i][0]-1] << endl;
+         Data << sommets[trianglesOfMaillage[i][0]-1] << endl;
          // insert the last point again in order to connect the points
          Data << endl;  //This creates blocks of points which will be connected by lines
      }
     Data.close();
     
+    cout << " end of network data " << endl;
+    
+    
+    
     Data.open("outputPoint.txt");
-    Data << "#Point" << endl << p << endl;
+    Data << "#Point" << endl;
+    for(int i = 0; i < numbPoints; i++){
+        Data << points[i] << endl;
+    }
+    
     Data.close();
 
     
@@ -518,7 +529,7 @@ void exportGnuplot(Maillage m, vector<Triangle>  path, T3<double> p){
     ofstream GnuCom;
     GnuCom.open("GnuExe.txt");
     
-    GnuCom << "plot 'outputNetwork.txt' with lines linetype 4,  'outputPath.txt' with lines lt -1, 'outputPoint.txt' " << endl;
+    GnuCom << "plot 'outputNetwork.txt' with lines linetype 4,  'outputtriangles.txt' with lines lt -1, 'outputPoint.txt' " << endl;
     
     // In order to keep the file open
     GnuCom << "pause -1 'Hit any key to continue' " << endl;
