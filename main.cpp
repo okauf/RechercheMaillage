@@ -90,7 +90,12 @@ int main(){
     
     // exportGnuplot(M,path,p);
 	
-	Triangle* coveringTriangles = findSommets(m, M);
+	int numbSommets_m = m.GetNumbSommets();
+	Triangle* coveringTriangles = new Triangle[numbSommets_m];
+	for (int i=0; i < numbSommets_m; i++){
+		coveringTriangles[i] = Triangle(0,0,0);
+	}
+	coveringTriangles = findSommets(m, M, coveringTriangles);
     
     
     
