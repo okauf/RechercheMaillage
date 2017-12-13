@@ -91,7 +91,7 @@ int main(){
     // exportGnuplot(M,path,p);
 	
 	int numbSommets_m = m.GetNumbSommets();
-	Triangle* coveringTriangles = new Triangle[numbSommets_m];
+    vector<Triangle> coveringTriangles;
 	for (int i=0; i < numbSommets_m; i++){
 		coveringTriangles[i] = Triangle(0,0,0);
 	}
