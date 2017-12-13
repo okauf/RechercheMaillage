@@ -325,9 +325,14 @@ int selectAdjacentPoint(Triangle firstTriangle_m, Triangle Neighbor1_m){
 	}
 }
 
-void Triangle_Recurrence(Triangle* coveringTriangles, Maillage & m, Maillage & M, Triangle firstTriangle_m, vector<Triangle> & path){
+void Triangle_Recurrence(Triangle* & coveringTriangles, Maillage & m, Maillage & M, Triangle firstTriangle_m, vector<Triangle> & path){
 	
 	path.clear();
+	
+	cout << " cov Tri " << endl;
+	for (int i = 0; i < 50; i++){
+		cout << coveringTriangles[i] << endl;
+	}
 	
 	Triangle * triangles_m = m.GetTriangles();
 	T3<double> * sommets_m = m.GetSommets();
