@@ -125,7 +125,7 @@ Triangle Promenade(Triangle & T, const T3<double> & p, vector<Triangle> & path){
 	
 	cout << "a1 " << a1 << " a2 " << a2 << " a3 " << a3 << endl;
 	
-	switch (min_neg(a1,a2,a3)) {
+	switch (random_neg(a1,a2,a3)) {
 		case -1:
 			return T;
 		case 1:
@@ -142,26 +142,7 @@ Triangle Promenade(Triangle & T, const T3<double> & p, vector<Triangle> & path){
 			} else { return Promenade(triangles[T.getNeighbor3()],p,path); }
 	}
 	
-	
-	// if (a1 < 0){
-		// if (T.getNeighbor1() < 0){
-			// cout << "Kein Nachbar" << endl;
-			// return T;
-		// } else { return Promenade(triangles[T.getNeighbor1()],p,path); }
-	// } else if (a2 < 0) {
-		// if (T.getNeighbor2() < 0){
-			// cout << "Kein Nachbar" << endl;
-			// return T;
-		// } else { return Promenade(triangles[T.getNeighbor2()],p,path); }
-	// } else if (a3 < 0) {
-		// if (T.getNeighbor3() < 0){
-			// cout << "Kein Nachbar" << endl;
-			// return T;
-		// } else { return Promenade(triangles[T.getNeighbor3()],p,path); }
-	// } else {
-		// return T;
-	// }
-	
+
 }
 
 Triangle Promenade2(Triangle & T, const T3<double> & p, vector<Triangle> & path){

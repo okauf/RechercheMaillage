@@ -75,15 +75,7 @@ public:
     
 };
 
-int max_neg(const double & x, const double & y, const double & z){
-	if (x>=0 && y>=0 && z>=0){
-		return -1;
-	} else if (x < 0 && ((y<x && z<x) || (y<x&&z>0) || (z<x&&y>0) || (y>0 && z>0))) {
-		return 1;
-	} else if (y < 0 && ((x<y && z<y) || (x<y&&z>0) || (z<y&&x>0) || (x>0 && z>0))) {
-		return 2;
-	} else { return 3;}
-};
+
 
 int min_neg(const double & x, const double & y, const double & z){
 	if (x>=0 && y>=0 && z>=0){
@@ -95,19 +87,33 @@ int min_neg(const double & x, const double & y, const double & z){
 	} else { return 3;}
 };
 
-// int random_neg(const double & x, const double & y, const double & z){
-	// if (x>=0 && y>=0 && z>=0){
-		// return -1;
-	// }
-	// T3<double> = T3(x,y,z);
-	// int rand_num = rand()%3;
-	// if (T3[rand_num] < 0) {
-		// return rand_num;
-	// } else {
-		// int help = rand()%2;
-	// }
-	
-// };
+ int random_neg(const double & x, const double & y, const double & z){
+     
+     int boolx = (x < 0)? 1: 0 , booly = y < 0 ? 1 :0 , boolz = z < 0 ? 1: 0 ;
+     if (boolx == 0 && booly == 0 && boolz == 0 )
+         return -1;
+     int neg_numb = boolx + booly + boolz;
+     if(neg_numb  == 1){
+         if(boolx == 1)
+             return 1;
+         if(booly == 1)
+             return 2;
+         if(boolz == 1)
+             return 3;
+     }
+     else{
+         int rand_numb = rand()%2;
+         cout << " rand number is " << rand_numb << endl; 
+         if(boolx == 0)
+             return 2 + rand_numb;
+         if(booly == 0)
+             return rand_numb*2 + 1;
+         if(boolz == 0)
+             return rand_numb + 1;
+     }
+     
+     
+ };
 
 
 //Class triangle which is a derived class from the class T3<int>; it has as additional members the neighbors

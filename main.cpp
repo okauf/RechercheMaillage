@@ -79,7 +79,7 @@ int main(){
 
    cout << "beginning promende" << endl;
   
-   const T3<double> p = T3<double>(0,-3,0);
+   const T3<double> p = T3<double>(1,0.2,0);
    // const T3<double> p = T3<double>(-0.185,0.0718,0);
 
     Triangle T = M.GetTriangles()[0];

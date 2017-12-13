@@ -1,0 +1,2 @@
+plot 'outputNetwork.txt' with lines linetype 4,  'outputPath.txt' with lines lt -1, 'outputPoint.txt' 
+pause -1 'Hit any key to continue' 
