@@ -135,18 +135,4 @@ public:
         neighbor3 = pos;
     }
     
-
 };
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -386,7 +386,6 @@ void Triangle_Recurrence(vector<Triangle> & coveringTriangles, Maillage & m, Mai
     
 }
 
-
 vector<Triangle> findSommets(Maillage & m, Maillage & M, vector<Triangle> & coveringTriangles){
     
     // suche nach Knoten von m in M
