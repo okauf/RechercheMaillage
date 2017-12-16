@@ -111,7 +111,7 @@ public:
     
     
     Triangle Promenade(Triangle & T, const T3<double> & p, vector<Triangle> & path){
-        // cout << " current triangle" << T << endl;
+        
         path.push_back(T);
         
         T3<double> c1 = sommets[T[0]-1], c2 = sommets[T[1]-1], c3 = sommets[T[2]-1];
@@ -143,9 +143,45 @@ public:
         
     }
     
+    
+    //promenade for ex 5
+    Triangle Promenade(Triangle & T, const T3<double> & p){
+        
+        
+        
+        T3<double> c1 = sommets[T[0]-1], c2 = sommets[T[1]-1], c3 = sommets[T[2]-1];
+        
+        double aire = c1.oriented_vol(c2,c3);
+        double a1 = c2.oriented_vol(c3,p), a2 = c3.oriented_vol(c1,p), a3 = c1.oriented_vol(c2,p);
+        
+        if (aire < 0){
+            a1 = -a1; a2 = -a2; a3 = -a3;
+        }
+        
+        a1 = T.getNeighbor1() < 0 ? 0 : a1;
+        a2 = T.getNeighbor2() < 0 ? 0 : a2;
+        a3 = T.getNeighbor3() < 0 ? 0 : a3;
+        
+        
+        switch (min_neg(a1,a2,a3)) {
+            case -1:
+                //all oriented volumes are positive
+                return T;
+            case 1:
+                return Promenade(triangles[T.getNeighbor1()],p);
+            case 2:
+                return Promenade(triangles[T.getNeighbor2()],p);
+            case 3:
+                return Promenade(triangles[T.getNeighbor3()],p);
+        }
+        
+        
+    }
+
+    
 };
 
-void setAdjacencyViaMultiMap(Maillage m){
+void setAdjacencyViaMultiMap(Maillage & m){
     Triangle* triangles = m.GetTriangles();
     
     multimap<pair<int,int>,int> adjacency;
@@ -216,7 +252,7 @@ void setAdjacencyViaMultiMap(Maillage m){
     
 }
 
-void setAdjacencyViaList(Maillage m){
+void setAdjacencyViaList(Maillage & m){
     
     Triangle* triangles = m.GetTriangles();
     
@@ -278,7 +314,7 @@ void setAdjacencyViaList(Maillage m){
 }
 
 
-int selectAdjacentPoint(pair<int,int> edge, Triangle Neighbor_m){
+int selectAdjacentPoint(const pair<int,int> & edge, const Triangle & Neighbor_m){
     if (Neighbor_m[0] != edge.first && Neighbor_m[0] != edge.second){
         return 0;
     } else if (Neighbor_m[1] != edge.first && Neighbor_m[1] != edge.second){
@@ -288,9 +324,9 @@ int selectAdjacentPoint(pair<int,int> edge, Triangle Neighbor_m){
     }
 }
 
-void Triangle_Recurrence(vector<Triangle> & coveringTriangles, Maillage & m, Maillage & M, Triangle firstTriangle_m, vector<Triangle>  path){
+void Triangle_Recurrence(vector<Triangle> & coveringTriangles, Maillage & m, Maillage & M, Triangle firstTriangle_m){
     
-    cout << "current covering triangles " << endl;
+    
     for(int i = 0; i <coveringTriangles.size();i++){
         cout << coveringTriangles[i] << endl;
     }
@@ -302,10 +338,7 @@ void Triangle_Recurrence(vector<Triangle> & coveringTriangles, Maillage & m, Mai
     Triangle firstTriangle_M = coveringTriangles[firstTriangle_m[0]-1];
     Triangle secondTriangle_M = coveringTriangles[firstTriangle_m[1]-1];
     Triangle thirdTriangle_M = coveringTriangles[firstTriangle_m[2]-1];
-    cout << "1st Tri " << firstTriangle_M << endl;
-    cout << "2nd Tri " << secondTriangle_M << endl;
-    cout << "3rd Tri " << thirdTriangle_M << endl;
-    
+   
     Triangle Start;
     int adjPoint;
     
@@ -322,19 +355,9 @@ void Triangle_Recurrence(vector<Triangle> & coveringTriangles, Maillage & m, Mai
         } else { Start = firstTriangle_M; }
         
         if (coveringTriangles[Neighbor1_m[adjPoint]-1][0] == 0){
-            cout << "XXX" << coveringTriangles[Neighbor1_m[adjPoint]-1] << endl;
-            coveringTriangles[Neighbor1_m[adjPoint]-1] = M.Promenade(Start, sommets_m[Neighbor1_m[adjPoint]-1], path);
-            cout << "YYY" << M.Promenade(Start, sommets_m[Neighbor1_m[adjPoint]-1], path) << endl;
-            // cout << "covering Tri for " << sommets_m[Neighbor1_m[adjPoint]-1] << " is " << coveringTriangles[Neighbor1_m[adjPoint]-1] << endl;
-            // T3<double> * sommets_M = M.GetSommets();
-            // cout << sommets_M[coveringTriangles[Neighbor1_m[adjPoint]-1][0]-1] << endl;
-            // cout << sommets_M[coveringTriangles[Neighbor1_m[adjPoint]-1][1]-1] << endl;
-            // cout << sommets_M[coveringTriangles[Neighbor1_m[adjPoint]-1][2]-1] << endl << endl;
-            cout << " array entry " << Neighbor1_m[adjPoint]-1 << endl;
-            cout << "Rec N1 " << endl;
-            Triangle_Recurrence(coveringTriangles, m, M, Neighbor1_m, path);
-        } else {
-            cout << "listenposition schon  besetzt" << endl;
+            
+            coveringTriangles[Neighbor1_m[adjPoint]-1] = M.Promenade(Start, sommets_m[Neighbor1_m[adjPoint]-1]);
+            Triangle_Recurrence(coveringTriangles, m, M, Neighbor1_m);
         }
     }
     
@@ -349,12 +372,9 @@ void Triangle_Recurrence(vector<Triangle> & coveringTriangles, Maillage & m, Mai
         } else { Start = firstTriangle_M; }
         
         if (coveringTriangles[Neighbor2_m[adjPoint]-1][0] == 0){
-            coveringTriangles[Neighbor2_m[adjPoint]-1] = M.Promenade(Start, sommets_m[Neighbor2_m[adjPoint]-1], path);
-            cout << " array entry " << Neighbor2_m[adjPoint]-1 << endl;
-            cout << "Rec N2 " << endl;
-            Triangle_Recurrence(coveringTriangles, m, M, Neighbor2_m, path);
-        } else {
-            cout << "listenposition schon besetzt" << endl;
+            coveringTriangles[Neighbor2_m[adjPoint]-1] = M.Promenade(Start, sommets_m[Neighbor2_m[adjPoint]-1]);
+            
+            Triangle_Recurrence(coveringTriangles, m, M, Neighbor2_m);
         }
     }
     
@@ -362,7 +382,6 @@ void Triangle_Recurrence(vector<Triangle> & coveringTriangles, Maillage & m, Mai
         Triangle Neighbor3_m = triangles_m[firstTriangle_m.getNeighbor3()];
         pair<int,int> edge (firstTriangle_m[0],firstTriangle_m[1]);
         adjPoint = selectAdjacentPoint(edge, Neighbor3_m);
-        cout << " second Neighbor " << endl;
         if (adjPoint == 0) {
             Start = secondTriangle_M;
         } else if (adjPoint == 1){
@@ -370,18 +389,14 @@ void Triangle_Recurrence(vector<Triangle> & coveringTriangles, Maillage & m, Mai
         } else { Start = firstTriangle_M; }
         
         if (coveringTriangles[Neighbor3_m[adjPoint]-1][0] == 0){
-            coveringTriangles[Neighbor3_m[adjPoint]-1] = M.Promenade(Start, sommets_m[Neighbor3_m[adjPoint]-1], path);
-            cout << " array entry " << Neighbor3_m[adjPoint]-1 << endl;
-            cout << "Rec N3 " << endl;
-            Triangle_Recurrence(coveringTriangles, m, M, Neighbor3_m, path);
-        } else {
-            cout << "listenposition schon besetzt" << endl;
+            coveringTriangles[Neighbor3_m[adjPoint]-1] = M.Promenade(Start, sommets_m[Neighbor3_m[adjPoint]-1]);
+            Triangle_Recurrence(coveringTriangles, m, M, Neighbor3_m);
         }
     }
     
 }
 
-vector<Triangle> findSommets(Maillage & m, Maillage & M, vector<Triangle> & coveringTriangles){
+vector<Triangle>& findSommets(Maillage & m, Maillage & M, vector<Triangle> & coveringTriangles){
     
     // suche nach Knoten von m in M
     
@@ -395,9 +410,7 @@ vector<Triangle> findSommets(Maillage & m, Maillage & M, vector<Triangle> & cove
     Triangle * triangles_M = M.GetTriangles();
     
     // Triangle* coveringTriangles = new Triangle[numbSommets_m];
-    cout << " 2 elem in cov Tri " << coveringTriangles[1] << endl;
     
-    cout << "cov Tri nach init" << endl;
     for (int i = 0; i < 50; i++){
         cout << coveringTriangles[i] << endl;
     }
@@ -409,9 +422,9 @@ vector<Triangle> findSommets(Maillage & m, Maillage & M, vector<Triangle> & cove
     
     T3<double> firstSommet = sommets_m[firstTriangle_m[0]-1];
     Triangle firstStartTri = triangles_M[rand()%numbTri_M];
-    vector<Triangle> path;
-    Triangle firstTriangle_M = M.Promenade(firstStartTri, firstSommet, path);
-    cout << "covering Tri for " << firstSommet << " is " << firstTriangle_M << endl;
+    
+    Triangle firstTriangle_M = M.Promenade(firstStartTri, firstSommet);
+    
     cout << sommets_M[firstTriangle_M[0]-1] << endl;
     cout << sommets_M[firstTriangle_M[1]-1] << endl;
     cout << sommets_M[firstTriangle_M[2]-1] << endl << endl;
@@ -419,26 +432,22 @@ vector<Triangle> findSommets(Maillage & m, Maillage & M, vector<Triangle> & cove
     
     T3<double> secondSommet = sommets_m[firstTriangle_m[1]-1];
     Triangle secondStartTri = firstTriangle_M;
-    Triangle secondTriangle_M = M.Promenade(secondStartTri, secondSommet, path);
+    Triangle secondTriangle_M = M.Promenade(secondStartTri, secondSommet);
     coveringTriangles[firstTriangle_m[1]-1] = secondTriangle_M;
     
     T3<double> thirdSommet = sommets_m[firstTriangle_m[2]-1];
     Triangle thirdStartTri = secondTriangle_M;
-    Triangle thirdTriangle_M = M.Promenade(secondTriangle_M, thirdSommet, path);
+    Triangle thirdTriangle_M = M.Promenade(secondTriangle_M, thirdSommet);
     coveringTriangles[firstTriangle_m[2]-1] = thirdTriangle_M;
     
-    cout << "cov Tri nach init" << endl;
-    for (int i = 0; i < 50; i++){
-        cout << coveringTriangles[i] << endl;
-    }
     
-    Triangle_Recurrence(coveringTriangles, m, M, firstTriangle_m, path);
+    Triangle_Recurrence(coveringTriangles, m, M, firstTriangle_m);
     
     return coveringTriangles;
     
 }
 
-void exportGnuplot(Maillage m, vector<Triangle> triangles, const T3<double>* points, int numbPoints){
+void exportGnuplot(Maillage & m, vector<Triangle> & triangles, const T3<double>* points, int numbPoints){
     //if just one point shall be depicted, give the function a T3<double>* pointer to an array of length 1 and set numbPoints to one
     cout << "Creating the plot" << endl;
     
