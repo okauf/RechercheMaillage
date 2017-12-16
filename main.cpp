@@ -19,7 +19,7 @@ int main(){
 
    cout << "beginning promende" << endl;
    vector<Triangle> path;
-   const T3<double> p = T3<double>(2,0,0);
+   const T3<double> p = T3<double>(1.05,0,0);
    Triangle T = M.GetTriangles()[0];
    Triangle P = M.Promenade(T, p, path);
    T3<double>* sommets = M.GetSommets();

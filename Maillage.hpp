@@ -126,11 +126,9 @@ public:
 		a1 = T.getNeighbor1() < 0 ? 0 : a1;
 		a2 = T.getNeighbor2() < 0 ? 0 : a2;
 		a3 = T.getNeighbor3() < 0 ? 0 : a3;
-		// T.getNeighbor1() < 0 ? a1 = 0;
-		// T.getNeighbor2() < 0 ? a2 = 0;
-		// T.getNeighbor3() < 0 ? a3 = 0;
-		
-		switch (random_neg(a1,a2,a3)) {
+        
+        
+		switch (min_neg(a1,a2,a3)) {
             case -1:
                 //all oriented volumes are positive
                 return T;
@@ -141,24 +139,6 @@ public:
             case 3:
                 return Promenade(triangles[T.getNeighbor3()],p,path);
         }
-        
-        // switch (random_neg(a1,a2,a3)) {
-            // case -1:
-                // all oriented volumes are positive
-                // return T;
-            // case 1:
-                // return (T.getNeighbor1() < 0) ?  T : Promenade(triangles[T.getNeighbor1()],p,path);
-            // case 2:
-                // if (T.getNeighbor2() < 0){
-                    // cout << "Kein Nachbar" << endl;
-                    // return T;
-                // } else { return Promenade(triangles[T.getNeighbor2()],p,path); }
-            // case 3:
-                // if (T.getNeighbor3() < 0){
-                    // cout << "Kein Nachbar" << endl;
-                    // return T;
-                // } else { return Promenade(triangles[T.getNeighbor3()],p,path); }
-        // }
         
         
     }
@@ -514,7 +494,7 @@ void exportGnuplot(Maillage m, vector<Triangle> triangles, const T3<double>* poi
     ofstream GnuCom;
     GnuCom.open("GnuExe.txt");
     
-	GnuCom << "set xrange [-2,2]" << endl << "set yrange [-2,2]" << endl;
+	GnuCom << "set xrange [-2:2]" << endl << "set yrange [-2:2]" << endl;
     GnuCom << "plot 'outputNetwork.txt' with lines linetype 4,  'outputtriangles.txt' with lines lt -1, 'outputPoint.txt' " << endl;
     
     // In order to keep the file open
