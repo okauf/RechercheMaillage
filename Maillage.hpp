@@ -315,10 +315,10 @@ void setAdjacencyViaList(Maillage m){
 }
 
 
-int selectAdjacentPoint(Triangle firstTriangle_m, Triangle Neighbor1_m){
-    if (Neighbor1_m[0] != firstTriangle_m[1] && Neighbor1_m[0] != firstTriangle_m[2]){
+int selectAdjacentPoint(pair<int,int> edge, Triangle Neighbor_m){
+    if (Neighbor_m[0] != edge.first && Neighbor_m[0] != edge.second){
         return 0;
-    } else if (Neighbor1_m[1] != firstTriangle_m[1] && Neighbor1_m[1] != firstTriangle_m[2]){
+    } else if (Neighbor_m[1] != edge.first && Neighbor_m[1] != edge.second){
         return 1;
     } else {
         return 2;
@@ -327,11 +327,11 @@ int selectAdjacentPoint(Triangle firstTriangle_m, Triangle Neighbor1_m){
 
 void Triangle_Recurrence(vector<Triangle> & coveringTriangles, Maillage & m, Maillage & M, Triangle firstTriangle_m, vector<Triangle>  path){
     
-    
-    cout << " cov Tri " << endl;
-    for (int i = 0; i < 50; i++){
+    cout << "current covering triangles " << endl; 
+    for(int i = 0; i.coveringTriangles.length();i++){
         cout << coveringTriangles[i] << endl;
     }
+    
     
     Triangle * triangles_m = m.GetTriangles();
     T3<double> * sommets_m = m.GetSommets();
@@ -348,7 +348,8 @@ void Triangle_Recurrence(vector<Triangle> & coveringTriangles, Maillage & m, Mai
     
     if (firstTriangle_m.getNeighbor1() != -1){
         Triangle Neighbor1_m = triangles_m[firstTriangle_m.getNeighbor1()];
-        adjPoint = selectAdjacentPoint(firstTriangle_m, Neighbor1_m);
+        pair<int,int> edge (firstTriangle_m[1],firstTriangle_m[2]);
+        adjPoint = selectAdjacentPoint(edge, Neighbor1_m);
         
         
         if (adjPoint == 0) {
@@ -370,13 +371,14 @@ void Triangle_Recurrence(vector<Triangle> & coveringTriangles, Maillage & m, Mai
             cout << "Rec N1 " << endl;
             Triangle_Recurrence(coveringTriangles, m, M, Neighbor1_m, path);
         } else {
-            cout << "listenposition schon besetzt" << endl;
+            cout << "listenposition schon  besetzt" << endl;
         }
     }
     
     if( firstTriangle_m.getNeighbor2() != -1){
         Triangle Neighbor2_m = triangles_m[firstTriangle_m.getNeighbor2()];
-        adjPoint = selectAdjacentPoint(firstTriangle_m, Neighbor2_m);
+        pair<int,int> edge (firstTriangle_m[0],firstTriangle_m[2]);
+        adjPoint = selectAdjacentPoint(edge, Neighbor2_m);
         if (adjPoint == 0) {
             Start = secondTriangle_M;
         } else if (adjPoint == 1){
@@ -395,7 +397,8 @@ void Triangle_Recurrence(vector<Triangle> & coveringTriangles, Maillage & m, Mai
     
     if ( firstTriangle_m.getNeighbor3() != -1){
         Triangle Neighbor3_m = triangles_m[firstTriangle_m.getNeighbor3()];
-        adjPoint = selectAdjacentPoint(firstTriangle_m, Neighbor3_m);
+        pair<int,int> edge (firstTriangle_m[0],firstTriangle_m[1]);
+        adjPoint = selectAdjacentPoint(edge, Neighbor3_m);
         cout << " second Neighbor " << endl;
         if (adjPoint == 0) {
             Start = secondTriangle_M;

@@ -98,8 +98,12 @@ int main(){
 		coveringTriangles.push_back(Triangle(0,0,0));
 	}
 	coveringTriangles = findSommets(m, M, coveringTriangles);
+    vector <Triangle> empty;
+    T3<double>* p;
     
-    exportGnuplot(M,coveringTriangles,m.GetSommets(),m.GetNumbSommets()); 
+    exportGnuplot(M,coveringTriangles,m.GetSommets(),m.GetNumbSommets());
+    
+    exportGnuplot(m,empty,p,0);
     
     
     
