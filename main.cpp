@@ -75,29 +75,31 @@ int main(){
  // cout << x << endl;
 
 
-    cout << "beginning promende" << endl;
-    vector<Triangle> path;
-    setAdjacencyViaList(M);
-    setAdjacencyViaMultiMap(M);
-
-    const T3<double> p = T3<double>(0,0,0);
-    //const T3<double> p = T3<double>(-0.185,0.0718,0);
-
-    Triangle T = M.GetTriangles()[0];
-    Triangle P = M.Promenade(T, p, path);
-    T3<double>* sommets = M.GetSommets();
-	
-     cout << "point " << p << " is in the triangle with vertices " << endl << sommets[P[0]] << endl << sommets[P[1]] << endl << sommets[P[2]] << endl;
-	
+//    cout << "beginning promende" << endl;
+//    vector<Triangle> path;
+//    setAdjacencyViaList(M);
+//    setAdjacencyViaMultiMap(M);
+//
+//    const T3<double> p = T3<double>(0,0,0);
+//    //const T3<double> p = T3<double>(-0.185,0.0718,0);
+//
+//    Triangle T = M.GetTriangles()[0];
+//    Triangle P = M.Promenade(T, p, path);
+//    T3<double>* sommets = M.GetSommets();
+//	
+//     cout << "point " << p << " is in the triangle with vertices " << endl << sommets[P[0]] << endl << sommets[P[1]] << endl << sommets[P[2]] << endl;
+//	
     
-     exportGnuplot(M,path,&p,1);
+//     exportGnuplot(M,path,&p,1);
 	
-//	int numbSommets_m = m.GetNumbSommets();
-//    vector<Triangle> coveringTriangles;
-//	for (int i=0; i < numbSommets_m; i++){
-//		coveringTriangles[i] = Triangle(0,0,0);
-//	}
-//	coveringTriangles = findSommets(m, M, coveringTriangles);
+	int numbSommets_m = m.GetNumbSommets();
+    vector<Triangle> coveringTriangles;
+	for (int i=0; i < numbSommets_m; i++){
+		coveringTriangles.push_back(Triangle(0,0,0));
+	}
+	coveringTriangles = findSommets(m, M, coveringTriangles);
+    
+    exportGnuplot(M,coveringTriangles,m.GetSommets(),m.GetNumbSommets()); 
     
     
     
