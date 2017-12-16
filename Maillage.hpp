@@ -123,10 +123,11 @@ public:
             a1 = -a1; a2 = -a2; a3 = -a3;
         }
         
-        // cout << "a1 " << a1 << " a2 " << a2 << " a3 " << a3 << endl;
+
         
         switch (random_neg(a1,a2,a3)) {
             case -1:
+                //all oriented volumes are positive
                 return T;
             case 1:
                 return (T.getNeighbor1() < 0) ?  T : Promenade(triangles[T.getNeighbor1()],p,path);
@@ -145,39 +146,6 @@ public:
         
     }
     
-    Triangle Promenade2(Triangle & T, const T3<double> & p, vector<Triangle> & path){
-        cout << " current triangle" << T << endl;
-        
-        path.push_back(T);
-        
-        
-        T3<double> c1 = sommets[T[0]-1], c2 = sommets[T[1]-1], c3 = sommets[T[2]-1];
-        if (p.wheretogo(c1,c2,c3)) {
-            if (T.getNeighbor3() > 0)
-                return Promenade2(triangles[T.getNeighbor3()], p, path);
-            else {
-                cout << "point is not in the network" << endl;
-                return T;
-            }
-        } else if (p.wheretogo(c2,c3,c1)) {
-            if (T.getNeighbor1() > 0)
-                return Promenade2(triangles[T.getNeighbor1()], p, path);
-            else {
-                cout << "point is not in the network" << endl;
-                return T;
-            }
-        } else if (p.wheretogo(c3,c1,c2)) {
-            if (T.getNeighbor2() > 0)
-                return Promenade2(triangles[T.getNeighbor2()], p, path);
-            else {
-                cout << "point is not in the network" << endl;
-                return T;
-            }
-        } else {
-            return T;
-        }
-        
-    }
     
     
 };
@@ -327,8 +295,8 @@ int selectAdjacentPoint(pair<int,int> edge, Triangle Neighbor_m){
 
 void Triangle_Recurrence(vector<Triangle> & coveringTriangles, Maillage & m, Maillage & M, Triangle firstTriangle_m, vector<Triangle>  path){
     
-    cout << "current covering triangles " << endl; 
-    for(int i = 0; i.coveringTriangles.length();i++){
+    cout << "current covering triangles " << endl;
+    for(int i = 0; i <coveringTriangles.size();i++){
         cout << coveringTriangles[i] << endl;
     }
     

@@ -6,11 +6,11 @@ using namespace std;
 
 int main(){
     
-	char nom[255] = "maillage1.msh";
+	char nom[255] = "maillage2.msh";
 	char* const pnom = nom;
     Maillage m(pnom);
 	
-	char nom_M[255] = "maillage2.msh";
+	char nom_M[255] = "maillage1.msh";
 	char* const pnom_M = nom_M;
     Maillage M(pnom_M);
 	
@@ -103,7 +103,7 @@ int main(){
     
     exportGnuplot(M,coveringTriangles,m.GetSommets(),m.GetNumbSommets());
     
-    exportGnuplot(m,empty,p,0);
+    
     
     
     

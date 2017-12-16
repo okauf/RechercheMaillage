@@ -44,35 +44,19 @@ public:
     T operator,(const T3 &v){
         return x*v.x+y*v.y+z*v.z;
     }
-    // T3 operator+(const T3 &v){
-        // return T3(x+v.x, y+v.y, z+v.z);
-    // }
-	// T3 operator-(const T3 &v){
-		// return T3(x-v.x, y-v.y, z-v.z);
-	// }
-	
+   	
     // lexicographical order
     bool operator<(const T3& v) const {
         if (x<v.x) return 1; else if (x==v.x && y<v.y) return 1; else if (x==v.x && y==v.y && z<v.z) return 1; else return 0;
     }
-//    bool comp(const T3 &u, const T3 &v){
-//        if (u.x<v.x) return 1; else if (u.x==v.x && u.y<v.y) return 1; else if (u.x==v.x && u.y==v.y && u.z<v.z) return 1; else return 0;
-//    }
+
 
 	
 	T oriented_vol(const T3 &v, const T3 &w){
 		return (v.x-x)*(w.y-v.y) - (v.y-y)*(w.x-v.x);
 	}
 	
-	bool wheretogo(const T3 &u, const T3 &v, const T3 &w) const {
-		T3 norm = T3(-u.y+v.y,u.x-v.x,0);
-//        cout << "norm is " << norm << endl;
-//		cout << "norm * 3rd point " <<  (norm,w) << endl;
-//        cout << "norm * 1st or 2nd point " << (norm,u) <<  " " << (norm,v) << endl;
-//		cout << "norm * this " <<  (norm,*this) << endl;
-		return ((norm,*this)<(norm,u) && (norm,u)<(norm,w)) || ((norm,w)<(norm,u) && (norm,u)<(norm,*this));
-	}
-    
+	
 };
 
 
@@ -151,11 +135,7 @@ public:
         neighbor3 = pos;
     }
     
-//    bool operator<(const Triangle &v){
-//        if (x<v.x) return 1; else if (x==v.x && y<v.y) return 1; else if (x==v.x && y==v.y && z<v.z) return 1; else return 0;
-//    }
 
-    
 };
 
 
