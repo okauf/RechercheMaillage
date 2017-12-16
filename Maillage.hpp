@@ -405,11 +405,6 @@ vector<Triangle>& findSommets(Maillage & m, Maillage & M, vector<Triangle> & cov
     Triangle * triangles_M = M.GetTriangles();
     
     
-    
-    
-    setAdjacencyViaMultiMap(M);
-    setAdjacencyViaMultiMap(m);
-    
     Triangle firstTriangle_m = triangles_m[0];
     
     T3<double> firstSommet = sommets_m[firstTriangle_m[0]-1];
