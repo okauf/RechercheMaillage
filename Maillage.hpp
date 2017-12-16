@@ -2,9 +2,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
-#include <cstdlib>
 #include <iostream>
-#include <cmath>
 #include <list>
 #include <map>
 #include <vector>
@@ -110,7 +108,7 @@ public:
     }
     
     
-    Triangle Promenade(Triangle & T, const T3<double> & p, vector<Triangle> & path){
+    Triangle & Promenade(Triangle & T, const T3<double> & p, vector<Triangle> & path){
         
         path.push_back(T);
         
@@ -145,7 +143,7 @@ public:
     
     
     //promenade for ex 5
-    Triangle Promenade(Triangle & T, const T3<double> & p){
+    Triangle & Promenade(Triangle & T, const T3<double> & p){
         
         
         
