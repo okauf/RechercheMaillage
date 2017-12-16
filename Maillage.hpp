@@ -283,7 +283,7 @@ void setAdjacencyViaList(Maillage & m){
     while (!adjacency.empty()){
         curr_tri = adjacency.front();
         adjacency.pop_front();
-        // cout << prev_tri << " next: " << curr_tri << endl;
+        
         if (curr_tri[0] == prev_tri[0] && curr_tri[1] == prev_tri[1]){
             
             //set the reference to the neighbor at the right position if it exists
@@ -327,9 +327,6 @@ int selectAdjacentPoint(const pair<int,int> & edge, const Triangle & Neighbor_m)
 void Triangle_Recurrence(vector<Triangle> & coveringTriangles, Maillage & m, Maillage & M, Triangle firstTriangle_m){
     
     
-    for(int i = 0; i <coveringTriangles.size();i++){
-        cout << coveringTriangles[i] << endl;
-    }
     
     
     Triangle * triangles_m = m.GetTriangles();
@@ -409,11 +406,8 @@ vector<Triangle>& findSommets(Maillage & m, Maillage & M, vector<Triangle> & cov
     T3<double> * sommets_M = M.GetSommets();
     Triangle * triangles_M = M.GetTriangles();
     
-    // Triangle* coveringTriangles = new Triangle[numbSommets_m];
     
-    for (int i = 0; i < 50; i++){
-        cout << coveringTriangles[i] << endl;
-    }
+    
     
     setAdjacencyViaMultiMap(M);
     setAdjacencyViaMultiMap(m);
@@ -425,9 +419,7 @@ vector<Triangle>& findSommets(Maillage & m, Maillage & M, vector<Triangle> & cov
     
     Triangle firstTriangle_M = M.Promenade(firstStartTri, firstSommet);
     
-    cout << sommets_M[firstTriangle_M[0]-1] << endl;
-    cout << sommets_M[firstTriangle_M[1]-1] << endl;
-    cout << sommets_M[firstTriangle_M[2]-1] << endl << endl;
+ 
     coveringTriangles[firstTriangle_m[0]-1] = firstTriangle_M;
     
     T3<double> secondSommet = sommets_m[firstTriangle_m[1]-1];
@@ -485,8 +477,6 @@ void exportGnuplot(Maillage & m, vector<Triangle> & triangles, const T3<double>*
         Data << endl;  //This creates blocks of points which will be connected by lines
     }
     Data.close();
-    
-    cout << " end of network data " << endl;
     
     
     
