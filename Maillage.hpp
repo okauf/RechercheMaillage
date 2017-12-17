@@ -109,7 +109,7 @@ public:
     
     
     Triangle & Promenade(Triangle & T, const T3<double> & p, vector<Triangle> & path){
-        
+        cout << "current tri" << T << endl;
         path.push_back(T);
         
         T3<double> c1 = sommets[T[0]-1], c2 = sommets[T[1]-1], c3 = sommets[T[2]-1];
