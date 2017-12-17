@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cassert>
-
+#include <time.h>
 using namespace std;
 
 template<typename T>
@@ -81,8 +81,10 @@ int min_neg(const double & x, const double & y, const double & z){
          if(booly == 1){ return 2; }
          if(boolz == 1){ return 3; }
      } else {
-         int rand_numb = rand()%2;
-         // cout << " rand number is " << rand_numb << endl; 
+		 struct timespec nanos;
+		 clock_gettime(CLOCK_MONOTONIC, &nanos);
+		 srand(nanos.tv_nsec);
+         int rand_numb = rand()%2; cout << rand_numb << " ";
          if(boolx == 0){ return rand_numb + 2; }
          if(booly == 0){ return 2*rand_numb + 1; }
          if(boolz == 0){ return rand_numb + 1; }

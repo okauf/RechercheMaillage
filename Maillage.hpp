@@ -109,7 +109,7 @@ public:
     
     
     Triangle & Promenade(Triangle & T, const T3<double> & p, vector<Triangle> & path){
-        cout << "current tri" << T << endl;
+        
         path.push_back(T);
         
         T3<double> c1 = sommets[T[0]-1], c2 = sommets[T[1]-1], c3 = sommets[T[2]-1];
@@ -125,7 +125,7 @@ public:
 		a2 = T.getNeighbor2() < 0 ? 0 : a2;
 		a3 = T.getNeighbor3() < 0 ? 0 : a3;
         
-		switch (min_neg(a1,a2,a3)) {
+		switch (random_neg(a1,a2,a3)) {
             case -1:
                 //all oriented volumes are positive
                 return T;

@@ -14,8 +14,8 @@ int main(){
 	char nom_M[255] = "maillage2.msh";
 	char* const pnom_M = nom_M;
     Maillage M(pnom_M);
-	// setAdjacencyViaList(M);
-    setAdjacencyViaMultiMap(M);
+	setAdjacencyViaList(M);
+    // setAdjacencyViaMultiMap(M);
 
   cout << "beginning promende" << endl;
   vector<Triangle> path;
@@ -23,7 +23,7 @@ int main(){
   Triangle T = M.GetTriangles()[0];
   Triangle P = M.Promenade(T, p, path);
   T3<double>* sommets = M.GetSommets();
-  cout << "point " << p << " is in the triangle with vertices " << endl << sommets[P[0]] << endl << sommets[P[1]] << endl << sommets[P[2]] << endl;
+  // cout << "point " << p << " is in the triangle with vertices " << endl << sommets[P[0]] << endl << sommets[P[1]] << endl << sommets[P[2]] << endl;
   exportGnuplot(M,path,&p,1);
 	
 	 // int numbSommets_m = m.GetNumbSommets();
