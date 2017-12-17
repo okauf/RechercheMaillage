@@ -125,7 +125,6 @@ public:
 		a2 = T.getNeighbor2() < 0 ? 0 : a2;
 		a3 = T.getNeighbor3() < 0 ? 0 : a3;
         
-        
 		switch (min_neg(a1,a2,a3)) {
             case -1:
                 //all oriented volumes are positive
@@ -136,17 +135,16 @@ public:
                 return Promenade(triangles[T.getNeighbor2()],p,path);
             case 3:
                 return Promenade(triangles[T.getNeighbor3()],p,path);
+			default:
+				return T; // XXXXX avoid warning
         }
-        
-        
+         
     }
     
     
     //promenade for ex 5
     Triangle & Promenade(Triangle & T, const T3<double> & p){
-        
-        
-        
+ 
         T3<double> c1 = sommets[T[0]-1], c2 = sommets[T[1]-1], c3 = sommets[T[2]-1];
         
         double aire = c1.oriented_vol(c2,c3);
@@ -160,7 +158,6 @@ public:
         a2 = T.getNeighbor2() < 0 ? 0 : a2;
         a3 = T.getNeighbor3() < 0 ? 0 : a3;
         
-        
         switch (min_neg(a1,a2,a3)) {
             case -1:
                 //all oriented volumes are positive
@@ -171,12 +168,12 @@ public:
                 return Promenade(triangles[T.getNeighbor2()],p);
             case 3:
                 return Promenade(triangles[T.getNeighbor3()],p);
+			default:
+				return T; // XXXXX avoid warning
         }
-        
-        
+
     }
 
-    
 };
 
 void setAdjacencyViaMultiMap(Maillage & m){
@@ -395,13 +392,13 @@ vector<Triangle>& findSommets(Maillage & m, Maillage & M, vector<Triangle> & cov
     
     // suche nach Knoten von m in M
     
-    int numbSommets_m = m.GetNumbSommets();
+    // int numbSommets_m = m.GetNumbSommets();
     T3<double> * sommets_m = m.GetSommets();
     Triangle * triangles_m = m.GetTriangles();
     
-    int numbSommets_M = M.GetNumbSommets();
+    // int numbSommets_M = M.GetNumbSommets();
     int numbTri_M = M.GetNumbTri();
-    T3<double> * sommets_M = M.GetSommets();
+    // T3<double> * sommets_M = M.GetSommets();
     Triangle * triangles_M = M.GetTriangles();
     
     
@@ -422,7 +419,7 @@ vector<Triangle>& findSommets(Maillage & m, Maillage & M, vector<Triangle> & cov
     
     T3<double> thirdSommet = sommets_m[firstTriangle_m[2]-1];
     Triangle thirdStartTri = secondTriangle_M;
-    Triangle thirdTriangle_M = M.Promenade(secondTriangle_M, thirdSommet);
+    Triangle thirdTriangle_M = M.Promenade(thirdStartTri, thirdSommet);
     coveringTriangles[firstTriangle_m[2]-1] = thirdTriangle_M;
     
     

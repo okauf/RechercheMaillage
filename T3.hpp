@@ -71,30 +71,23 @@ int min_neg(const double & x, const double & y, const double & z){
 
  int random_neg(const double & x, const double & y, const double & z){
      
-     int boolx = (x < 0)? 1: 0 , booly = y < 0 ? 1 :0 , boolz = z < 0 ? 1: 0 ;
-     if (boolx == 0 && booly == 0 && boolz == 0 )
+     int boolx = (x < 0)?1:0, booly = (y < 0)?1:0, boolz = (z < 0)?1:0;
+     if (boolx == 0 && booly == 0 && boolz == 0){
          return -1;
+	 }
      int neg_numb = boolx + booly + boolz;
-     if(neg_numb  == 1){
-         if(boolx == 1)
-             return 1;
-         if(booly == 1)
-             return 2;
-         if(boolz == 1)
-             return 3;
-     }
-     else{
+     if (neg_numb  == 1){
+         if(boolx == 1){ return 1; }
+         if(booly == 1){ return 2; }
+         if(boolz == 1){ return 3; }
+     } else {
          int rand_numb = rand()%2;
          // cout << " rand number is " << rand_numb << endl; 
-         if(boolx == 0)
-             return 2 + rand_numb;
-         if(booly == 0)
-             return rand_numb*2 + 1;
-         if(boolz == 0)
-             return rand_numb + 1;
+         if(boolx == 0){ return rand_numb + 2; }
+         if(booly == 0){ return 2*rand_numb + 1; }
+         if(boolz == 0){ return rand_numb + 1; }
      }
-     
-     
+	 return -2; // XXXXX avoid warning
  };
 
 
