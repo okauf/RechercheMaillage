@@ -91,14 +91,33 @@ bei det Vektoren in Zeilen
   
 \raggedright
 
-Le but de cette m\'ethode est l'initialisation des membres {\itshape neighbor1, neighbor2, neighbor3} de la classe triangle. Les membres sont décrits pas leurs position dans la liste des triangles. L'initialisation est réalisé en utilisant le container {\itshape multimaps}.  Pour chaque triangle $(a_1,a_2,a_3)$ on ajoute trois éléments au multimap où les arêtes $\{a_i,a_j \}, \, i,j \in \{1,2,3\}, \ i \neq j $ présentent les clés et le numéro de triangle est le valeur appliqué. Par conséquent, l'initialisation se produit dans $ O(3 n_T)$ et si deux triangles $(t_1,t_2) $ sont adjacents par l'arête $\{a,b\}$, les éléments $ ( \{a,b\}, t_1), \, \{a,b\}, t_2) $ ont les mêmes clés. 
+Le but de cette m\'ethode est l'initialisation des membres {\itshape neighbor1, neighbor2, neighbor3} de la classe triangle. Les membres sont décrits pas leurs position dans la liste (ARRAY) des triangles. L'initialisation est réalisé en utilisant le container {\itshape multimaps}.  Pour chaque triangle $(a_1,a_2,a_3)$ on ajoute trois éléments au multimap où les arêtes $\{a_i,a_j \}, \, i,j \in \{1,2,3\}, \ i \neq j $ présentent les clés et le numéro de triangle est le valeur appliqué. Par conséquent, l'initialisation se produit dans $ O(3 n_T)$ et si deux triangles $(t_1,t_2) $ sont adjacents par l'arête $\{a,b\}$, les éléments $ ( \{a,b\}, t_1), \, \{a,b\}, t_2) $ ont les mêmes clés. 
 Les triangles suivants sont trouvés par la procédure suivante: 
 \begin{enumerate}
 	\item On parcourt sur l'entière multimap en sauvegardant l'indice de  triangle $t_1 = (a_1,a_2,a_3) $ associé à l'arête $ \{a_i,a_j\} $ récente et écrasant l'élément $(\{a_i,a_j\}, t) $ de la map. La complexité est $ O(3 n_T)$.
 	\item On cherche si le clé $ \{a_i,a_j\} $ est associé à un autre triangle $t_2$. Dans ce cas les triangles $t_1,t_2$ sont adjacents. 
-	L'opération de recherche se passe selon la recherche dans un multimap dans $O(log N_T) $.
-	\item On met $t_2 $ comme voisin $k \in \{1,2,3\}$ si le sommet de $t_1 $ au position $k$ n'est pas un sommet de $t_2 $ et vice versa. Cet opération est réalisé dans un temps constant. 
+	L'opération de recherche se passe selon la recherche dans un multimap dans $O(log n_T) $.
+	\item On met $t_2 $ comme voisin $k \in \{1,2,3\}$ si le sommet de $t_1 $ au position $k$ n'est pas un sommet de $t_2 $ et vice versa. Cet opération est réalisé dans un temps constant.
 \end{enumerate}
+
+%ist die reihenfolge im schlüssel wichtig? sonst wird hier auf struktur für die maillagedatei gefordert?
+
+\centering
+{\large \itshape{setAdjacencyViaList} } 
+
+\raggedright
+
+As in setAdjacencyViaMultimap, this method sets the members, describing the neighbors, for each triangle in the considered mesh. In the same manner as before, the members are described using their position in the triangle array.
+
+The idea is to store each triangle, in varying order, three times in a list. For the triangle $t$ with the points $(a_1,a_2,a_3)$, the triangles $(a_1,a_2,t), (a_1,a_3,t)$ and $(a_2,a_3,t)$ are appended to the list. The creation of this list has complexity $O(3n_T)$.
+
+After the creation, the list is sorted in lexicographic order. The complexity for sorting a list with $n_T$ elements is $O(n_Tlogn_T)$.
+
+Due to the lexicographical ordering, the list allows now to define adjacencies between triangles. Two consecutive triangles of the list are considered. The first two entries of the triangles are compared. If they are equal, the triangles share an edge and can be defined as adjacent. $(a,b,t_1), (a,b,t_2)$
+
+complexity $O(3n_T)$
+
+In summary, the method setAdjacencyViaList has complexity $O(n_Tlogn_T)$.
 
 \subsection{L'algorithme promenade}
 
