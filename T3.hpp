@@ -48,16 +48,12 @@ public:
         if (x<v.x) return 1; else if (x==v.x && y<v.y) return 1; else if (x==v.x && y==v.y && z<v.z) return 1; else return 0;
     }
 
-
-	
 	T oriented_vol(const T3 &v, const T3 &w){
 		return (v.x-x)*(w.y-v.y) - (v.y-y)*(w.x-v.x);
 	}
 	
 	
 };
-
-
 
 int min_neg(const double & x, const double & y, const double & z){
 	if (x>=0 && y>=0 && z>=0){
@@ -69,29 +65,28 @@ int min_neg(const double & x, const double & y, const double & z){
 	} else { return 3;}
 };
 
-// int random_neg(const double & x, const double & y, const double & z){
-//     
-//     int boolx = (x < 0)?1:0, booly = (y < 0)?1:0, boolz = (z < 0)?1:0;
-//     if (boolx == 0 && booly == 0 && boolz == 0){
-//         return -1;
-//	 }
-//     int neg_numb = boolx + booly + boolz;
-//     if (neg_numb  == 1){
-//         if(boolx == 1){ return 1; }
-//         if(booly == 1){ return 2; }
-//         if(boolz == 1){ return 3; }
-//     } else {
-//		 struct timespec nanos;
-//		 clock_gettime(CLOCK_MONOTONIC, &nanos);
-//		 srand(nanos.tv_nsec);
-//         int rand_numb = rand()%2; cout << rand_numb << " ";
-//         if(boolx == 0){ return rand_numb + 2; }
-//         if(booly == 0){ return 2*rand_numb + 1; }
-//         if(boolz == 0){ return rand_numb + 1; }
-//     }
-//	 return -2; // XXXXX avoid warning
-// };
-
+int random_neg(const double & x, const double & y, const double & z){
+    
+    int boolx = (x < 0)?1:0, booly = (y < 0)?1:0, boolz = (z < 0)?1:0;
+    if (boolx == 0 && booly == 0 && boolz == 0){
+        return -1;
+	 }
+    int neg_numb = boolx + booly + boolz;
+    if (neg_numb  == 1){
+        if(boolx == 1){ return 1; }
+        if(booly == 1){ return 2; }
+        if(boolz == 1){ return 3; }
+    } else {
+		 struct timespec nanos;
+		 clock_gettime(CLOCK_MONOTONIC, &nanos);
+		 srand(nanos.tv_nsec);
+        int rand_numb = rand()%2; cout << rand_numb << " ";
+        if(boolx == 0){ return rand_numb + 2; }
+        if(booly == 0){ return 2*rand_numb + 1; }
+        if(boolz == 0){ return rand_numb + 1; }
+    }
+	 return -2; // XXXXX avoid warning
+};
 
 //Class triangle which is a derived class from the class T3<int>; it has as additional members the neighbors
 class Triangle: public T3<int>{

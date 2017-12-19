@@ -311,9 +311,6 @@ int selectAdjacentPoint(const pair<int,int> & edge, const Triangle & Neighbor_m)
 
 void Triangle_Recurrence(vector<Triangle> & coveringTriangles, Maillage & m, Maillage & M, Triangle firstTriangle_m){
     
-    
-    
-    
     Triangle * triangles_m = m.GetTriangles();
     T3<double> * sommets_m = m.GetSommets();
     
