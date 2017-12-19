@@ -15,7 +15,7 @@ private:
     Triangle* triangles;
     int numbSommets, numbTri;
 public:
-    Maillage(char* const input):sommets(LoadNodes(input)), triangles(LoadTriangles(input)){};
+    Maillage(string input):sommets(LoadNodes(input)), triangles(LoadTriangles(input)){};
     
     T3<double>* GetSommets() {return sommets;}
     Triangle* GetTriangles() {return triangles;}
@@ -25,7 +25,7 @@ public:
     void SetNumbSommets(int n) { numbSommets = n; }
     void SetNumbTri(int n) { numbTri = n; }
     
-    T3<double>* LoadNodes(char* const input){
+    T3<double>* LoadNodes(string input){
         
         string line;
         
@@ -66,7 +66,7 @@ public:
         return tab;
     }
     
-    Triangle* LoadTriangles(char* const input){
+    Triangle* LoadTriangles(string input){
         
         string line;
         
@@ -469,11 +469,12 @@ void exportGnuplot(Maillage & m, vector<Triangle> & triangles, const T3<double>*
     Data.close();
     
     
-    
-    Data.open("outputPoint.txt");
-    Data << "#Point" << endl;
-    for(int i = 0; i < numbPoints; i++){
-        Data << points[i] << endl;
+    if(numbPoints != 0){
+        Data.open("outputPoint.txt");
+        Data << "#Point" << endl;
+        for(int i = 0; i < numbPoints; i++){
+            Data << points[i] << endl;
+        }
     }
     
     Data.close();
@@ -484,7 +485,11 @@ void exportGnuplot(Maillage & m, vector<Triangle> & triangles, const T3<double>*
     GnuCom.open("GnuExe.txt");
     
 	GnuCom << "set xrange [-2:2]" << endl << "set yrange [-2:2]" << endl;
-    GnuCom << "plot 'outputNetwork.txt' with lines linetype 4,  'outputtriangles.txt' with lines lt -1, 'outputPoint.txt' " << endl;
+    
+    if(numbPoints != 0)
+        GnuCom << "plot 'outputNetwork.txt' with lines linetype 4,  'outputtriangles.txt' with lines lt -1, 'outputPoint.txt' " << endl;
+    else
+        GnuCom << "plot 'outputNetwork.txt' with lines linetype 4,  'outputtriangles.txt' with lines lt -1 " << endl;
     
     // In order to keep the file open
     GnuCom << "pause -1 'Hit any key to continue' " << endl;
@@ -493,5 +498,7 @@ void exportGnuplot(Maillage & m, vector<Triangle> & triangles, const T3<double>*
     system("gnuplot GnuExe.txt ");
     
 }
+
+
 
 
