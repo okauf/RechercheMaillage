@@ -251,24 +251,14 @@ void setAdjacencyViaList(Maillage & m){
     
     Triangle* triangles = m.GetTriangles();
     
-    // initialisation
     list<Triangle> adjacency;
     int numbTriangles = m.GetNumbTri();
     
-    // int n0, n1, n2, m01, m02, m12, M01, M02, M12;
     for (int i = 0; i < numbTriangles; i++){
-        // n0 = triangles[i][0]; n1 = triangles[i][1]; n2 = triangles[i][2];
-        // m01 = min(n0,n1); m02 = min(n0,n2); m12 = min(n1,n2); M01 = max(n0,n1); M02 = max(n0,n2); M12 = max(n1,n2);
-        // adjacency.push_front(Triangle(m01,M01,i)); // letzter Eintrag als zugehöriges Dreieck definieren
-        // adjacency.push_front(Triangle(m02,M02,i));
-        // adjacency.push_front(Triangle(m12,M12,i));
-        
-        // min / max above not necessary for maillage files -> already ordered
-        adjacency.push_front(Triangle(triangles[i][0],triangles[i][1],i)); // + 1??? XXXXX
+        adjacency.push_front(Triangle(triangles[i][0],triangles[i][1],i));
         adjacency.push_front(Triangle(triangles[i][0],triangles[i][2],i));
         adjacency.push_front(Triangle(triangles[i][1],triangles[i][2],i));
     }
-    // lexicographical ordering in O(NlogN) where N is the container size
     
     adjacency.sort();
     
