@@ -105,8 +105,7 @@ public:
         mshmaillage.close();
         
         return triangles;
-    }
-    
+    }  
     
     Triangle & Promenade(Triangle & T, const T3<double> & p, vector<Triangle> & path){
         
@@ -125,7 +124,7 @@ public:
 		a2 = T.getNeighbor2() < 0 ? 0 : a2;
 		a3 = T.getNeighbor3() < 0 ? 0 : a3;
         
-		switch (random_neg(a1,a2,a3)) {
+		switch (min_neg(a1,a2,a3)) {
             case -1:
                 //all oriented volumes are positive
                 return T;
@@ -140,7 +139,6 @@ public:
         }
          
     }
-    
     
     //promenade for ex 5
     Triangle & Promenade(Triangle & T, const T3<double> & p){
@@ -158,7 +156,7 @@ public:
         a2 = T.getNeighbor2() < 0 ? 0 : a2;
         a3 = T.getNeighbor3() < 0 ? 0 : a3;
         
-        switch (random_neg(a1,a2,a3)) {
+        switch (min_neg(a1,a2,a3)) {
             case -1:
                 //all oriented volumes are positive
                 return T;

@@ -9,7 +9,7 @@ void prepareMaillageFile(char* const input);
 
 int main(){
     
-	char nom[255] = "maillage7.msh";
+	char nom[255] = "m5.msh";
 	char* const pnom = nom;
     prepareMaillageFile(pnom);
 	
@@ -24,7 +24,7 @@ void prepareMaillageFile(char* const input){
 	mshmaillage.open(input);
 	
 	fstream mshmaillage_prep;
-	mshmaillage_prep.open("new.msh");
+	mshmaillage_prep.open("maillage5.msh");
 	
 	mshmaillage_prep << "# Nombre de sommets" << endl;
 	
