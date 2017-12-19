@@ -5,13 +5,13 @@ using namespace std;
 
 int main(){
     
-	char nom[255] = "maillage1.msh";
+	char nom[255] = "maillage3.msh";
 	char* const pnom = nom;
     Maillage m(pnom);
 	// setAdjacencyViaList(m);
     setAdjacencyViaMultiMap(m);
 	
-	char nom_M[255] = "maillage2.msh";
+	char nom_M[255] = "maillage4.msh";
 	char* const pnom_M = nom_M;
     Maillage M(pnom_M);
 	setAdjacencyViaList(M);
@@ -19,7 +19,7 @@ int main(){
 
   cout << "beginning promende" << endl;
   vector<Triangle> path;
-  const T3<double> p = T3<double>(1,0,0);
+  const T3<double> p = T3<double>(0,0,0);
   Triangle T = M.GetTriangles()[0];
   Triangle P = M.Promenade(T, p, path);
   T3<double>* sommets = M.GetSommets();
