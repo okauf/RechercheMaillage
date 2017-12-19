@@ -79,9 +79,10 @@ int random_neg(const double & x, const double & y, const double & z){
        if(booly == 1){ return 2; }
        if(boolz == 1){ return 3; }
    } else {
-	   struct timespec nanos;
-	   clock_gettime(CLOCK_MONOTONIC, &nanos);
-	   srand(nanos.tv_nsec);
+	   // struct timespec nanos;
+	   // clock_gettime(CLOCK_MONOTONIC, &nanos);
+	   // srand(nanos.tv_nsec);
+	   srand(time(NULL));
        int rand_numb = rand()%2;
 	   cout << rand_numb << " ";
        if(boolx == 0){ return rand_numb + 2; }
