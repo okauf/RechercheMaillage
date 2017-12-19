@@ -1,8 +1,6 @@
 #include <iostream>
 #include <cassert>
-#include <ctime>
-// #include <chrono>
-// using namespace std::chrono;
+#include <time.h>
 using namespace std;
 
 template<typename T>
@@ -36,6 +34,17 @@ public:
         y = v.y;
         z = v.z;
         return *this;
+    }
+	
+	T3 & operator+(const T3 & v) {
+        x = x+v.x;
+        y = y+v.y;
+        z = z+v.z;
+        return *this;
+    }
+	
+	T3 & operator*(const T & s) {
+        x = s*x; y = s*y; z = s*z; return *this;
     }
     
     bool operator==(const T3 &v){
