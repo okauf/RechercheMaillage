@@ -477,6 +477,8 @@ void exportGnuplot(Maillage & m, vector<Triangle> & triangles, const T3<double>*
         GnuCom << "plot 'outputNetwork.txt' with lines linetype 4,  'outputtriangles.txt' with lines lt -1, 'outputPoint.txt' " << endl;
     else
         GnuCom << "plot 'outputNetwork.txt' with lines linetype 4,  'outputtriangles.txt' with lines lt -1 " << endl;
+	
+	GnuCom << "set output 'b.png'" << endl;
     
     // In order to keep the file open
     GnuCom << "pause -1 'Hit any key to continue' " << endl;
