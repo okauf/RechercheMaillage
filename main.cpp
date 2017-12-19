@@ -2,9 +2,20 @@
 #include <iostream>
 #include <vector>
 #include <cassert>
+#include <chrono>
 using namespace std;
 
 int main(){
+	
+	char nom[255] = "maillage4.msh";
+	char* const pnom = nom;
+	Maillage m(pnom);
+	auto t1 = high_resolution_clock::now();
+	setAdjacencyViaList(m);
+	auto t2 = high_resolution_clock::now();
+	
+	cout << t2 - t1 << endl;
+    // setAdjacencyViaMultiMap(m);
     
     
     cout << "Choose from the following testing options" << endl;
@@ -133,10 +144,7 @@ int main(){
             
 
             
-        }
-            
-        
-            
+        }     
             
     }
 //	char nom[255] = "maillage3.msh";
