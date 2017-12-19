@@ -91,6 +91,7 @@ int main(){
            
            cout << "The point " << p << " is in the triangle with vertices " << endl << sommets[P[0]-1] << endl << sommets[P[1]-1] << endl << sommets[P[2]-1] << endl;
            exportGnuplot(m,path,&p,1);
+           break; 
        }
            
        case 3: {
