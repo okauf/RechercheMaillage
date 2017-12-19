@@ -34,7 +34,7 @@ int main(){
            int adjoption;
            cin >> adjoption;
            assert(adjoption == 1 || adjoption == 2);
-           adjoption == 1? setAdjacencyViaList(m) : setAdjacencyViaMultiMap(m);
+           adjoption == 1? m.setAdjacencyViaList() : m.setAdjacencyViaMultiMap();
            cout << "Choose a number between " << 1 << " and " << numbTri << " in order to choose a triangle" << endl;
            int triangleIndex;
            cin >> triangleIndex;
@@ -50,7 +50,7 @@ int main(){
            if(T.getNeighbor3() != -1)
                neighbors.push_back(triangles[T.getNeighbor3()]);
            
-           exportGnuplot(m,neighbors,nullptr,0);
+           m.exportGnuplot(neighbors,nullptr,0);
            break;
        }
            
@@ -75,7 +75,7 @@ int main(){
            const T3<double> p(x,y,0);
            
            vector<Triangle> path;
-           setAdjacencyViaList(m);
+           m.setAdjacencyViaList();
            cout << "Choose a number between " << 1 << " and " << numbTri << " in order to choose the starting triangle" << endl;
            int triangleIndex;
            cin >> triangleIndex;
@@ -88,7 +88,7 @@ int main(){
            Triangle P = m.Promenade(T,p,path);
            
            cout << "The point " << p << " is in the triangle with vertices " << endl << sommets[P[0]-1] << endl << sommets[P[1]-1] << endl << sommets[P[2]-1] << endl;
-           exportGnuplot(m,path,&p,1);
+           m.exportGnuplot(path,&p,1);
            break; 
        }
            
@@ -119,7 +119,7 @@ int main(){
                case 4: {name = "maillage4.msh";    break;}
            }
            Maillage M(name);
-           setAdjacencyViaMultiMap(m); setAdjacencyViaList(M);
+           m.setAdjacencyViaMultiMap(); M.setAdjacencyViaList();
            
            vector<Triangle> coveringTriangles;
            for(int i = 0; i <m.GetNumbSommets();i++)
@@ -127,7 +127,7 @@ int main(){
            
            coveringTriangles = findSommets(m,M,coveringTriangles);
            
-           exportGnuplot(M,coveringTriangles,m.GetSommets(),m.GetNumbSommets());
+           M.exportGnuplot(coveringTriangles,m.GetSommets(),m.GetNumbSommets());
            
        }
    

@@ -174,13 +174,11 @@ public:
 
     }
 	
-	void setAdjacencyViaMultiMap(Maillage & m){
-    Triangle* triangles = m.GetTriangles();
+	void setAdjacencyViaMultiMap(){
     
     multimap<pair<int,int>,int> adjacency;
     // each triangle defines three edges which will serve as keys for the multimap, the mapped value will be the position of triangle int list triangles
-    int numbTriangles = m.GetNumbTri();
-    for(int i = 0; i < numbTriangles; i++){
+    for(int i = 0; i < numbTri; i++){
         
         pair<int,int> edge1  (triangles[i][0],triangles[i][1]);
         adjacency.insert(make_pair(edge1,i));
@@ -243,14 +241,11 @@ public:
     
 }
 
-void setAdjacencyViaList(Maillage & m){
-    
-    Triangle* triangles = m.GetTriangles();
+void setAdjacencyViaList(){
     
     list<Triangle> adjacency;
-    int numbTriangles = m.GetNumbTri();
     
-    for (int i = 0; i < numbTriangles; i++){
+    for (int i = 0; i < numbTri; i++){
         adjacency.push_front(Triangle(triangles[i][0],triangles[i][1],i));
         adjacency.push_front(Triangle(triangles[i][0],triangles[i][2],i));
         adjacency.push_front(Triangle(triangles[i][1],triangles[i][2],i));
@@ -294,7 +289,7 @@ void setAdjacencyViaList(Maillage & m){
     
 }
 
-void exportGnuplot(Maillage & m, vector<Triangle> & triangles, const T3<double>* points, int numbPoints){
+void exportGnuplot(vector<Triangle> & triangles_path, const T3<double>* points, int numbPoints){
     //if just one point shall be depicted, give the function a T3<double>* pointer to an array of length 1 and set numbPoints to one
     cout << "Creating the plot" << endl;
     
@@ -303,31 +298,26 @@ void exportGnuplot(Maillage & m, vector<Triangle> & triangles, const T3<double>*
     Data << "#Coordiantes" << endl;
     Data << "#X \t Y \t Z" << endl;
     
-    Triangle* trianglesOfMaillage = m.GetTriangles();
-    T3<double>* sommets = m.GetSommets();
-    
     int i = 0;
-    for (vector<Triangle>::iterator it = triangles.begin(); it != triangles.end(); it++){
+    for (vector<Triangle>::iterator it = triangles_path.begin(); it != triangles_path.end(); it++){
         Data << "#Triangle " << endl;
         for(int j = 0; j < 3; j++){
-            Data << sommets[triangles[i][j]-1] << endl;
+            Data << sommets[triangles_path[i][j]-1] << endl;
         }
-        Data << sommets[triangles[i][0]-1] << endl;
+        Data << sommets[triangles_path[i][0]-1] << endl;
         // insert the last point again in order to connect the points
         Data << endl;  //This creates blocks of points which will be connected by lines
         i++;
     }
     Data.close();
     
-    
     Data.open("outputNetwork.txt");
-    
-    for(int i = 0; i < m.GetNumbTri(); i++){
+    for(int i = 0; i < numbTri; i++){
         Data << "#Triangle " << i+1 << endl;
         for(int j = 0; j < 3; j++){
-            Data << sommets[trianglesOfMaillage[i][j]-1] << endl;
+            Data << sommets[triangles[i][j]-1] << endl;
         }
-        Data << sommets[trianglesOfMaillage[i][0]-1] << endl;
+        Data << sommets[triangles[i][0]-1] << endl;
         // insert the last point again in order to connect the points
         Data << endl;  //This creates blocks of points which will be connected by lines
     }
@@ -340,23 +330,22 @@ void exportGnuplot(Maillage & m, vector<Triangle> & triangles, const T3<double>*
         for(int i = 0; i < numbPoints; i++){
             Data << points[i] << endl;
         }
+		Data.close();
     }
-    
-    Data.close();
-    
-    
+
     //Script for Gnuplot
     ofstream GnuCom;
     GnuCom.open("GnuExe.txt");
     
 	GnuCom << "set xrange [-2:2]" << endl << "set yrange [-2:2]" << endl;
     
-    if(numbPoints != 0)
+    if(numbPoints != 0){
         GnuCom << "plot 'outputNetwork.txt' with lines linetype 4,  'outputtriangles.txt' with lines lt -1, 'outputPoint.txt' " << endl;
-    else
+    } else {
         GnuCom << "plot 'outputNetwork.txt' with lines linetype 4,  'outputtriangles.txt' with lines lt -1 " << endl;
+	}
 	
-	GnuCom << "set output 'b.png'" << endl;
+	// GnuCom << "set output 'b.png'" << endl;
     
     // In order to keep the file open
     GnuCom << "pause -1 'Hit any key to continue' " << endl;
