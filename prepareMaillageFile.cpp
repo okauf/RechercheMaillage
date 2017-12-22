@@ -23,7 +23,7 @@ void prepareMaillageFile(char* const input){
 	fstream mshmaillage;
 	mshmaillage.open(input);
 	
-	fstream mshmaillage_prep;
+	ofstream mshmaillage_prep;
 	mshmaillage_prep.open("maillage5.msh");
 	
 	mshmaillage_prep << "# Nombre de sommets" << endl;
