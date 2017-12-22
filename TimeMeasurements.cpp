@@ -19,7 +19,8 @@ m.setAdjacencyViaList();
 int numbExp = 10;
 
 string input = "randomData.txt";
-// defineTriandPoints(m, input, numbExp);
+// auskommentieren um min_neg und random_neg zu vergleichen
+defineTriandPoints(m, input, numbExp);
 
 int * path_length = new int[numbExp];
 double * running_time = new double[numbExp];
@@ -72,13 +73,16 @@ void runPromenade(Maillage & m, string input, int numbExp, int * path_length, do
 		linestream << line;
 		linestream >> idx;
 		StartTri = triangles[idx];
+		cout << "idx " << idx << endl;
 		
 		getline(randomData,line);
 		double a, b, c;
-		// stringstream linestream;
 		linestream << line;
 		linestream >> a >> b >> c;
 		p = T3<double>(a,b,c);
+		cout << "p " << p << endl;
+		
+		getline(randomData,line);
 		
 		auto t1 = high_resolution_clock::now();
 		Triangle P = m.Promenade(StartTri,p,path);
