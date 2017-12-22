@@ -25,10 +25,13 @@
 \usepackage{lmodern}
 
 %Language package frnazösisch
-\usepackage[french]{babel}
+\usepackage[english]{babel}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 
+
+%Hyperref
+\usepackage[backref = true]{hyperref}
 
 \begin{document}
 	
@@ -78,11 +81,29 @@ bei det Vektoren in Zeilen
 \section{La classe template T3 et la classe Triangle}
 
 T3 O
-Triangles A
 
-\section{La classe maillage}
 
-A bis LoadTri, Adj vis Map, Exp Gnu
+\subsection{The class triangle}
+The class triangle inherits form the class T3. Its derived members $ x,y,z $ are specialized as integers representing the position of its defining vertices in the array of the points of the given mesh. This array is a member of the class mesh (should be changed from maillage to mesh...) in \ref{mesh}. In addition, it has three extra integer members {\itshape neighbor1, neighbor2, neighbor3} representing the position of the adjacent triangles in the array of triangles which is also a member of the class mesh. An adjacent triangle $ t^{'} $ is said to be  {\itshape neighbor1 } of a triangle $ t $ if $ x $ is the first vertex of $t$ and $x$ is not a vertex of $ t^{'} $. The same holds for the indices $ 2,3 $. Note that this relation is not symmetric, that is to say that $ t^{‘} $ is {\itshape neighbor1} does not imply that $t$ is {\itshape neighbor1} of $t^{'}$. 
+At the creation of a new triangle the latter three members are initialized by $ -1 $ which means that a triangle has no neighbors when it is created. The neighbors are set via the functions {\itshape setAdjacencyViaMultimap} \ref{multimap}, respectively {\itshape setAdjacencyViaList} \ref{list}. After the execution of one of these two functions $neighbor1 =  -1 $ describes the case that there is no adjacent triangle on the opposite side of the first vertex. 
+Since the neighbors are private members there are getter and setter in order to read and manipulate them. 
+\section{The class mesh} \label{mesh}
+The class mesh contains all necessary information of the mesh and the search of a point in (or outside) the mesh can be realized by its member functions. Its private members are pointers to the arrays of points and triangles of the mesh as integers who store the size of these two lists.
+In order to create an object of type mesh the name of the desired .msh file has to be transmitted. The file is read by the functions {\itshape LoadNodes} and {\itshape LoadTriangles} \ref{Load} who then initialize the members {\itshape triangles, sommets, numbTriangles, numbSommets}. 
+There are getter and setter for {\itshape numbTriangles, numbSommets} as well as getter for {\itshape triangles, sommets}. The functions {\itshape LoadTriangles, LoadNodes} are their setters. 
+
+
+\subsection{LoadNodes and LoadTriangles} \label{Load}
+Both functions are called in the constructor of the class mesh setting the members {\itshape nodes (VERTICES??)} and {\itshape triangles}. 
+They work basically the same way with the small difference that they create arrays of different data types and searching for different key words in the .msh file. 
+At first the .msh file is opened according to its name. Then the functions search for the line indicating the number of nodes respectively the number of triangles. 
+To make the code work the next line must include the according number which is then stored in {\itshape numbSommets}, respectively {\itshape numbTri}. The data is read as a string which is transformed to an integer by the command {\itshape astoi}. These numbers also define the size of the arrays of type T3<double> and Triangle which are created by new. The following lines must include the coordinates of all nodes, respectively the positions of the triangles in the table of nodes. The lines are read as strings who are then 
+Both functions finally return the arrays filled with the according nodes or triangles. 
+
+
+\newpage
+
+Adj vis Map, Exp Gnu
 
 O Prom, Adj vis List, find Sommets und Rec
 
@@ -90,13 +111,9 @@ O Prom, Adj vis List, find Sommets und Rec
 
 \subsection{Trouver le triangle adjacent}
 
-\subsubsection{setAdjacencyViaMultimap}
+\subsubsection{setAdjacencyViaMultimap} \label{multimap}
 
 
-\centering
- {\large \itshape{setAdjacencyViaMultimap} } 
-  
-\raggedright
 
 Le but de cette m\'ethode est l'initialisation des membres {\itshape neighbor1, neighbor2, neighbor3} de la classe triangle. Les membres sont décrits pas leurs position dans la liste (ARRAY) des triangles. L'initialisation est réalisé en utilisant le container {\itshape multimaps}.  Pour chaque triangle $(a_1,a_2,a_3)$ on ajoute trois éléments au multimap où les arêtes $\{a_i,a_j \}, \, i,j \in \{1,2,3\}, \ i \neq j $ présentent les clés et le numéro de triangle est le valeur appliqué. Par conséquent, l'initialisation se produit dans $ O(3 n_T)$ et si deux triangles $(t_1,t_2) $ sont adjacents par l'arête $\{a,b\}$, les éléments $ ( \{a,b\}, t_1), \, \{a,b\}, t_2) $ ont les mêmes clés. 
 Les triangles suivants sont trouvés par la procédure suivante: 
@@ -109,11 +126,8 @@ Les triangles suivants sont trouvés par la procédure suivante:
 
 %ist die reihenfolge im schlüssel wichtig? sonst wird hier auf struktur für die maillagedatei gefordert?
 
-\centering
-{\large \itshape{setAdjacencyViaList} } 
 
-\raggedright
-
+\subsubsection{setAdjacencyViaList} \label{list}
 As in setAdjacencyViaMultimap, this method sets the members, describing the neighbors, for each triangle in the considered mesh. In the same manner as before, the members are described using their position in the triangle array.
 
 The idea is to store each triangle, in varying order, three times in a list. For the triangle $t$ with the points $(a_1,a_2,a_3)$, the triangles $(a_1,a_2,t), (a_1,a_3,t)$ and $(a_2,a_3,t)$ are appended to the list. The creation of this list has complexity $O(3n_T)$.
@@ -129,9 +143,9 @@ In summary, the method setAdjacencyViaList has complexity $O(n_Tlogn_T)$.
 Laufzeitvergleich
 
 \subsection{L'algorithme promenade}
-
+$
 min_neg random_neg
-
+$
 \subsection{La visualisation avec gnuplot}
 
 \section{5 find covering Triangles}
