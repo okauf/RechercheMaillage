@@ -115,13 +115,13 @@ O Prom, Adj vis List, find Sommets und Rec
 
 
 
-\subsection{Trouver le triangle adjacent}
+\subsection{Find the adjacent triangle}
 
 \subsubsection{setAdjacencyViaMultimap} \label{multimap}
 
 The goal of this function is the initialization of the members {\itshape neighbor1, neighbor2, neighbor3} of the class triangle. As a reminder they are defined by their position in the array of triangles. Their initialization is realized by the container {\itshape multimaps}. 
 Each triangle $ t = (v_{i_1},v_{i_2},v_{i_3}) $ is represented by the sequence $ (i_1,i_2,i_3) $ where these indices indicate the position of the vertices in the array of vertices. 
-For $ t $ three pairs are added to the multimap, where the edges $(v_{i_k},v_{i_l}), \, k,l \in \{1,2,3\}, \ k \neq l $, stored by the data type $ pair<int,int> $ (more precisely $ pair<k,l> $), represent the keys, whereas the mapped value is an integer representing the position of the triangle in the array of triangles. Hence the initalization if the mulimap is realized in $ 3n_T $ loops, so in $ O(n_T) $. \\
+For each $ t $ three pairs are added to the multimap, where the edges $(v_{i_k},v_{i_l}), \, k,l \in \{1,2,3\}, \ k \neq l $, stored by the data type $ pair<int,int> $ (more precisely $ pair<k,l> $), represent the keys, whereas the mapped value is an integer representing the position of the triangle in the array of triangles. Hence the initalization if the mulimap is realized in $ 3n_T $ loops, so in $ O(n_T) $. \\
 Essentially for the functioning of the method is the ordering of the of the indices $ i_1,i_2,i_3 $ in $ t $. As in {\itshape setAdjacencyViaList} an edge $ \{ v_k, v_l\} $
  has to be uniquely identified by the pair $ (k,l) $ which should not be mixed up with $(l,k) $. This is achieved by demanding that for each triangle $ t =  (v_{i_1},v_{i_2},v_{i_3})$ the vertices are ordered, so $ i_1 < i_2 < i_3 $. Thus, an edge $(v_{i_k},v_{i_l}) $ can uniquely be identified by the pair $ (k,l), \, k < l $. \\
  We find the adjacent triangles by the following three steps: 
@@ -129,11 +129,11 @@ Essentially for the functioning of the method is the ordering of the of the indi
  	\item 
  	We range over the multimap and in each step we save the key $ (i_k,i_l) $ and the associated position $ i $ of th triangle $ t = (v_{i_1},v_{i_2},v_{i_3})  $. Then we erase the element $ ( (i_k,i_l), \, i) $ of the multimap which is realized in constant time. 
  	\item 
- 	Now searching by the function $ find $ for the stored key $ (i_k,i_l) $ allows us to determine if there is another index $ j $ associated to $ (i_k,i_l) $. If this is the case (the iterator returned by find does not point to the last element of the multimap) ths triangles represented by $i$ and $j$ are adjacent. The function  $ find $ needs $ O(\log(n_T)) $ in order to return an iterator. 
- 	Note that the pair $ ( (i_k,i_l), \, j) $ is not destructed. This would yield an error because the actual iterator would try to access that element. 
+ 	Now searching by the function $ find $ for the stored key $ (i_k,i_l) $ allows us to determine if there is another index $ j $ associated to $ (i_k,i_l) $. If this is the case (the iterator returned by find does not point to the last element of the multimap) the triangles represented by $i$ and $j$ are adjacent. The function  $ find $ needs $ O(\log(n_T)) $ in order to return an iterator. 
+ 	Note that the pair $ ( (i_k,i_l), \, j) $ is not erased. This would yield an error because the actual iterator would try to access that element. 
  	\item 
  	The indices $ i $ and $ j $ are set as the neighbors of each other where $ j $ is set as neighbor $ k \in \{1,2,3\} $ if the index $k$ does not represent a vertex of the triangle represented by $ j $. The same rule is applied to $ i $ as a neighbor of $ j $. 
- 	The assignment is realized in constant time. 
+ 	This assignment is realized in constant time. 
   \end{enumerate}
 The application of all three steps needs a time of $ O(n_T)O(\log(n_T)) = O(n\log(n_T)) $. 
 
