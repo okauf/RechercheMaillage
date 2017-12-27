@@ -81,16 +81,17 @@ bei det Vektoren in Zeilen
 
 \section{La classe template T3 et la classe Triangle}
 
-Variables of the class T3 represent elements of a three dimensional space in T. Hereby, the data type T is defined using a template. Within this project, either $T3<int>$ for the definition of a triangle (see \ref{triangle}) or $T3<double>$ for the definition of the coordinates of a vertex (see X) is used. The private members $x,y$ and $z$ store the entries of the T3 vector. The class has a default constructor, a constructor by copy and a constructor creating a vector given the three vector entries. Moreover, the class has operators to access and modify the entries (private), add to elements of T3, multiply an element of T3 by a scalar of the type T and calculate the scalar product of two T3 vectors. The operator $<$ compares two elements of T3 in the following way XXX. This allows a lexicographic ordering of a list of T3 elements (see \ref{list}, $T3<int>$). Given three T3 vectors, the method $ oriented_vol $ computes the signed volume of the triangles with vertices given by the input vectors. The sign is positive for triangles oriented in trigonometric sense. This method is used to \\
+Objects of the class T3 represent elements of a three dimensional space in T. Hereby, the data type T is defined using a template. Within this project, either $T3<int>$ for the definition of a triangle (see \ref{triangle}) or $T3<double>$ for the definition of the coordinates of a vertex (see X) is used. The private members $x,y$ and $z$ store the entries of the T3 vector. The class has a default constructor, a constructor by copy and a constructor creating a vector given the three vector entries. Moreover, the class has operators to access and modify the entries (private), add to elements of T3, multiply an element of T3 by a scalar of the type T and calculate the scalar product of two T3 vectors. The operator $<$ compares two elements of T3 in the following way XXX. This allows a lexicographic ordering of a list of T3 elements (see \ref{list}, $T3<int>$). Given three T3 vectors, the method $ oriented_vol $ computes the signed volume of the triangles with vertices given by the input vectors. The sign is positive for triangles oriented in trigonometric sense. This method is used to \\
 promenade \ref{promenade}, in desired direction \\
 
 
 \subsection{The class triangle} \label{triangle}
-The class triangle inherits form the class T3. Its derived members $ x,y,z $ are specialized as integers representing the position of its defining vertices in the array of the points of the given mesh. This array is a member of the class mesh (should be changed from maillage to mesh...) in \ref{mesh}. In addition, it has three extra integer members {\itshape neighbor1, neighbor2, neighbor3} representing the position of the adjacent triangles in the array of triangles which is also a member of the class mesh. An adjacent triangle $ t^{'} $ is said to be  {\itshape neighbor1 } of a triangle $ t $ if $ x $ is the first vertex of $t$ and $x$ is not a vertex of $ t^{'} $. The same holds for the indices $ 2,3 $. Note that this relation is not symmetric, that is to say that $ t^{'} $ is {\itshape neighbor1} does not imply that $t$ is {\itshape neighbor1} of $t^{'}$. 
+The class triangle inherits form the class T3. Its derived members $ x,y,z $ are specialized as integers representing the position of its defining vertices in the array of the points of the given mesh. This array is a member of the class mesh (SHOULD be changed from maillage to mesh...) in \ref{mesh}. In addition, it has three extra integer members {\itshape neighbor1, neighbor2, neighbor3} representing the position of the adjacent triangles in the array of triangles which is also a member of the class mesh. An adjacent triangle $ t^{'} $ is said to be  {\itshape neighbor1 } of a triangle $ t $ if $ x $ is the first vertex of $t$ and $x$ is not a vertex of $ t^{'} $. The same holds for the indices $ 2,3 $. Note that this relation is not symmetric, that is to say that $ t^{'} $ is {\itshape neighbor1} does not imply that $t$ is {\itshape neighbor1} of $t^{'}$. 
+Note that this assignment facilitates the access to the following in the algorithm {\itshape promenade} (see \ref{}).  \\
 At the creation of a new triangle the latter three members are initialized by $ -1 $ which means that a triangle has no neighbors when it is created. The neighbors are set via the functions {\itshape setAdjacencyViaMultimap} \ref{multimap}, respectively {\itshape setAdjacencyViaList} \ref{list}. After the execution of one of these two functions $neighbor1 =  -1 $ describes the case that there is no adjacent triangle on the opposite side of the first vertex. 
 Since the neighbors are private members there are getter and setter in order to read and manipulate them. \\
 
-why do we need to order the neighbors? advantage in promenade
+
 
 \section{The class mesh} \label{mesh}
 The class mesh contains all necessary information of the mesh and the search of a point in (or outside) the mesh can be realized by its member functions. Its private members are pointers to the arrays of points and triangles of the mesh as integers who store the size of these two lists.
@@ -118,18 +119,25 @@ O Prom, Adj vis List, find Sommets und Rec
 
 \subsubsection{setAdjacencyViaMultimap} \label{multimap}
 
+The goal of this function is the initialization of the members {\itshape neighbor1, neighbor2, neighbor3} of the class triangle. As a reminder they are defined by their position in the array of triangles. Their initialization is realized by the container {\itshape multimaps}. 
+Each triangle $ t = (v_{i_1},v_{i_2},v_{i_3}) $ is represented by the sequence $ (i_1,i_2,i_3) $ where these indices indicate the position of the vertices in the array of vertices. 
+For $ t $ three pairs are added to the multimap, where the edges $(v_{i_k},v_{i_l}), \, k,l \in \{1,2,3\}, \ k \neq l $, stored by the data type $ pair<int,int> $ (more precisely $ pair<k,l> $), represent the keys, whereas the mapped value is an integer representing the position of the triangle in the array of triangles. Hence the initalization if the mulimap is realized in $ 3n_T $ loops, so in $ O(n_T) $. \\
+Essentially for the functioning of the method is the ordering of the of the indices $ i_1,i_2,i_3 $ in $ t $. As in {\itshape setAdjacencyViaList} an edge $ \{ v_k, v_l\} $
+ has to be uniquely identified by the pair $ (k,l) $ which should not be mixed up with $(l,k) $. This is achieved by demanding that for each triangle $ t =  (v_{i_1},v_{i_2},v_{i_3})$ the vertices are ordered, so $ i_1 < i_2 < i_3 $. Thus, an edge $(v_{i_k},v_{i_l}) $ can uniquely be identified by the pair $ (k,l), \, k < l $. \\
+ We find the adjacent triangles by the following three steps: 
+ \begin{enumerate}
+ 	\item 
+ 	We range over the multimap and in each step we save the key $ (i_k,i_l) $ and the associated position $ i $ of th triangle $ t = (v_{i_1},v_{i_2},v_{i_3})  $. Then we erase the element $ ( (i_k,i_l), \, i) $ of the multimap which is realized in constant time. 
+ 	\item 
+ 	Now searching by the function $ find $ for the stored key $ (i_k,i_l) $ allows us to determine if there is another index $ j $ associated to $ (i_k,i_l) $. If this is the case (the iterator returned by find does not point to the last element of the multimap) ths triangles represented by $i$ and $j$ are adjacent. The function  $ find $ needs $ O(\log(n_T)) $ in order to return an iterator. 
+ 	Note that the pair $ ( (i_k,i_l), \, j) $ is not destructed. This would yield an error because the actual iterator would try to access that element. 
+ 	\item 
+ 	The indices $ i $ and $ j $ are set as the neighbors of each other where $ j $ is set as neighbor $ k \in \{1,2,3\} $ if the index $k$ does not represent a vertex of the triangle represented by $ j $. The same rule is applied to $ i $ as a neighbor of $ j $. 
+ 	The assignment is realized in constant time. 
+  \end{enumerate}
+The application of all three steps needs a time of $ O(n_T)O(\log(n_T)) = O(n\log(n_T)) $. 
 
 
-Le but de cette m\'ethode est l'initialisation des membres {\itshape neighbor1, neighbor2, neighbor3} de la classe triangle. Les membres sont décrits pas leurs position dans la liste (ARRAY) des triangles. L'initialisation est réalisé en utilisant le container {\itshape multimaps}.  Pour chaque triangle $(a_1,a_2,a_3)$ on ajoute trois éléments au multimap où les arêtes $\{a_i,a_j \}, \, i,j \in \{1,2,3\}, \ i \neq j $ présentent les clés et le numéro de triangle est le valeur appliqué. Par conséquent, l'initialisation se produit dans $ O(3 n_T)$ et si deux triangles $(t_1,t_2) $ sont adjacents par l'arête $\{a,b\}$, les éléments $ ( \{a,b\}, t_1), \, \{a,b\}, t_2) $ ont les mêmes clés. 
-Les triangles suivants sont trouvés par la procédure suivante: 
-\begin{enumerate}
-	\item On parcourt sur l'entière multimap en sauvegardant l'indice de  triangle $t_1 = (a_1,a_2,a_3) $ associé à l'arête $ \{a_i,a_j\} $ récente et écrasant l'élément $(\{a_i,a_j\}, t) $ de la map. La complexité est $ O(3 n_T)$.
-	\item On cherche si le clé $ \{a_i,a_j\} $ est associé à un autre triangle $t_2$. Dans ce cas les triangles $t_1,t_2$ sont adjacents. 
-	L'opération de recherche se passe selon la recherche dans un multimap dans $O(log n_T) $.
-	\item On met $t_2 $ comme voisin $k \in \{1,2,3\}$ si le sommet de $t_1 $ au position $k$ n'est pas un sommet de $t_2 $ et vice versa. Cet opération est réalisé dans un temps constant.
-\end{enumerate}
-
-%ist die reihenfolge im schlüssel wichtig? sonst wird hier auf struktur für die maillagedatei gefordert?
 
 
 \subsubsection{setAdjacencyViaList} \label{list}
