@@ -291,6 +291,8 @@ void exportGnuplot(vector<Triangle> & triangles_path, const T3<double>* points, 
     //if just one point shall be depicted, give the function a T3<double>* pointer to an array of length 1 and set numbPoints to one
     cout << "Creating the plot" << endl;
     
+    
+    // creating the textfile for the marked triangles in the mesh
     ofstream Data;
     Data.open("outputTriangles.txt");
     Data << "#Coordiantes" << endl;
@@ -309,6 +311,7 @@ void exportGnuplot(vector<Triangle> & triangles_path, const T3<double>* points, 
     }
     Data.close();
     
+    //creating a textfile for the whole mesh
     Data.open("outputNetwork.txt");
     for(int i = 0; i < numbTri; i++){
         Data << "#Triangle " << i+1 << endl;
@@ -321,7 +324,7 @@ void exportGnuplot(vector<Triangle> & triangles_path, const T3<double>* points, 
     }
     Data.close();
     
-    
+    //creating the textfile for the points
     if(numbPoints != 0){
         Data.open("outputPoint.txt");
         Data << "#Point" << endl;
