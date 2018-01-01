@@ -46,7 +46,7 @@ void defineTriandPoints(Maillage & m, string input, int numbExp){
 	
 		radius = (rand() % 10000) / 10000.0;
 		angle = 2 * M_PI * (rand() % 10000) / 10000.0;
-		randomData << T3<double>(radius*cos(angle),radius*sin(angle),0) << endl << endl;
+		randomData << radius*cos(angle) << " " << radius*sin(angle) << " " << 0 << endl << endl;
 	}
 	
 	randomData.close();
@@ -54,7 +54,7 @@ void defineTriandPoints(Maillage & m, string input, int numbExp){
 
 void runPromenade(Maillage & m, string input, int numbExp, int * path_length, double * running_time){
 	
-	fstream randomData;
+	ifstream randomData;
 	randomData.open(input);
 	
 	Triangle* triangles = m.GetTriangles();
@@ -62,21 +62,21 @@ void runPromenade(Maillage & m, string input, int numbExp, int * path_length, do
 	
 	Triangle StartTri;
 	T3<double> p;
+	stringstream linestream;
 	string line;
+	int idx;
+	double a, b, c;
 	
 	for (int i = 0; i < numbExp; i++){
 		path.clear();
 		
 		getline(randomData,line);
-		int idx;
-		stringstream linestream;
 		linestream << line;
 		linestream >> idx;
 		StartTri = triangles[idx];
 		cout << "idx " << idx << endl;
 		
 		getline(randomData,line);
-		double a, b, c;
 		linestream << line;
 		linestream >> a >> b >> c;
 		p = T3<double>(a,b,c);
