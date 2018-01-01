@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.18)  27 DEC 2017 15:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.18)  28 DEC 2017 13:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -864,8 +864,26 @@ Overfull \hbox (47.71486pt too wide) in paragraph at lines 170--172
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 181.
-[4] [5 <../Figures/StartTri600_p(1,0)_min_neg.png
+<ExampleMaillage.png, id=105, 1437.37pt x 850.17625pt>
+File: ExampleMaillage.png Graphic file (type png)
+
+<use ExampleMaillage.png>
+Package pdftex.def Info: ExampleMaillage.png used on input line 176.
+(pdftex.def)             Requested size: 250.38109pt x 250.38469pt.
+
+<ExampleComparisaon.png, id=107, 1436.36626pt x 850.17625pt>
+File: ExampleComparisaon.png Graphic file (type png)
+
+<use ExampleComparisaon.png>
+Package pdftex.def Info: ExampleComparisaon.png used on input line 180.
+(pdftex.def)             Requested size: 250.38159pt x 250.38469pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[4]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 206.
+ [5 <../Figures/StartTri600_p(1,0)_min_neg.png
 
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ../Figures/StartTri600_p(1,0
 )_min_neg.png): large interlaced PNG might cause out of memory (use non-interla
@@ -885,30 +903,25 @@ erlaced PNG to fix this)
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ../Figures/StartTri600_p(1,0
 )_random_neg3.png): large interlaced PNG might cause out of memory (use non-int
 erlaced PNG to fix this)
->]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 181.
- (./RechercheMaillage.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 181.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 181.
+>] [7 <./ExampleMaillage.png> <./ExampleComparisaon.png>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 206.
 
+(./RechercheMaillage.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 206.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 206.
+Package rerunfilecheck Info: File `RechercheMaillage.out' has not changed.
+(rerunfilecheck)             Checksum: B28B3C8100F4530A125C3AD80F00B84A;1094.
 
-Package rerunfilecheck Warning: File `RechercheMaillage.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `RechercheMaillage.out':
-(rerunfilecheck)             Before: CEF3370D3281FFB419861F950555BD00;1096
-(rerunfilecheck)             After:  E4948FA94E324A3BDB4D8BFB31EC720D;1094.
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 181.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 206.
  ) 
 Here is how much of TeX's memory you used:
- 7266 strings out of 492995
- 102731 string characters out of 6132703
- 197309 words of memory out of 5000000
- 10663 multiletter control sequences out of 15000+600000
+ 7285 strings out of 492995
+ 103049 string characters out of 6132703
+ 197360 words of memory out of 5000000
+ 10673 multiletter control sequences out of 15000+600000
  38900 words of font info for 38 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  28i,6n,28p,1144b,336s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -925,10 +938,10 @@ cal/texlive/2017/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/local/texlive
 type1/public/lm/lmr7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public
 /lm/lmri10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/lm/lmsy10
 .pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/lm/lmsy5.pfb>
-Output written on RechercheMaillage.pdf (6 pages, 4363372 bytes).
+Output written on RechercheMaillage.pdf (7 pages, 4433807 bytes).
 PDF statistics:
- 177 PDF objects out of 1000 (max. 8388607)
- 152 compressed objects within 2 object streams
- 31 named destinations out of 1000 (max. 500000)
- 157 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 198 PDF objects out of 1000 (max. 8388607)
+ 168 compressed objects within 2 object streams
+ 38 named destinations out of 1000 (max. 500000)
+ 167 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -103,7 +103,7 @@ There are getter and setter for {\itshape numbTriangles, numbSommets} as well as
 Both functions are called in the constructor of the class mesh setting the members {\itshape nodes (VERTICES??)} and {\itshape triangles}. 
 They work basically the same way with the small difference that they create arrays of different data types and searching for different key words in the .msh file. 
 At first the .msh file is opened according to its name. Then the functions search for the line indicating the number of nodes respectively the number of triangles. 
-To make the code work the next line must include the according number which is then stored in {\itshape numbSommets}, respectively {\itshape numbTri}. The data is read as a string which is transformed to an integer by the command {\itshape astoi}. These numbers also define the size of the arrays of type T3<double> and Triangle which are created by new. The following lines must include the coordinates of all nodes, respectively the positions of the triangles in the table of nodes. The lines are read as strings who are then 
+To make the code work the next line must include the according number which is then stored in {\itshape numbSommets}, respectively {\itshape numbTri}. The data is read as a string which is transformed to an integer by the command {\itshape astoi}. These numbers also define the size of the arrays of $  type T3<double> $ and Triangle which are created by new. The following lines must include the coordinates of all nodes, respectively the positions of the triangles in the table of nodes. The lines are read as strings who are then 
 Both functions finally return the arrays filled with the according nodes or triangles. 
 
 
@@ -171,8 +171,31 @@ $
 	\subfigure{\includegraphics[width=0.55\linewidth,height=0.55\linewidth]{../Figures/StartTri600_p(1,0)_random_neg3}}
 \end{figure}
 
+\begin{figure}[h]  \label{ex}
 
-\subsection{La visualisation avec gnuplot}
+		\subfigure{\includegraphics[width=0.55\linewidth,height=0.55\linewidth]{ExampleMaillage.png}}
+		\caption{An example of a mesh where a random choice of the consecutive triangle is better.}
+		\subfigure{\includegraphics[width=0.55\linewidth,height=0.55\linewidth]{ExampleComparisaon.png}}
+		\caption{If the choice of the next triangle is not random it is determined according to the size of the blue and red surfaces.  }
+	
+
+	
+\end{figure}
+As shown in figure \ref{ex} a random choice of the following triangle can be better. If the algorithm starts with the red triangle and is searching for the green point it has to decide if it takes the neighbor lying relatively higher in the plane or the one lying relatively lower. Deciding this by the smaller oriented volume the lower one will be chosen. 
+
+\subsection{The visualization via gnuplot}
+	The visualization is done by the function $ exportGnuplot $ being able to visualize two different things: 
+	\begin{enumerate}
+		\item 
+		The result of the algorithm promenade, that is a sequence of adjacent triangles from a starting triangle to a triangle covering the searched point. 
+		In this case the input variable $ triangles_path $ contains the sequence of triangles and the input variable $  points $ contains just one point, hence the input $ int numbpoints $ is $ 1 $. 
+		\item 
+		Given a mesh and the points of another mesh it can visualize the set of the covering triangles (a subset of triangles of the first mesh) of the points of the second mesh. 
+		In this case the input variable $ tirangles_path $ contains the covering triangles and the $ points $ are the points of the second mesh. 
+	\end{enumerate}
+The functions writes four text files, one for all triangles of the mesh, one for the triangles in $ triangles_path $, one for the points in $ points $ and one for the commands which shall be executed by gnuplot. This is all realized by a simple $ ofstream $ variable, allowing to create and manipulate a text file. //
+The script for gnuplot contains a line which keeps the plot open until some key is hit in the terminal. 
+The actual execution in the terminal is achieved by the command $ system $ which executes its input string in the terminal. 
 
 \section{5 find covering Triangles}
 
