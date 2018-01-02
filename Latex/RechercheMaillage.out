@@ -1,15 +1,15 @@
-\BOOKMARK [1][-]{section.1}{Premi\350re tentative de documentation}{}% 1
-\BOOKMARK [1][-]{section.2}{Project description and aim}{}% 2
-\BOOKMARK [1][-]{section.3}{The template class T3 and the class Triangle}{}% 3
-\BOOKMARK [2][-]{subsection.3.1}{The template class T3}{section.3}% 4
-\BOOKMARK [2][-]{subsection.3.2}{The class Triangle}{section.3}% 5
-\BOOKMARK [1][-]{section.4}{The class Mesh}{}% 6
-\BOOKMARK [2][-]{subsection.4.1}{LoadVertices and LoadTriangles}{section.4}% 7
-\BOOKMARK [2][-]{subsection.4.2}{Find the adjacent triangle}{section.4}% 8
-\BOOKMARK [3][-]{subsubsection.4.2.1}{setAdjacencyViaMultimap}{subsection.4.2}% 9
-\BOOKMARK [3][-]{subsubsection.4.2.2}{setAdjacencyViaList}{subsection.4.2}% 10
-\BOOKMARK [2][-]{subsection.4.3}{L'algorithme promenade}{section.4}% 11
-\BOOKMARK [2][-]{subsection.4.4}{aire}{section.4}% 12
-\BOOKMARK [2][-]{subsection.4.5}{The visualization via gnuplot}{section.4}% 13
-\BOOKMARK [1][-]{section.5}{5 find covering Triangles}{}% 14
-\BOOKMARK [1][-]{section.6}{Testumgebung - main}{}% 15
+\BOOKMARK [1][-]{section.1}{Project description and aim}{}% 1
+\BOOKMARK [1][-]{section.2}{The template class T3 and the class Triangle}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{The template class T3}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{The class Triangle}{section.2}% 4
+\BOOKMARK [1][-]{section.3}{The class Mesh}{}% 5
+\BOOKMARK [2][-]{subsection.3.1}{LoadVertices and LoadTriangles}{section.3}% 6
+\BOOKMARK [2][-]{subsection.3.2}{Find the adjacent triangle}{section.3}% 7
+\BOOKMARK [3][-]{subsubsection.3.2.1}{setAdjacencyViaMultimap}{subsection.3.2}% 8
+\BOOKMARK [3][-]{subsubsection.3.2.2}{setAdjacencyViaList}{subsection.3.2}% 9
+\BOOKMARK [2][-]{subsection.3.3}{L'algorithme promenade}{section.3}% 10
+\BOOKMARK [2][-]{subsection.3.4}{Random neighbor selection}{section.3}% 11
+\BOOKMARK [2][-]{subsection.3.5}{Selection of neighbor with minimal oriented volume}{section.3}% 12
+\BOOKMARK [2][-]{subsection.3.6}{The visualization via gnuplot}{section.3}% 13
+\BOOKMARK [1][-]{section.4}{5 find covering Triangles}{}% 14
+\BOOKMARK [1][-]{section.5}{Testumgebung - main}{}% 15

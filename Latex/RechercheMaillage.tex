@@ -79,8 +79,6 @@
 	
 %\title{Recherche rapide d’un triangle contenant un point dans un maillage}
 
-\section{Première tentative de documentation}
-
 Adj vis Map, Exp Gnu
 
 O Prom, Adj vis List, find Sommets und Rec
@@ -91,7 +89,7 @@ The aim of this project is to implement an algorithm which searches for a triang
 
 \section{The template class T3 and the class Triangle}
 
-\subsection{The template class T3}
+\subsection{The template class T3} \label{T3}
 
 Objects of the class $T3$ represent elements of a three dimensional space in $T$. Hereby, the data type $T$ is defined using a template. Within this project, either $T3<int>$ for the definition of a triangle (see \ref{triangle}) or $T3<double>$ for the definition of the coordinates of a vertex (see X) is used. The private members $x,y$ and $z$ of type $T$ store the entries of the $T3$ vector. The class has a default constructor, a constructor by copy and a constructor creating a vector given the three vector entries. Moreover, the class has operators to access and modify the entries, add to elements of $T3$, multiply an element of $T3$ by a scalar of the type T and calculate the scalar product of two $T3$ vectors. The operator $<$ compares two elements of $T3$, $v_1 = \begin{pmatrix} x_1 & y_1 & z_1 \end{pmatrix}^T$ and $v_2 = \begin{pmatrix} x_2 & y_2 & z_2 \end{pmatrix}^T$, in the following way:
 $$ v_1 < v_2 \quad \Leftrightarrow \quad \begin{cases}
@@ -99,7 +97,11 @@ $$ v_1 < v_2 \quad \Leftrightarrow \quad \begin{cases}
  x_1 = x_2 \text{ and } y_1 < y_2 \text{ or }\\
  x_1 = x_2 \text{ and } y_1 = y_2 \text{ and } z_1 < z_2
 \end{cases}. $$ 
-This allows a lexicographic ordering of a list of $T3$ elements (see \ref{list}, $T3<int>$). Given three $T3$ vectors, the method $ oriented\_vol $ computes the signed volume of the triangles with vertices given by the input vectors. The sign is positive for triangles oriented in trigonometric sense. This method is used in the method $promenade$ \ref{promenade} to determine a suitable 'walking' direction. \\
+This allows a lexicographic ordering of a list of $T3$ elements (see \ref{list}, $T3<int>$). Given three $T3$ vectors, the method $ oriented\_vol $ computes the signed volume of the triangles with vertices given by the input vectors. The sign is positive for triangles oriented in trigonometric sense. This method is used in the method $promenade$ \ref{promenade} to determine a suitable 'walking' direction. DEF \\
+
+orientierter Flächeninhalt
+$$ (a_i,b_i,p) = (a_i \times b_i ) \cdot p = \det(a_i,b_i,p) $$
+bei det Vektoren in Zeilen
 
 
 \subsection{The class Triangle} \label{triangle}
@@ -188,14 +190,23 @@ $
 min\_neg \quad random\_neg
 $
 
-Promenade is a method of the class Mesh which is given a triangle $T$ and a point $p$ of the type $T3<double>$. As output a triangle in the mesh covering $p$ is returned. Optionally PATH.\\
-Denote the $T3<double>$ vectors of the vertices of the triangle $T$ by $c_1,c_2$ and $c_3$. Hereby, the vertices are numbered in trigonometric sense. For each edge $(c_1,c_2), (c_2,c_3)$ and $(c_3,c_1)$ the oriented volume of the triangle ...
+Promenade is a method of the class Mesh which is given a triangle $T$ and a point $p$ of the type $T3<double>$. As output a triangle in the mesh covering $p$ is returned. 
 
-\subsection{aire}
+Denote the $T3<double>$ vectors of the vertices of the triangle $T$ by $c_1,c_2$ and $c_3$. Hereby, the vertices are numbered in trigonometric sense. Thus, the oriented volume of the triangle $(c_1,c_2,c_3)$ is positive. Recall that $oriented\_volume$ is a method of the class $T3$ which takes two additional $T3$ vectors as input (see \ref{T3}). (negierung in code) For each edge of the triangle $T$, a new triangle containing the edge and the point $p$ is considered. We are interested in the oriented volumes of the triangles $(c_1,c_2,p), (c_2,c_3,p)$ and $(c_3,c_1,p)$. If the oriented volume of one of those new triangles is positive, then $p$ and the triangle $T$ are contained in the half plane defined by the currently considered edge of $T$. Consequently, $p$ os contained in $T$ if the oriented volumes of the triangles $(c_1,c_2,p), (c_2,c_3,p)$ and $(c_3,c_1,p)$ are all positive. In this case, the method $promenade$ returns the input triangle $T$. On the other hand, if there is one triangle with negative oriented volume, $T$ is not covering $p$. We choose a neighboring triangle $N$ of $T$ with negative oriented volume and call the method promenade recursively with starting triangle $N$.
 
-orientierter Flächeninhalt
-$$ (a_i,b_i,p) = (a_i \times b_i ) \cdot p = \det(a_i,b_i,p) $$
-bei det Vektoren in Zeilen
+the oriented volume of crossed edge is now positive, edge in other direction to consider neighboring triangle in trigonometric sense
+
+head in direction of $p$, approach
+
+pay attention for triangles on the border of the mesh. neighbor initialization with -1, just 2 neighboring triangles
+
+Optionally, the method promenade takes also a vector with entries of the class Triangle, called path, as input variable. The current triangle is pushed back on the vector and, due to the recursion, the vector stores the consecutively passed triangle when the algorithm terminates. The path is used to visualize the results of the method promenade in \ref{}.
+
+terminates because?
+
+\subsection{Random neighbor selection}
+
+\subsection{Selection of neighbor with minimal oriented volume}
 
 
 \begin{figure}[h]
