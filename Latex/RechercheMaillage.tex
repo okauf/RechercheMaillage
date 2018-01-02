@@ -186,9 +186,6 @@ In summary, the method setAdjacencyViaList has complexity $O(n_Tlogn_T)$.
 Laufzeitvergleich
 
 \subsection{L'algorithme promenade} \label{promenade}
-$
-min\_neg \quad random\_neg
-$
 
 Promenade is a method of the class Mesh which is given a triangle $T$ and a point $p$ of the type $T3<double>$. As output a triangle in the mesh covering $p$ is returned. 
 
@@ -204,9 +201,18 @@ Optionally, the method promenade takes also a vector with entries of the class T
 
 terminates because?
 
-\subsection{Random neighbor selection}
+\subsubsection{Random neighbor selection}
 
-\subsection{Selection of neighbor with minimal oriented volume}
+$ random\_neg $
+
+random number generation
+
+\subsubsection{Selection of neighbor with minimal oriented volume}
+
+$ min\_neg $
+
+same path length for multiply execution with same starting triangle and point $p$ in most cases\\
+only case in which neighbor selection is not uniquely determined: $p$ on half plane
 
 
 \begin{figure}[h]

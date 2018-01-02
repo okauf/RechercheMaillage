@@ -20,7 +20,7 @@ int numbExp = 10;
 
 string input = "randomData.txt";
 // auskommentieren um min_neg und random_neg zu vergleichen
-defineTriandPoints(m, input, numbExp);
+// defineTriandPoints(m, input, numbExp);
 
 int * path_length = new int[numbExp];
 double * running_time = new double[numbExp];
@@ -54,7 +54,7 @@ void defineTriandPoints(Maillage & m, string input, int numbExp){
 
 void runPromenade(Maillage & m, string input, int numbExp, int * path_length, double * running_time){
 	
-	ifstream randomData;
+	fstream randomData;
 	randomData.open(input);
 	
 	Triangle* triangles = m.GetTriangles();
@@ -66,13 +66,15 @@ void runPromenade(Maillage & m, string input, int numbExp, int * path_length, do
 	string line;
 	int idx;
 	double a, b, c;
+	// auto t1, t2; // time measurement
+	duration<double> durationIns;
+	Triangle P;
 	
 	for (int i = 0; i < numbExp; i++){
 		path.clear();
 		
 		getline(randomData,line);
-		linestream << line;
-		linestream >> idx;
+		idx = stoi(line);
 		StartTri = triangles[idx];
 		cout << "idx " << idx << endl;
 		
@@ -85,12 +87,12 @@ void runPromenade(Maillage & m, string input, int numbExp, int * path_length, do
 		getline(randomData,line);
 		
 		auto t1 = high_resolution_clock::now();
-		Triangle P = m.Promenade(StartTri,p,path);
+		P = m.Promenade(StartTri,p,path);
 		auto t2 = high_resolution_clock::now();
-		duration<double> durationIns = t2-t1;
+		durationIns = t2-t1;
 		running_time[i] = durationIns.count();
 		path_length[i] = path.size();
-		cout << running_time[i] << " " << path_length[i] << endl;
+		cout << "running time: " << running_time[i] << ", path length:  " << path_length[i] << endl;
 	}
 	
 	randomData.close();

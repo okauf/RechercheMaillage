@@ -8,8 +8,8 @@
 \BOOKMARK [3][-]{subsubsection.3.2.1}{setAdjacencyViaMultimap}{subsection.3.2}% 8
 \BOOKMARK [3][-]{subsubsection.3.2.2}{setAdjacencyViaList}{subsection.3.2}% 9
 \BOOKMARK [2][-]{subsection.3.3}{L'algorithme promenade}{section.3}% 10
-\BOOKMARK [2][-]{subsection.3.4}{Random neighbor selection}{section.3}% 11
-\BOOKMARK [2][-]{subsection.3.5}{Selection of neighbor with minimal oriented volume}{section.3}% 12
-\BOOKMARK [2][-]{subsection.3.6}{The visualization via gnuplot}{section.3}% 13
+\BOOKMARK [3][-]{subsubsection.3.3.1}{Random neighbor selection}{subsection.3.3}% 11
+\BOOKMARK [3][-]{subsubsection.3.3.2}{Selection of neighbor with minimal oriented volume}{subsection.3.3}% 12
+\BOOKMARK [2][-]{subsection.3.4}{The visualization via gnuplot}{section.3}% 13
 \BOOKMARK [1][-]{section.4}{5 find covering Triangles}{}% 14
 \BOOKMARK [1][-]{section.5}{Testumgebung - main}{}% 15
