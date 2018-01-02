@@ -34,6 +34,9 @@
 %Hyperref
 \usepackage[backref = true]{hyperref}
 
+%Einbinden von Graphen
+\usepackage{tikz}
+
 \begin{document}
 	
 \title{Recherche rapide d’un triangle contenant un point dans un maillage}
@@ -127,7 +130,7 @@ Essentially for the functioning of the method is the ordering of the of the indi
  We find the adjacent triangles by the following three steps: 
  \begin{enumerate}
  	\item 
- 	We range over the multimap and in each step we save the key $ (i_k,i_l) $ and the associated position $ i $ of th triangle $ t = (v_{i_1},v_{i_2},v_{i_3})  $. Then we erase the element $ ( (i_k,i_l), \, i) $ of the multimap which is realized in constant time. 
+ 	We range over the multimap and in each step we save the current key $ (i_k,i_l) $, its position in the list (this is the current iterator) and the index $ i $ of the triangle $ t = (v_{i_1},v_{i_2},v_{i_3})  $. Then we move the iterator to the next element of the list and erase the pair $ ( (i_k,i_l), \, i) $ of the multimap which is realized in constant time since the iterator belonging to $ ( (i_k,i_l), \, i) $ was saved. 
  	\item 
  	Now searching by the function $ find $ for the stored key $ (i_k,i_l) $ allows us to determine if there is another index $ j $ associated to $ (i_k,i_l) $. If this is the case (the iterator returned by find does not point to the last element of the multimap) the triangles represented by $i$ and $j$ are adjacent. The function  $ find $ needs $ O(\log(n_T)) $ in order to return an iterator. 
  	Note that the pair $ ( (i_k,i_l), \, j) $ is not erased. This would yield an error because the actual iterator would try to access that element. 
@@ -137,7 +140,24 @@ Essentially for the functioning of the method is the ordering of the of the indi
   \end{enumerate}
 The application of all three steps needs a time of $ O(n_T)O(\log(n_T)) = O(n\log(n_T)) $. 
 
+\begin{figure}[h]  
+	\begin{minipage}{0.4\textwidth}
+		\begin{tikzpicture}   
+		
+				\node (A) at (0,95)  {$(k,l)$};
+				\node (B) at (3,97) {$((k,l),i)$};
+				\node (C) at (3,93) {$((k,l)j)$};
+				\node (D) at (5,97) {iterator};
+				\draw [->] (A) to (B);
+				\draw [->] (A) to (C); 
+				\draw [dotted,->] (D) to (B); 
+		
+		\end{tikzpicture}
+	\caption{Initial situation for determing the neighbors}
+	\end{minipage}
 
+
+\end{figure}
 
 
 \subsubsection{setAdjacencyViaList} \label{list}
