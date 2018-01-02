@@ -10,6 +10,7 @@ using namespace std::chrono;
 
 void defineTriandPoints(Maillage & m, string input, int numbExp);
 void runPromenade(Maillage & m, string input, int numbExp, int * path_length, double * running_time);
+void exportResults(string measurements, int numbExp, int * path_length, double * running_time);
 
 int main(){
 	
@@ -18,13 +19,17 @@ Maillage m(name);
 m.setAdjacencyViaList();
 int numbExp = 10;
 
+// file stores starting triangles and points to cover
 string input = "randomData.txt";
 // do not execute defineTriandPoints in order to compare the results of min_neg and random_neg
-// defineTriandPoints(m, input, numbExp);
+defineTriandPoints(m, input, numbExp);
 
 int * path_length = new int[numbExp];
 double * running_time = new double[numbExp];
 runPromenade(m, input, numbExp, path_length, running_time);
+
+string measurements = "measurementResults.txt";
+exportResults(measurements, numbExp, path_length, running_time);
 	
 }
 
@@ -100,6 +105,18 @@ void runPromenade(Maillage & m, string input, int numbExp, int * path_length, do
 	
 	randomData.close();
 };
+
+void exportResults(string measurements, int numbExp, int * path_length, double * running_time){
+	
+	ofstream results;
+	results.open(measurements, std::ofstream::app); // The output position starts at the end of the file.
+	results << "Path length and running time:" << endl;
+	
+	for (int i = 0; i < numbExp; i++){
+		results << path_length[i] << endl;
+		results << running_time[i] << endl << endl;
+	}
+}
 
 	// string name = "maillage4.msh";
 	// Maillage m(name);
