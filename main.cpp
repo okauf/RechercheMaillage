@@ -83,11 +83,11 @@ int main(){
            Triangle* triangles = m.GetTriangles();
            Triangle T = triangles[triangleIndex-1];
            
-           T3<double>* sommets = m.GetSommets();
-           cout << "The starting triangle is " << endl << sommets[T[0]-1] << endl  << sommets[T[1]-1] << endl  << sommets[T[2]-1] << endl;
+           T3<double>* vertices = m.GetVertices();
+           cout << "The starting triangle is " << endl << vertices[T[0]-1] << endl  << vertices[T[1]-1] << endl  << vertices[T[2]-1] << endl;
            Triangle P = m.Promenade(T,p,path);
            
-           cout << "The point " << p << " is in the triangle with vertices " << endl << sommets[P[0]-1] << endl << sommets[P[1]-1] << endl << sommets[P[2]-1] << endl;
+           cout << "The point " << p << " is in the triangle with vertices " << endl << vertices[P[0]-1] << endl << vertices[P[1]-1] << endl << vertices[P[2]-1] << endl;
            m.exportGnuplot(path,&p,1);
            break; 
        }
@@ -122,12 +122,12 @@ int main(){
            m.setAdjacencyViaMultiMap(); M.setAdjacencyViaList();
            
            vector<Triangle> coveringTriangles;
-           for(int i = 0; i <m.GetNumbSommets();i++)
+           for(int i = 0; i <m.GetNumbVertices();i++)
                coveringTriangles.push_back(Triangle(0,0,0));
            
-           coveringTriangles = findSommets(m,M,coveringTriangles);
+           coveringTriangles = findVertices(m,M,coveringTriangles);
            
-           M.exportGnuplot(coveringTriangles,m.GetSommets(),m.GetNumbSommets());
+           M.exportGnuplot(coveringTriangles,m.GetVertices(),m.GetNumbVertices());
            
        }
    

@@ -11,21 +11,21 @@ using namespace std;
 class Maillage{
     
 private:
-    T3<double>* sommets;
+    T3<double>* vertices;
     Triangle* triangles;
-    int numbSommets, numbTri;
+    int numbVertices, numbTri;
 public:
-    Maillage(string input):sommets(LoadNodes(input)), triangles(LoadTriangles(input)){};
+    Maillage(string input):vertices(LoadVertices(input)), triangles(LoadTriangles(input)){};
     
-    T3<double>* GetSommets() {return sommets;}
+    T3<double>* GetVertices() {return vertices;}
     Triangle* GetTriangles() {return triangles;}
-    int GetNumbSommets() {return numbSommets;}
+    int GetNumbVertices() {return numbVertices;}
     int GetNumbTri() {return numbTri;}
     
-    void SetNumbSommets(int n) { numbSommets = n; }
+    void SetNumbVertices(int n) { numbVertices = n; }
     void SetNumbTri(int n) { numbTri = n; }
     
-    T3<double>* LoadNodes(string input){
+    T3<double>* LoadVertices(string input){
         
         string line;
         
@@ -39,18 +39,18 @@ public:
             getline(mshmaillage,line);
         }
         getline(mshmaillage,line);
-        // saving the number of sommets
-        int numbSommets = stoi(line);
-        SetNumbSommets(numbSommets);
+        // saving the number of vertices
+        int numbVertices = stoi(line);
+        SetNumbVertices(numbVertices);
         
         //generating the tableau of R3
-        T3<double> * tab = new T3<double>[numbSommets];
+        T3<double> * tab = new T3<double>[numbVertices];
         
         //ignoring the next line
         getline(mshmaillage,line);
         
         int i = 0;
-        while(i < numbSommets){
+        while(i < numbVertices){
             getline(mshmaillage,line);
             double a,b,c;
             stringstream linestream;
@@ -111,7 +111,7 @@ public:
         
         path.push_back(T);
         
-        T3<double> c1 = sommets[T[0]-1], c2 = sommets[T[1]-1], c3 = sommets[T[2]-1];
+        T3<double> c1 = vertices[T[0]-1], c2 = vertices[T[1]-1], c3 = vertices[T[2]-1];
         
         double aire = c1.oriented_vol(c2,c3);
         double a1 = c2.oriented_vol(c3,p), a2 = c3.oriented_vol(c1,p), a3 = c1.oriented_vol(c2,p);
@@ -143,7 +143,7 @@ public:
     //promenade for ex 5
     Triangle & Promenade(Triangle & T, const T3<double> & p){
  
-        T3<double> c1 = sommets[T[0]-1], c2 = sommets[T[1]-1], c3 = sommets[T[2]-1];
+        T3<double> c1 = vertices[T[0]-1], c2 = vertices[T[1]-1], c3 = vertices[T[2]-1];
         
         double aire = c1.oriented_vol(c2,c3);
         double a1 = c2.oriented_vol(c3,p), a2 = c3.oriented_vol(c1,p), a3 = c1.oriented_vol(c2,p);
@@ -302,9 +302,9 @@ void exportGnuplot(vector<Triangle> & triangles_path, const T3<double>* points, 
     for (vector<Triangle>::iterator it = triangles_path.begin(); it != triangles_path.end(); it++){
         Data << "#Triangle " << endl;
         for(int j = 0; j < 3; j++){
-            Data << sommets[triangles_path[i][j]-1] << endl;
+            Data << vertices[triangles_path[i][j]-1] << endl;
         }
-        Data << sommets[triangles_path[i][0]-1] << endl;
+        Data << vertices[triangles_path[i][0]-1] << endl;
         // insert the last point again in order to connect the points
         Data << endl;  //This creates blocks of points which will be connected by lines
         i++;
@@ -316,9 +316,9 @@ void exportGnuplot(vector<Triangle> & triangles_path, const T3<double>* points, 
     for(int i = 0; i < numbTri; i++){
         Data << "#Triangle " << i+1 << endl;
         for(int j = 0; j < 3; j++){
-            Data << sommets[triangles[i][j]-1] << endl;
+            Data << vertices[triangles[i][j]-1] << endl;
         }
-        Data << sommets[triangles[i][0]-1] << endl;
+        Data << vertices[triangles[i][0]-1] << endl;
         // insert the last point again in order to connect the points
         Data << endl;  //This creates blocks of points which will be connected by lines
     }
@@ -371,7 +371,7 @@ int selectAdjacentPoint(const pair<int,int> & edge, const Triangle & Neighbor_m)
 void Triangle_Recurrence(vector<Triangle> & coveringTriangles, Maillage & m, Maillage & M, Triangle firstTriangle_m){
     
     Triangle * triangles_m = m.GetTriangles();
-    T3<double> * sommets_m = m.GetSommets();
+    T3<double> * vertices_m = m.GetVertices();
     
     Triangle firstTriangle_M = coveringTriangles[firstTriangle_m[0]-1];
     Triangle secondTriangle_M = coveringTriangles[firstTriangle_m[1]-1];
@@ -394,7 +394,7 @@ void Triangle_Recurrence(vector<Triangle> & coveringTriangles, Maillage & m, Mai
         
         if (coveringTriangles[Neighbor1_m[adjPoint]-1][0] == 0){
             
-            coveringTriangles[Neighbor1_m[adjPoint]-1] = M.Promenade(Start, sommets_m[Neighbor1_m[adjPoint]-1]);
+            coveringTriangles[Neighbor1_m[adjPoint]-1] = M.Promenade(Start, vertices_m[Neighbor1_m[adjPoint]-1]);
             Triangle_Recurrence(coveringTriangles, m, M, Neighbor1_m);
         }
     }
@@ -410,7 +410,7 @@ void Triangle_Recurrence(vector<Triangle> & coveringTriangles, Maillage & m, Mai
         } else { Start = firstTriangle_M; }
         
         if (coveringTriangles[Neighbor2_m[adjPoint]-1][0] == 0){
-            coveringTriangles[Neighbor2_m[adjPoint]-1] = M.Promenade(Start, sommets_m[Neighbor2_m[adjPoint]-1]);
+            coveringTriangles[Neighbor2_m[adjPoint]-1] = M.Promenade(Start, vertices_m[Neighbor2_m[adjPoint]-1]);
             
             Triangle_Recurrence(coveringTriangles, m, M, Neighbor2_m);
         }
@@ -427,45 +427,45 @@ void Triangle_Recurrence(vector<Triangle> & coveringTriangles, Maillage & m, Mai
         } else { Start = firstTriangle_M; }
         
         if (coveringTriangles[Neighbor3_m[adjPoint]-1][0] == 0){
-            coveringTriangles[Neighbor3_m[adjPoint]-1] = M.Promenade(Start, sommets_m[Neighbor3_m[adjPoint]-1]);
+            coveringTriangles[Neighbor3_m[adjPoint]-1] = M.Promenade(Start, vertices_m[Neighbor3_m[adjPoint]-1]);
             Triangle_Recurrence(coveringTriangles, m, M, Neighbor3_m);
         }
     }
     
 }
 
-vector<Triangle>& findSommets(Maillage & m, Maillage & M, vector<Triangle> & coveringTriangles){
+vector<Triangle>& findVertices(Maillage & m, Maillage & M, vector<Triangle> & coveringTriangles){
     
     // suche nach Knoten von m in M
     
-    // int numbSommets_m = m.GetNumbSommets();
-    T3<double> * sommets_m = m.GetSommets();
+    // int numbVertices_m = m.GetNumbVertices();
+    T3<double> * vertices_m = m.GetVertices();
     Triangle * triangles_m = m.GetTriangles();
     
-    // int numbSommets_M = M.GetNumbSommets();
+    // int numbVertices_M = M.GetNumbVertices();
     int numbTri_M = M.GetNumbTri();
-    // T3<double> * sommets_M = M.GetSommets();
+    // T3<double> * vertices_M = M.GetVertices();
     Triangle * triangles_M = M.GetTriangles();
     
     
     Triangle firstTriangle_m = triangles_m[0];
     
-    T3<double> firstSommet = sommets_m[firstTriangle_m[0]-1];
+    T3<double> firstVertex = vertices_m[firstTriangle_m[0]-1];
     Triangle firstStartTri = triangles_M[rand()%numbTri_M];
     
-    Triangle firstTriangle_M = M.Promenade(firstStartTri, firstSommet);
+    Triangle firstTriangle_M = M.Promenade(firstStartTri, firstVertex);
     
  
     coveringTriangles[firstTriangle_m[0]-1] = firstTriangle_M;
     
-    T3<double> secondSommet = sommets_m[firstTriangle_m[1]-1];
+    T3<double> secondVertex = vertices_m[firstTriangle_m[1]-1];
     Triangle secondStartTri = firstTriangle_M;
-    Triangle secondTriangle_M = M.Promenade(secondStartTri, secondSommet);
+    Triangle secondTriangle_M = M.Promenade(secondStartTri, secondVertex);
     coveringTriangles[firstTriangle_m[1]-1] = secondTriangle_M;
     
-    T3<double> thirdSommet = sommets_m[firstTriangle_m[2]-1];
+    T3<double> thirdVertex = vertices_m[firstTriangle_m[2]-1];
     Triangle thirdStartTri = secondTriangle_M;
-    Triangle thirdTriangle_M = M.Promenade(thirdStartTri, thirdSommet);
+    Triangle thirdTriangle_M = M.Promenade(thirdStartTri, thirdVertex);
     coveringTriangles[firstTriangle_m[2]-1] = thirdTriangle_M;
     
     

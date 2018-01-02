@@ -30,10 +30,10 @@ void prepareMaillageFile(char* const input){
 	
 	getline(mshmaillage,line);
 	getline(mshmaillage,line);
-	int numbSommets = stoi(line);
-	mshmaillage_prep << numbSommets << endl << "# Coordonnees des sommets" << endl;
+	int numbVertices = stoi(line);
+	mshmaillage_prep << numbVertices << endl << "# Coordonnees des sommets" << endl;
 	
-	for (int i = 0; i < numbSommets; i++){
+	for (int i = 0; i < numbVertices; i++){
 		getline(mshmaillage,line);
 		double a,b,c,d;
 		stringstream linestream;

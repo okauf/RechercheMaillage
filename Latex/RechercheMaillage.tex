@@ -34,92 +34,103 @@
 %Hyperref
 \usepackage[backref = true]{hyperref}
 
+%Einbinden von Graphen
+\usepackage{tikz}
+
 \begin{document}
 	
-\title{Recherche rapide d’un triangle contenant un point dans un maillage}
-
-\section{}
-
-R3: $<,>,<=,>=$\\
-ordre lexicographie sur les pair est deja dans la stl
-
-\subsection{Multimaps}
-(Requires a less-than comparison function.)\\
-
-$ O(3 n_T)$: jede Kante jedes Dreiecks als Schlüssel\\
-$|K| \ O(log(n_T)):$ Zugriff auf Container fur jede Kante\\
-$\Rightarrow O(n_T log(n_T))$\\
-speichern in 2dim Array: Zugriff in konstanter Zeit\\
-
-\textbf{unordered map}(hash tables) has constant time performance on all operations provided no collisions occur. When collisions occur, traversal of a linked list containing all elements of the same bucket (those that hash to the same value) is necessary, and in the worst case, there is only one bucket; hence O(n)\\
-
-\subsection{Listen}
-
-$ O(3 n_T)$, push front(): jede Kante jedes Dreiecks einfügen\\
-$ O(N logN)$, container size $N$: sort(): definiere hierfür $<$ für R3 (Nach ersten und dann nach zweitem Element sortieren etc)\\
-
-\textbf{doppelt verlinkt! und dann mit Kante und Sommet prev und next von Listenelement!}\\
-konstanter Zugriff mit Iterator!\\
-
-$ O(3 n_T)$: pop front und speichern in 2 dim array\\
-
-Alternative für 2D array für konstanten Zugriff?\\
-Daten könnten direkt in 2D array gespeichert werden, Listen und Maps überflüssig\\
-
-\subsection{aire}
-
-orientierter Flächeninhalt
-$$ (a_i,b_i,p) = (a_i \times b_i ) \cdot p = \det(a_i,b_i,p) $$
-bei det Vektoren in Zeilen
-
+\begin{titlepage}
+	\begin{center}
+		{\Large
+			Technische Universit\"at M\"unchen\\[5mm]
+			Department of Mathematics\\[8mm]
+		}
+		\normalsize
+		
+		Course Project\\[15mm]
+		
+		{\Huge
+			Recherche rapide d’un triangle contenant un point dans un maillage
+		}
+		\bigskip
+		
+		\normalsize
+		
+		Arne Heimendahl, Olivia Kaufmann
+	\end{center}
+	\vspace*{75mm}
+	
+	Supervisor: 
+	\medskip
+	
+	Advisor: 
+	\medskip
+	
+	Submission Date: 13.01.2018 
+	
+\end{titlepage}
 
 \newpage
+\tableofcontents
+\newpage
+
+%\pagenumbering{arabic}
+%\pagestyle{headings}
+	
+%\title{Recherche rapide d’un triangle contenant un point dans un maillage}
 
 \section{Première tentative de documentation}
-
-\section{Le projet}
-
-\section{La classe template T3 et la classe Triangle}
-
-Objects of the class T3 represent elements of a three dimensional space in T. Hereby, the data type T is defined using a template. Within this project, either $T3<int>$ for the definition of a triangle (see \ref{triangle}) or $T3<double>$ for the definition of the coordinates of a vertex (see X) is used. The private members $x,y$ and $z$ store the entries of the T3 vector. The class has a default constructor, a constructor by copy and a constructor creating a vector given the three vector entries. Moreover, the class has operators to access and modify the entries (private), add to elements of T3, multiply an element of T3 by a scalar of the type T and calculate the scalar product of two T3 vectors. The operator $<$ compares two elements of T3 in the following way XXX. This allows a lexicographic ordering of a list of T3 elements (see \ref{list}, $T3<int>$). Given three T3 vectors, the method $ oriented_vol $ computes the signed volume of the triangles with vertices given by the input vectors. The sign is positive for triangles oriented in trigonometric sense. This method is used to \\
-promenade \ref{promenade}, in desired direction \\
-
-
-\subsection{The class triangle} \label{triangle}
-The class triangle inherits form the class T3. Its derived members $ x,y,z $ are specialized as integers representing the position of its defining vertices in the array of the points of the given mesh. This array is a member of the class mesh (SHOULD be changed from maillage to mesh...) in \ref{mesh}. In addition, it has three extra integer members {\itshape neighbor1, neighbor2, neighbor3} representing the position of the adjacent triangles in the array of triangles which is also a member of the class mesh. An adjacent triangle $ t^{'} $ is said to be  {\itshape neighbor1 } of a triangle $ t $ if $ x $ is the first vertex of $t$ and $x$ is not a vertex of $ t^{'} $. The same holds for the indices $ 2,3 $. Note that this relation is not symmetric, that is to say that $ t^{'} $ is {\itshape neighbor1} does not imply that $t$ is {\itshape neighbor1} of $t^{'}$. 
-Note that this assignment facilitates the access to the following in the algorithm {\itshape promenade} (see \ref{}).  \\
-At the creation of a new triangle the latter three members are initialized by $ -1 $ which means that a triangle has no neighbors when it is created. The neighbors are set via the functions {\itshape setAdjacencyViaMultimap} \ref{multimap}, respectively {\itshape setAdjacencyViaList} \ref{list}. After the execution of one of these two functions $neighbor1 =  -1 $ describes the case that there is no adjacent triangle on the opposite side of the first vertex. 
-Since the neighbors are private members there are getter and setter in order to read and manipulate them. \\
-
-
-
-\section{The class mesh} \label{mesh}
-The class mesh contains all necessary information of the mesh and the search of a point in (or outside) the mesh can be realized by its member functions. Its private members are pointers to the arrays of points and triangles of the mesh as integers who store the size of these two lists.
-In order to create an object of type mesh the name of the desired .msh file has to be transmitted. The file is read by the functions {\itshape LoadNodes} and {\itshape LoadTriangles} \ref{Load} who then initialize the members {\itshape triangles, sommets, numbTriangles, numbSommets}. 
-There are getter and setter for {\itshape numbTriangles, numbSommets} as well as getter for {\itshape triangles, sommets}. The functions {\itshape LoadTriangles, LoadNodes} are their setters. 
-
-
-\subsection{LoadNodes and LoadTriangles} \label{Load}
-Both functions are called in the constructor of the class mesh setting the members {\itshape nodes (VERTICES??)} and {\itshape triangles}. 
-They work basically the same way with the small difference that they create arrays of different data types and searching for different key words in the .msh file. 
-At first the .msh file is opened according to its name. Then the functions search for the line indicating the number of nodes respectively the number of triangles. 
-To make the code work the next line must include the according number which is then stored in {\itshape numbSommets}, respectively {\itshape numbTri}. The data is read as a string which is transformed to an integer by the command {\itshape astoi}. These numbers also define the size of the arrays of $  type T3<double> $ and Triangle which are created by new. The following lines must include the coordinates of all nodes, respectively the positions of the triangles in the table of nodes. The lines are read as strings who are then 
-Both functions finally return the arrays filled with the according nodes or triangles. 
-
-
-\newpage
 
 Adj vis Map, Exp Gnu
 
 O Prom, Adj vis List, find Sommets und Rec
 
+\section{Project description and aim}
+
+The aim of this project is to implement an algorithm which searches for a triangle in a convexe mesh covering a point $(x,y)$. A linear complexity (in number of vertices of the mesh) is desired.
+
+\section{The template class T3 and the class Triangle}
+
+\subsection{The template class T3}
+
+Objects of the class $T3$ represent elements of a three dimensional space in $T$. Hereby, the data type $T$ is defined using a template. Within this project, either $T3<int>$ for the definition of a triangle (see \ref{triangle}) or $T3<double>$ for the definition of the coordinates of a vertex (see X) is used. The private members $x,y$ and $z$ of type $T$ store the entries of the $T3$ vector. The class has a default constructor, a constructor by copy and a constructor creating a vector given the three vector entries. Moreover, the class has operators to access and modify the entries, add to elements of $T3$, multiply an element of $T3$ by a scalar of the type T and calculate the scalar product of two $T3$ vectors. The operator $<$ compares two elements of $T3$, $v_1 = \begin{pmatrix} x_1 & y_1 & z_1 \end{pmatrix}^T$ and $v_2 = \begin{pmatrix} x_2 & y_2 & z_2 \end{pmatrix}^T$, in the following way:
+$$ v_1 < v_2 \quad \Leftrightarrow \quad \begin{cases}
+ x_1 < x_2 \text{ or }\\
+ x_1 = x_2 \text{ and } y_1 < y_2 \text{ or }\\
+ x_1 = x_2 \text{ and } y_1 = y_2 \text{ and } z_1 < z_2
+\end{cases}. $$ 
+This allows a lexicographic ordering of a list of $T3$ elements (see \ref{list}, $T3<int>$). Given three $T3$ vectors, the method $ oriented\_vol $ computes the signed volume of the triangles with vertices given by the input vectors. The sign is positive for triangles oriented in trigonometric sense. This method is used in the method $promenade$ \ref{promenade} to determine a suitable 'walking' direction. \\
+
+
+\subsection{The class Triangle} \label{triangle}
+The class Triangle inherits form the class T3. Its derived members $ x,y,z $ are specialized as integers representing the position of its defining vertices in the array of the points of the given mesh. This array is a member of the class mesh (SHOULD be changed from maillage to mesh...) in \ref{mesh}. In addition, it has three extra integer members {\itshape neighbor1, neighbor2, neighbor3} representing the position of the adjacent triangles in the array of triangles which is also a member of the class mesh. (MENTION THAT INDEXING STARTS AT 0?) An adjacent triangle $ t^{'} $ is said to be  {\itshape neighbor1 } of a triangle $ t $ if $ x $ is the first vertex of $t$ and $x$ is not a vertex of $ t^{'} $. The same holds for the indices $ 2,3 $. Note that this relation is not symmetric, that is to say that $ t^{'} $ is {\itshape neighbor1} does not imply that $t$ is {\itshape neighbor1} of $t^{'}$. 
+Note that this assignment facilitates the access to the following in the algorithm {\itshape promenade} (see \ref{promenade}).  \\
+At the creation of a new triangle the latter three members are initialized by $ -1 $ which means that a triangle has no neighbors when it is created. The neighbors are set via the functions {\itshape setAdjacencyViaMultimap} \ref{multimap}, respectively {\itshape setAdjacencyViaList} \ref{list}. After the execution of one of these two functions $neighbor1 =  -1 $ describes the case that there is no adjacent triangle on the opposite side of the first vertex. 
+Since the neighbors are private members there are getter and setter in order to read and manipulate them. \\
+
+
+
+\section{The class Mesh} \label{mesh}
+The class Mesh contains all necessary information of the mesh and the search of a point in (or outside) the mesh can be realized by its member functions. Its private members are pointers to the arrays of points and triangles of the mesh as integers who store the size of these two lists.
+In order to create an object of type Mesh the name of the desired .msh file has to be transmitted. The file is read by the functions {\itshape LoadVertices} and {\itshape LoadTriangles} \ref{Load} who then initialize the members {\itshape triangles, sommets, numbTriangles, numbSommets}. 
+There are getter and setter for {\itshape numbTriangles} and {\itshape numbSommets} as well as getter for {\itshape triangles} and {\itshape sommets}. The functions {\itshape LoadTriangles} and {\itshape LoadVertices} are their setters. \\
+
+l’intersection de 2 triangles distincts soit une arête commune, un sommet commun ou rien, we consider convexe meshes
+
+
+\subsection{LoadVertices and LoadTriangles} \label{Load}
+Both functions are called in the constructor of the class mesh setting the members {\itshape vertices} and {\itshape triangles}. 
+They work basically the same way with the small difference that they create arrays of different data types and searching for different key words in the .msh file. 
+At first the .msh file is opened according to its name. Then the functions search for the line indicating the number of vertices respectively the number of triangles. 
+To make the code work the next line must include the according number which is then stored in {\itshape numbSommets}, respectively {\itshape numbTri}. The data is read as a string which is transformed to an integer by the command {\itshape astoi}. These numbers also define the size of the arrays of $  type T3<double> $ and Triangle which are created by new. The following lines must include the coordinates of all vertices, respectively the positions of the triangles in the table of vertices. The lines are read as strings who are then 
+Both functions finally return the arrays filled with the according vertices or triangles.
 
 
 \subsection{Find the adjacent triangle}
 
 \subsubsection{setAdjacencyViaMultimap} \label{multimap}
 
-The goal of this function is the initialization of the members {\itshape neighbor1, neighbor2, neighbor3} of the class triangle. As a reminder they are defined by their position in the array of triangles. Their initialization is realized by the container {\itshape multimaps}. 
+The goal of this function is the initialization of the members {\itshape neighbor1, neighbor2, neighbor3} of the class Triangle. As a reminder they are defined by their position in the array of triangles. Their initialization is realized by the container {\itshape multimaps}. 
 Each triangle $ t = (v_{i_1},v_{i_2},v_{i_3}) $ is represented by the sequence $ (i_1,i_2,i_3) $ where these indices indicate the position of the vertices in the array of vertices. 
 For each $ t $ three pairs are added to the multimap, where the edges $(v_{i_k},v_{i_l}), \, k,l \in \{1,2,3\}, \ k \neq l $, stored by the data type $ pair<int,int> $ (more precisely $ pair<k,l> $), represent the keys, whereas the mapped value is an integer representing the position of the triangle in the array of triangles. Hence the initalization if the mulimap is realized in $ 3n_T $ loops, so in $ O(n_T) $. \\
 Essentially for the functioning of the method is the ordering of the of the indices $ i_1,i_2,i_3 $ in $ t $. As in {\itshape setAdjacencyViaList} an edge $ \{ v_k, v_l\} $
@@ -127,7 +138,7 @@ Essentially for the functioning of the method is the ordering of the of the indi
  We find the adjacent triangles by the following three steps: 
  \begin{enumerate}
  	\item 
- 	We range over the multimap and in each step we save the key $ (i_k,i_l) $ and the associated position $ i $ of th triangle $ t = (v_{i_1},v_{i_2},v_{i_3})  $. Then we erase the element $ ( (i_k,i_l), \, i) $ of the multimap which is realized in constant time. 
+ 	We range over the multimap and in each step we save the current key $ (i_k,i_l) $, its position in the list (this is the current iterator) and the index $ i $ of the triangle $ t = (v_{i_1},v_{i_2},v_{i_3})  $. Then we move the iterator to the next element of the list and erase the pair $ ( (i_k,i_l), \, i) $ of the multimap which is realized in constant time since the iterator belonging to $ ( (i_k,i_l), \, i) $ was saved. 
  	\item 
  	Now searching by the function $ find $ for the stored key $ (i_k,i_l) $ allows us to determine if there is another index $ j $ associated to $ (i_k,i_l) $. If this is the case (the iterator returned by find does not point to the last element of the multimap) the triangles represented by $i$ and $j$ are adjacent. The function  $ find $ needs $ O(\log(n_T)) $ in order to return an iterator. 
  	Note that the pair $ ( (i_k,i_l), \, j) $ is not erased. This would yield an error because the actual iterator would try to access that element. 
@@ -137,7 +148,24 @@ Essentially for the functioning of the method is the ordering of the of the indi
   \end{enumerate}
 The application of all three steps needs a time of $ O(n_T)O(\log(n_T)) = O(n\log(n_T)) $. 
 
+\begin{figure}[h]  
+	\begin{minipage}{0.4\textwidth}
+		\begin{tikzpicture}   
+		
+				\node (A) at (0,95)  {$(k,l)$};
+				\node (B) at (3,97) {$((k,l),i)$};
+				\node (C) at (3,93) {$((k,l)j)$};
+				\node (D) at (5,97) {iterator};
+				\draw [->] (A) to (B);
+				\draw [->] (A) to (C); 
+				\draw [dotted,->] (D) to (B); 
+		
+		\end{tikzpicture}
+	\caption{Initial situation for determing the neighbors}
+	\end{minipage}
 
+
+\end{figure}
 
 
 \subsubsection{setAdjacencyViaList} \label{list}
@@ -157,8 +185,18 @@ Laufzeitvergleich
 
 \subsection{L'algorithme promenade} \label{promenade}
 $
-min_neg random_neg
+min\_neg \quad random\_neg
 $
+
+Promenade is a method of the class Mesh which is given a triangle $T$ and a point $p$ of the type $T3<double>$. As output a triangle in the mesh covering $p$ is returned. Optionally PATH.\\
+Denote the $T3<double>$ vectors of the vertices of the triangle $T$ by $c_1,c_2$ and $c_3$. Hereby, the vertices are numbered in trigonometric sense. For each edge $(c_1,c_2), (c_2,c_3)$ and $(c_3,c_1)$ the oriented volume of the triangle ...
+
+\subsection{aire}
+
+orientierter Flächeninhalt
+$$ (a_i,b_i,p) = (a_i \times b_i ) \cdot p = \det(a_i,b_i,p) $$
+bei det Vektoren in Zeilen
+
 
 \begin{figure}[h]
 	\subfigure{\includegraphics[width=0.55\linewidth, height=0.55\linewidth]{../Figures/StartTri600_p(1,0)_min_neg}}
