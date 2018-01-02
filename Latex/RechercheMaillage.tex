@@ -97,11 +97,10 @@ $$ v_1 < v_2 \quad \Leftrightarrow \quad \begin{cases}
  x_1 = x_2 \text{ and } y_1 < y_2 \text{ or }\\
  x_1 = x_2 \text{ and } y_1 = y_2 \text{ and } z_1 < z_2
 \end{cases}. $$ 
-This allows a lexicographic ordering of a list of $T3$ elements (see \ref{list}, $T3<int>$). Given three $T3$ vectors, the method $ oriented\_vol $ computes the signed volume of the triangles with vertices given by the input vectors. The sign is positive for triangles oriented in trigonometric sense. This method is used in the method $promenade$ \ref{promenade} to determine a suitable 'walking' direction. DEF \\
+This allows a lexicographic ordering of a list of $T3$ elements (see \ref{list}, $T3<int>$). For three $T3$ vectors, which define the vertices of a triangle, the method $ oriented\_vol $ computes the corresponding signed volume. Let $a,b$ and $c$ denote $T3$ vectors. The oriented volume $A_{abc}$ is defined as
+$$ A_{abc} = \left( \overrightarrow{ab} \times \overrightarrow{bc} \right)^T \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix} = (b_1-a_1)(c_2-b_2) - (b_2-a_2)(c_1-b_1)$$
 
-orientierter Flächeninhalt
-$$ (a_i,b_i,p) = (a_i \times b_i ) \cdot p = \det(a_i,b_i,p) $$
-bei det Vektoren in Zeilen
+The sign is positive for triangles oriented in trigonometric sense. This method is used in the method $promenade$ \ref{promenade} to determine a suitable 'walking' direction.
 
 
 \subsection{The class Triangle} \label{triangle}
@@ -113,7 +112,7 @@ Since the neighbors are private members there are getter and setter in order to 
 
 
 \section{The class Mesh} \label{mesh}
-The class Mesh contains all necessary information of the mesh and the search of a point in (or outside) the mesh can be realized by its member functions. Its private members are pointers to the arrays of points and triangles of the mesh as integers who store the size of these two lists.
+The class Mesh contains all necessary information of the mesh and the search of a vertex in (or outside) the mesh can be realized by its member functions. Its private members are pointers to the arrays of vertices and triangles of the mesh as integers who store the size of these two lists.
 In order to create an object of type Mesh the name of the desired .msh file has to be transmitted. The file is read by the functions {\itshape LoadVertices} and {\itshape LoadTriangles} \ref{Load} who then initialize the members {\itshape triangles, sommets, numbTriangles, numbSommets}. 
 There are getter and setter for {\itshape numbTriangles} and {\itshape numbSommets} as well as getter for {\itshape triangles} and {\itshape sommets}. The functions {\itshape LoadTriangles} and {\itshape LoadVertices} are their setters. \\
 
@@ -173,7 +172,7 @@ The application of all three steps needs a time of $ O(n_T)O(\log(n_T)) = O(n\lo
 \subsubsection{setAdjacencyViaList} \label{list}
 As in setAdjacencyViaMultimap, this method sets the members, describing the neighbors, for each triangle in the considered mesh. In the same manner as before, the members are described using their position in the triangle array.
 
-The idea is to store each triangle, in varying order, three times in a list. For the triangle $t$ with the points $(a_1,a_2,a_3)$, the triangles $(a_1,a_2,t), (a_1,a_3,t)$ and $(a_2,a_3,t)$ are appended to the list. The creation of this list has complexity $O(3n_T)$.
+The idea is to store each triangle, in varying order, three times in a list. For the triangle $t$ with the vertices $(a_1,a_2,a_3)$, the triangles $(a_1,a_2,t), (a_1,a_3,t)$ and $(a_2,a_3,t)$ are appended to the list. The creation of this list has complexity $O(3n_T)$.
 
 After the creation, the list is sorted in lexicographic order. The complexity for sorting a list with $n_T$ elements is $O(n_Tlogn_T)$.
 
@@ -245,10 +244,10 @@ As shown in figure \ref{ex} a random choice of the following triangle can be bet
 		The result of the algorithm promenade, that is a sequence of adjacent triangles from a starting triangle to a triangle covering the searched point. 
 		In this case the input variable $ triangles_path $ contains the sequence of triangles and the input variable $  points $ contains just one point, hence the input $ int numbpoints $ is $ 1 $. 
 		\item 
-		Given a mesh and the points of another mesh it can visualize the set of the covering triangles (a subset of triangles of the first mesh) of the points of the second mesh. 
-		In this case the input variable $ tirangles_path $ contains the covering triangles and the $ points $ are the points of the second mesh. 
+		Given a mesh and the vertices of another mesh it can visualize the set of the covering triangles (a subset of triangles of the first mesh) of the points of the second mesh. 
+		In this case the input variable $ triangles\_path $ contains the covering triangles and the $ points $ (IN VERTICES UMBENENNEN?) are the points of the second mesh. 
 	\end{enumerate}
-The functions writes four text files, one for all triangles of the mesh, one for the triangles in $ triangles_path $, one for the points in $ points $ and one for the commands which shall be executed by gnuplot. This is all realized by a simple $ ofstream $ variable, allowing to create and manipulate a text file. //
+The functions writes four text files, one for all triangles of the mesh, one for the triangles in $ triangles\_path $, one for the points in $ points $ and one for the commands which shall be executed by gnuplot. This is all realized by a simple $ ofstream $ variable, allowing to create and manipulate a text file. \\
 The script for gnuplot contains a line which keeps the plot open until some key is hit in the terminal. 
 The actual execution in the terminal is achieved by the command $ system $ which executes its input string in the terminal. 
 
