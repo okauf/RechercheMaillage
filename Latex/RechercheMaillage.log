@@ -1,5 +1,9 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.10.19)  2 JAN 2018 11:03
+=======
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.18)  2 JAN 2018 10:50
+>>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
 =======
 This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.18)  2 JAN 2018 10:50
 >>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
@@ -576,6 +580,7 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 \Hy@SectionHShift=\skip55
 )
 <<<<<<< HEAD
+<<<<<<< HEAD
 (C:\msys64\home\Olli\RechercheMaillage\Latex\RechercheMaillage.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
 LaTeX Font Info:    ... okay on input line 37.
@@ -593,6 +598,8 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 37.
 LaTeX Font Info:    ... okay on input line 37.
 LaTeX Font Info:    Try loading font information for T1+lmr on input line 37.
 =======
+=======
+>>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
 (/usr/local/texlive/2017/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
 (/usr/local/texlive/2017/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
 (/usr/local/texlive/2017/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
@@ -882,6 +889,25 @@ s/tikzlibrarytopaths.code.tex
 File: tikzlibrarytopaths.code.tex 2008/06/17 v3.0.1a (rcs-revision 1.2)
 ))) (./RechercheMaillage.aux)
 \openout1 = `RechercheMaillage.aux'.
+<<<<<<< HEAD
+=======
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 40.
+>>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 40.
 LaTeX Font Info:    ... okay on input line 40.
@@ -906,6 +932,7 @@ File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
 <<<<<<< HEAD
+<<<<<<< HEAD
 \scratchcounter=\count115
 \scratchdimen=\dimen121
 \scratchbox=\box28
@@ -923,6 +950,8 @@ Package hyperref Info: Link coloring OFF on input line 37.
  ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 =======
+=======
+>>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
 \scratchcounter=\count134
 \scratchdimen=\dimen167
 \scratchbox=\box39
@@ -953,6 +982,12 @@ e
 ))
 \AtBeginShipoutBox=\box40
 Package hyperref Info: Link coloring OFF on input line 40.
+<<<<<<< HEAD
+>>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
+=======
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 >>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\gettitlestring.sty"
@@ -965,6 +1000,7 @@ LaTeX Info: Redefining \pageref on input line 40.
 LaTeX Info: Redefining \nameref on input line 40.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 (C:\msys64\home\Olli\RechercheMaillage\Latex\RechercheMaillage.out)
 (C:\msys64\home\Olli\RechercheMaillage\Latex\RechercheMaillage.out)
 \@outlinefile=\write3
@@ -974,10 +1010,18 @@ LaTeX Info: Redefining \nameref on input line 40.
 (C:\msys64\home\Olli\RechercheMaillage\Latex\RechercheMaillage.toc
 LaTeX Font Info:    Try loading font information for OT1+lmr on input line 5.
 =======
+=======
+>>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
 (./RechercheMaillage.out) (./RechercheMaillage.out)
 \@outlinefile=\write4
 \openout4 = `RechercheMaillage.out'.
 
+<<<<<<< HEAD
+=======
+
+ABD: EveryShipout initializing macros
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 46.
+>>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
 
 ABD: EveryShipout initializing macros
 LaTeX Font Info:    Try loading font information for OT1+lmr on input line 46.
@@ -987,7 +1031,11 @@ LaTeX Font Info:    Try loading font information for OT1+lmr on input line 46.
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 <<<<<<< HEAD
+<<<<<<< HEAD
 LaTeX Font Info:    Try loading font information for OML+lmm on input line 5.
+=======
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 46.
+>>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
 =======
 LaTeX Font Info:    Try loading font information for OML+lmm on input line 46.
 >>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
@@ -996,8 +1044,11 @@ LaTeX Font Info:    Try loading font information for OML+lmm on input line 46.
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 <<<<<<< HEAD
+<<<<<<< HEAD
 LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 5.
 =======
+=======
+>>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
 LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 46.
 
 >>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
@@ -1006,15 +1057,21 @@ LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 46.
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 <<<<<<< HEAD
+<<<<<<< HEAD
 LaTeX Font Info:    Try loading font information for OMX+lmex on input line 5.
 =======
 LaTeX Font Info:    Try loading font information for OMX+lmex on input line 46.
+>>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
+=======
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 46.
+
 >>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\omxlmex.fd"
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
+<<<<<<< HEAD
 <<<<<<< HEAD
 (Font)              <10> on input line 5.
 LaTeX Font Info:    External font `lmex10' loaded for size
@@ -1030,12 +1087,24 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 46.
 LaTeX Font Info:    Try loading font information for U+msa on input line 46.
 >>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
+=======
+(Font)              <10> on input line 46.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 46.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 46.
+LaTeX Font Info:    Try loading font information for U+msa on input line 46.
+>>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 <<<<<<< HEAD
+<<<<<<< HEAD
 LaTeX Font Info:    Try loading font information for U+msb on input line 5.
+=======
+LaTeX Font Info:    Try loading font information for U+msb on input line 46.
+>>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
 =======
 LaTeX Font Info:    Try loading font information for U+msb on input line 46.
 >>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
@@ -1085,6 +1154,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 67--68
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 69--71
+<<<<<<< HEAD
+>>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
+=======
 >>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
 
  []
@@ -1095,11 +1167,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 103--107
 =======
 {/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 Underfull \hbox (badness 10000) in paragraph at lines 87--89
+<<<<<<< HEAD
+>>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
+=======
 >>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
 
  []
 
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 Underfull \hbox (badness 10000) in paragraph at lines 111--114
 
@@ -1108,6 +1184,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 111--114
 [2] [3]
 <../Figures/StartTri600_p(1,0)_min_neg.png, id=121, 2168.1pt x 1070.49937pt>
 =======
+=======
+>>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
 LaTeX Warning: Reference `' on page 2 undefined on input line 93.
 
 
@@ -1117,11 +1195,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 92--96
 
 [2] [3] [4]
 <../Figures/StartTri600_p(1,0)_min_neg.png, id=115, 2168.1pt x 1070.49937pt>
+<<<<<<< HEAD
+>>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
+=======
 >>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
 File: ../Figures/StartTri600_p(1,0)_min_neg.png Graphic file (type png)
 
 <use ../Figures/StartTri600_p(1,0)_min_neg.png>
 Package pdftex.def Info: ../Figures/StartTri600_p(1,0)_min_neg.png used on inpu
+<<<<<<< HEAD
 <<<<<<< HEAD
 t line 182.
 (pdftex.def)             Requested size: 250.36836pt x 250.37497pt.
@@ -1133,27 +1215,43 @@ t line 184.
 
 <../Figures/StartTri600_p(1,0)_random_neg1.png, id=116, 2168.1pt x 1070.49937pt
 >>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
+=======
+t line 184.
+(pdftex.def)             Requested size: 250.36836pt x 250.37497pt.
+
+<../Figures/StartTri600_p(1,0)_random_neg1.png, id=116, 2168.1pt x 1070.49937pt
+>>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
 >
 File: ../Figures/StartTri600_p(1,0)_random_neg1.png Graphic file (type png)
  <use ../Figures/StartTri600_p(1,0)_random_neg1.png>
 Package pdftex.def Info: ../Figures/StartTri600_p(1,0)_random_neg1.png used on 
+<<<<<<< HEAD
 <<<<<<< HEAD
 input line 184.
 (pdftex.def)             Requested size: 250.36836pt x 250.37497pt.
 
 Overfull \hbox (47.71486pt too wide) in paragraph at lines 182--185
 =======
+=======
+>>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
 input line 186.
 (pdftex.def)             Requested size: 250.36836pt x 250.37497pt.
 
 Overfull \hbox (47.71486pt too wide) in paragraph at lines 184--187
+<<<<<<< HEAD
+>>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
+=======
 >>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
 [][] [][] 
  []
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 <../Figures/StartTri600_p(1,0)_random_neg2.png, id=123, 2168.1pt x 1070.49937pt
+=======
+<../Figures/StartTri600_p(1,0)_random_neg2.png, id=117, 2168.1pt x 1070.49937pt
+>>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
 =======
 <../Figures/StartTri600_p(1,0)_random_neg2.png, id=117, 2168.1pt x 1070.49937pt
 >>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
@@ -1162,30 +1260,42 @@ File: ../Figures/StartTri600_p(1,0)_random_neg2.png Graphic file (type png)
  <use ../Figures/StartTri600_p(1,0)_random_neg2.png>
 Package pdftex.def Info: ../Figures/StartTri600_p(1,0)_random_neg2.png used on 
 <<<<<<< HEAD
+<<<<<<< HEAD
 input line 188.
 (pdftex.def)             Requested size: 250.36836pt x 250.37497pt.
 
 <../Figures/StartTri600_p(1,0)_random_neg3.png, id=124, 2168.1pt x 1070.49937pt
 =======
+=======
+>>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
 input line 190.
 (pdftex.def)             Requested size: 250.36836pt x 250.37497pt.
 
 <../Figures/StartTri600_p(1,0)_random_neg3.png, id=118, 2168.1pt x 1070.49937pt
+<<<<<<< HEAD
+>>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
+=======
 >>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
 >
 File: ../Figures/StartTri600_p(1,0)_random_neg3.png Graphic file (type png)
  <use ../Figures/StartTri600_p(1,0)_random_neg3.png>
 Package pdftex.def Info: ../Figures/StartTri600_p(1,0)_random_neg3.png used on 
 <<<<<<< HEAD
+<<<<<<< HEAD
 input line 189.
 (pdftex.def)             Requested size: 250.36836pt x 250.37497pt.
 
 Overfull \hbox (47.71486pt too wide) in paragraph at lines 188--190
 =======
+=======
+>>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
 input line 191.
 (pdftex.def)             Requested size: 250.36836pt x 250.37497pt.
 
 Overfull \hbox (47.71486pt too wide) in paragraph at lines 190--192
+<<<<<<< HEAD
+>>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
+=======
 >>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
 [][] [][] 
  []
@@ -1193,6 +1303,7 @@ Overfull \hbox (47.71486pt too wide) in paragraph at lines 190--192
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <ExampleMaillage.png, id=125, 1437.37pt x 850.17625pt>
 File: ExampleMaillage.png Graphic file (type png)
@@ -1207,6 +1318,8 @@ File: ExampleComparisaon.png Graphic file (type png)
 <use ExampleComparisaon.png>
 Package pdftex.def Info: ExampleComparisaon.png used on input line 196.
 =======
+=======
+>>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
 <ExampleMaillage.png, id=119, 1437.37pt x 850.17625pt>
 File: ExampleMaillage.png Graphic file (type png)
 
@@ -1219,12 +1332,16 @@ File: ExampleComparisaon.png Graphic file (type png)
 
 <use ExampleComparisaon.png>
 Package pdftex.def Info: ExampleComparisaon.png used on input line 198.
+<<<<<<< HEAD
+>>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
+=======
 >>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
 (pdftex.def)             Requested size: 250.38159pt x 250.38469pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 [4 <C:/msys64/home/Olli/RechercheMaillage/Figures/StartTri600_p(1,0)_min_neg.pn
 g
@@ -1294,6 +1411,8 @@ PDF statistics:
  36 named destinations out of 1000 (max. 500000)
  151 words of extra memory for PDF output out of 10000 (max. 10000000)
 =======
+=======
+>>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
 [5 <../Figures/StartTri600_p(1,0)_min_neg.png
 
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ../Figures/StartTri600_p(1,0
@@ -1357,5 +1476,8 @@ PDF statistics:
  172 compressed objects within 2 object streams
  39 named destinations out of 1000 (max. 500000)
  179 words of extra memory for PDF output out of 10000 (max. 10000000)
+<<<<<<< HEAD
+>>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
+=======
 >>>>>>> a916fee4d95d4e00a356044baf7cba3a4c5067f6
 
