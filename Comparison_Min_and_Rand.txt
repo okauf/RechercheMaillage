@@ -1,0 +1,182 @@
+#Each block contains the measurements of the time and number of triangles needed if min_neg respectively rand_neg is used
+#The first two lines contain the index of the starting triangle as well as the point which is searched
+7528
+-0.0623642 -0.0581962 0
+#results minimum
+3.7379e-05
+67
+#results random
+6.4448e-05
+69
+
+10677
+-0.256074 -0.166602 0
+#results minimum
+4.9562e-05
+137
+#results random
+6.6123e-05
+146
+
+17615
+0.535338 0.730056 0
+#results minimum
+9.1562e-05
+217
+#results random
+9.9623e-05
+233
+
+11160
+-0.483181 0.00425039 0
+#results minimum
+3.6725e-05
+172
+#results random
+6.4568e-05
+186
+
+2340
+0.504484 0.100513 0
+#results minimum
+7.326e-06
+34
+#results random
+1.1603e-05
+34
+
+18141
+0.0753474 0.423855 0
+#results minimum
+2.5137e-05
+129
+#results random
+4.8169e-05
+145
+
+14829
+0.102068 -0.0152468 0
+#results minimum
+5.234e-06
+30
+#results random
+7.647e-06
+30
+
+16804
+-0.151116 0.470109 0
+#results minimum
+2.1306e-05
+109
+#results random
+3.843e-05
+118
+
+15037
+0.309216 -0.18842 0
+#results minimum
+1.3781e-05
+66
+#results random
+2.4262e-05
+74
+
+3106
+0.0436363 0.239355 0
+#results minimum
+1.6001e-05
+88
+#results random
+3.3192e-05
+104
+
+14973
+0.342591 0.619478 0
+#results minimum
+1.4168e-05
+74
+#results random
+2.5861e-05
+82
+
+6763
+-0.350042 0.613688 0
+#results minimum
+3.375e-06
+17
+#results random
+5.497e-06
+18
+
+13537
+0.383935 0.262689 0
+#results minimum
+7.581e-06
+38
+#results random
+1.2394e-05
+44
+
+6053
+0.248659 0.313191 0
+#results minimum
+3.932e-06
+27
+#results random
+9.42e-06
+31
+
+15930
+-0.0415375 0.0710488 0
+#results minimum
+1.3255e-05
+76
+#results random
+2.2223e-05
+79
+
+20727
+-0.3682 0.000462694 0
+#results minimum
+1.2909e-05
+62
+#results random
+2.2669e-05
+69
+
+1962
+0.0475149 0.0322039 0
+#results minimum
+1.3086e-05
+75
+#results random
+2.1478e-05
+77
+
+17662
+0.460712 0.0269518 0
+#results minimum
+2.0399e-05
+116
+#results random
+4.8446e-05
+129
+
+3146
+-0.0778917 0.41831 0
+#results minimum
+1.8573e-05
+102
+#results random
+3.9227e-05
+115
+
+3847
+-0.332739 -0.269677 0
+#results minimum
+1.6993e-05
+94
+#results random
+3.613e-05
+108
+
