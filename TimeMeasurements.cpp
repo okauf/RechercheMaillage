@@ -24,7 +24,7 @@ int main(){
     // do not execute defineTriandPoints in order to compare the results of min_neg and random_neg
     //defineTriandPoints(m, input, numbExp);
     
-    //runPromenade(m,"RandomData.txt", "MinMeas.txt");
+    //runPromenade(m,"RandomData.txt", "RandMeas.txt");
     
     mergeResultsToOneTxtFile("RandMeas.txt","MinMeas.txt","RandomData.txt");
 
@@ -126,6 +126,7 @@ void mergeResultsToOneTxtFile(string randMeasurements, string minMeasurements, s
     
     newFile << "#Each block contains the measurements of the time and number of triangles needed if min_neg respectively rand_neg is used" << endl;
     newFile << "#The first two lines contain the index of the starting triangle as well as the point which is searched" << endl;
+    
     while(getline(data,line1)){
         newFile << line1 <<endl;
         getline(data,line1);
