@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cassert>
 #include <time.h>
+#include <math.h>
 using namespace std;
 
 template<typename T>
@@ -62,9 +63,13 @@ public:
 	T oriented_vol(const T3 &v, const T3 &w){
 		return (v.x-x)*(w.y-v.y) - (v.y-y)*(w.x-v.x);
 	}
-	
+    double dist(const T3 &v){
+        return sqrt((x-v.x)*(x-v.x)+(y-v.y)*(y-v.y)+(z-v.z)*(z-v.z));
+    }
 	
 };
+
+
 
 int min_neg(const double & x, const double & y, const double & z){
 	if (x>=0 && y>=0 && z>=0){

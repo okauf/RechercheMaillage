@@ -16,16 +16,17 @@ int main(){
    switch(option) {
        
        case 1: {
-           cout << "Choose a maillage file: " << endl << "1: maillage1.msh" << endl << "2: maillage2.msh" << endl << "3: maillage3.msh" << endl << "4: maillage4.msh" << endl;
+           cout << "Choose a maillage file: " << endl << "1: maillage1.msh" << endl << "2: maillage2.msh" << endl << "3: maillage3.msh" << endl << "4: maillage4.msh" << endl <<  "5: maillage5.msh" << endl;
            int mOption;
            cin >> mOption;
-           assert(mOption >= 0 && mOption < 5);
+           assert(mOption >= 0 && mOption < 6);
            string name;
            switch (mOption) {
                case 1: {name = "maillage1.msh";    break;}
                case 2: {name = "maillage2.msh";    break;}
                case 3: {name = "maillage3.msh";    break;}
                case 4: {name = "maillage4.msh";    break;}
+               case 5: {name = "maillage5.msh";    break;}
            }
            
            Maillage m(name);
@@ -55,16 +56,17 @@ int main(){
        }
            
        case 2: {
-           cout << "Choose a maillage file: " << endl << "1: maillage1.msh" << endl << "2: maillage2.msh" << endl << "3: maillage3.msh" << endl << "4: maillage4.msh" << endl;
+           cout << "Choose a maillage file: " << endl << "1: maillage1.msh" << endl << "2: maillage2.msh" << endl << "3: maillage3.msh" << endl << "4: maillage4.msh" << endl <<  "5: maillage5.msh" << endl;
            int mOption;
            cin >> mOption;
-           assert(mOption >= 0 && mOption < 5);
+           assert(mOption >= 0 && mOption < 6);
            string name;
            switch (mOption) {
                case 1: {name = "maillage1.msh";    break;}
                case 2: {name = "maillage2.msh";    break;}
                case 3: {name = "maillage3.msh";    break;}
                case 4: {name = "maillage4.msh";    break;}
+               case 5: {name = "maillage5.msh";    break;}
            }
            
            Maillage m(name);
@@ -86,6 +88,7 @@ int main(){
            T3<double>* vertices = m.GetVertices();
            cout << "The starting triangle is " << endl << vertices[T[0]-1] << endl  << vertices[T[1]-1] << endl  << vertices[T[2]-1] << endl;
            Triangle P = m.Promenade(T,p,path);
+           cout << "The length of the path is " << path.size() << endl;
            
            cout << "The point " << p << " is in the triangle with vertices " << endl << vertices[P[0]-1] << endl << vertices[P[1]-1] << endl << vertices[P[2]-1] << endl;
            m.exportGnuplot(path,&p,1);
@@ -94,29 +97,31 @@ int main(){
            
        case 3: {
            cout << "Choose two maillage files, the maillages become finer with increasing index. " << endl;
-           cout << "Choose the maillage whose sommets should be covered by triangles of the finer maillage " << endl << "1: maillage1.msh" << endl << "2: maillage2.msh" << endl << "3: maillage3.msh" << endl << "4: maillage4.msh" << endl;
+           cout << "Choose the maillage whose sommets should be covered by triangles of the finer maillage " << endl << "1: maillage1.msh" << endl << "2: maillage2.msh" << endl << "3: maillage3.msh" << endl << "4: maillage4.msh" << endl << "5: maillage5.msh" << endl;
            int mOption;
            cin >> mOption;
-           assert(mOption >= 0 && mOption < 5);
+           assert(mOption >= 0 && mOption < 6);
            string name;
            switch (mOption) {
                case 1: {name = "maillage1.msh";    break;}
                case 2: {name = "maillage2.msh";    break;}
                case 3: {name = "maillage3.msh";    break;}
                case 4: {name = "maillage4.msh";    break;}
+               case 5: {name = "maillage5.msh";    break;}
            }
            
            Maillage m(name);
            
            
-           cout << "Chose the finer maillage file " << endl << "1: maillage1.msh" << endl << "2: maillage2.msh" << endl << "3: maillage3.msh" << endl << "4: maillage4.msh" << endl;
+           cout << "Chose the finer maillage file " << endl << "1: maillage1.msh" << endl << "2: maillage2.msh" << endl << "3: maillage3.msh" << endl << "4: maillage4.msh" << endl << "5: maillage5.msh" << endl;
            cin >> mOption;
-           assert(mOption >= 0 && mOption < 5);
+           assert(mOption >= 0 && mOption < 6);
            switch (mOption) {
                case 1: {name = "maillage1.msh";    break;}
                case 2: {name = "maillage2.msh";    break;}
                case 3: {name = "maillage3.msh";    break;}
                case 4: {name = "maillage4.msh";    break;}
+               case 5: {name = "maillage5.msh";    break;}
            }
            Maillage M(name);
            m.setAdjacencyViaMultiMap(); M.setAdjacencyViaList();

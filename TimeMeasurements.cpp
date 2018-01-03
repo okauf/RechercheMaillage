@@ -9,30 +9,39 @@ using namespace std;
 using namespace std::chrono;
 
 void defineTriandPoints(Maillage & m, string input, int numbExp);
-void runPromenade(Maillage & m, string input, string name);
-void mergeResultsToOneTxtFile(string randMeasurements, string minMeasurements, string randomData);
+void runPromenade(Maillage & m, string input, string name1, string name2);
+void exportGnuplot(string file1, string file2);
+
 
 int main(){
 	
     string name = "maillage5.msh";
     Maillage m(name);
     m.setAdjacencyViaList();
-    int numbExp = 20;
+    int numbExp = 15;
 
     // file stores starting triangles and points to cover
     string input = "randomData.txt";
     // do not execute defineTriandPoints in order to compare the results of min_neg and random_neg
-    //defineTriandPoints(m, input, numbExp);
+    defineTriandPoints(m, input, numbExp);
     
-    //runPromenade(m,"RandomData.txt", "RandMeas.txt");
+    runPromenade(m,"RandomData.txt", "MinMeasRunTime.txt", "MinMeasPathlength.txt");
+    //exportGnuplot("MinMeasPathlength.txt","RandMeasPathlength.txt");
     
-    mergeResultsToOneTxtFile("RandMeas.txt","MinMeas.txt","RandomData.txt");
-
+    
    
 	
 }
+double trianglePointDistance(Maillage & m,const int triIndex, T3<double> &p){
+    //distance is defined to be the distance of the centroid of the triangle and the point
+    Triangle t = m.GetTriangles()[triIndex];
+    T3<double>* vertices = m.GetVertices();
+    T3<double> x = vertices[t[0]], y = vertices[t[1]], z = vertices[t[2]];
+    T3<double> s = (x+y+z)*(1/3);
+    return s.dist(p);
+}
 
-void defineTriandPoints(Maillage & m, string input, int numbExp){
+void defineTriandPoints(Maillage & m, string input,const int numbExp){
 	
 	ofstream randomData;
 	randomData.open(input);
@@ -52,14 +61,19 @@ void defineTriandPoints(Maillage & m, string input, int numbExp){
 	
 		radius = (rand() % 10000) / 10000.0;
 		angle = 2 * M_PI * (rand() % 10000) / 10000.0;
+        
         //data of the point in the unit disk
-		randomData << radius*cos(angle) << " " << radius*sin(angle) << " " << 0 << endl;
+        T3<double> p(radius*cos(angle),radius*sin(angle),0);
+        randomData << p << endl;
+        
+        //calculating the distance
+        randomData << trianglePointDistance(m,randomTriIndex,p) << endl;
+        
 	}
-	
 	randomData.close();
 };
 
-void runPromenade(Maillage & m, string input, string name){
+void runPromenade(Maillage & m, string input, string name1, string name2){
 	
 	fstream randomData;
 	randomData.open(input);
@@ -77,27 +91,39 @@ void runPromenade(Maillage & m, string input, string name){
 	Triangle P;
     
     //for directly writing the data in a txt file
-    ofstream searchData;
-    searchData.open(name);
+    ofstream searchData1, searchData2;
+    searchData1.open(name1);
+    searchData2.open(name2);
+    
 	
-//	for (int i = 0; i < numbExp; i++){
+
     while(getline(randomData,line)){
         //path is rewritten in each loop
 		path.clear();
 		
+        //for completion, data of triangle index in the result txt file
+        searchData1 << "#"<< line << endl;
+        searchData2 << "#"<< line << endl;
+        
 		// reading list position of the starting triangle
-		// getline(randomData,line);
 		idx = stoi(line);
+        
 		StartTri = triangles[idx];
-		// cout << "idx " << idx << endl;
+		
 		
 		// reading point to cover
 		getline(randomData,line);
+        
+        //for completion adding the point to the result txt file
+        searchData1 << "#" << line << endl;
+        searchData2 << "#" << line << endl;
+        
 		stringstream linestream;
 		linestream << line;
 		linestream >> a >> b >> c;
 		p = T3<double>(a,b,c);
-		// cout << "p " << p << endl;
+        
+        
 		
 		// time measurement and path length for method promenade
 		auto t1 = high_resolution_clock::now();
@@ -105,48 +131,33 @@ void runPromenade(Maillage & m, string input, string name){
 		auto t2 = high_resolution_clock::now();
 		durationIns = t2-t1;
         
+        //getting the distance
+        getline(randomData,line);
+        
         //writing the data in the file
-        searchData << durationIns.count() << endl;
-        searchData << path.size() << endl;
+        searchData1 << line << " "  << durationIns.count() << endl << endl;
+        searchData2 << line << " " <<  path.size() << endl << endl;
+        
+        
         
 	}
-    searchData.close();
+    searchData1.close();
+    searchData2.close();
 	randomData.close();
 };
 
 
-void mergeResultsToOneTxtFile(string randMeasurements, string minMeasurements, string randomData){
-    ofstream newFile;
-    fstream data, minM, randM;
-    string line1, line2, line3;
-    newFile.open("Comparison_Min_and_Rand.txt");
-    randM.open(randMeasurements);
-    minM.open(minMeasurements);
-    data.open(randomData);
-    
-    newFile << "#Each block contains the measurements of the time and number of triangles needed if min_neg respectively rand_neg is used" << endl;
-    newFile << "#The first two lines contain the index of the starting triangle as well as the point which is searched" << endl;
-    
-    while(getline(data,line1)){
-        newFile << line1 <<endl;
-        getline(data,line1);
-        newFile << line1 << endl;
-        newFile << "#results minimum" << endl;
-        getline(minM,line2);
-        newFile << line2 << endl;
-        getline(minM,line2);
-        newFile << line2 << endl;
-        
-        newFile << "#results random" << endl;
-        getline(randM, line3);
-        newFile << line3 << endl;
-        getline(randM, line3);
-        newFile << line3 << endl;
-        
-        newFile << endl;
-    }
-    
+void exportGnuplot(string file1, string file2){
+    ofstream GnuCom;
+    GnuCom.open("GnuExe.txt");
+    GnuCom << "plot '" << file1 << "' , '" << file2 << "'" << endl;
+    GnuCom << "pause -1 'Hit any key to continue' " << endl;
+    GnuCom.close();
+    system("gnuplot GnuExe.txt");
+    system("rm GnuExe.txt");
 }
+
+
 
 
 
