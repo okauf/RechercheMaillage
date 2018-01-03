@@ -26,7 +26,7 @@ int main(){
     //defineTriandPoints(m, input, numbExp);
     
     //runPromenade(m,"RandomData.txt", "MinMeasRunTime.txt", "MinMeasPathlength.txt");
-    exportGnuplot("MinMeasRunTime2000.txt","RandMeasRunTime2000.txt",true);
+    exportGnuplot("MinMeasPathlength2000.txt","RandMeasPathlength2000.txt",false);
     
     
    
@@ -152,10 +152,15 @@ void exportGnuplot(string file1, string file2, bool runTime){
     ofstream GnuCom;
     GnuCom.open("GnuExe.txt");
     GnuCom << " set xlabel 'Distance between centroid of the starting triangle and searched point' "<< endl;
-    if(runTime)
-        GnuCom << " set ylabel 'Runtime' '" << endl; 
-    else
+    GnuCom << " set xrange [0:2.3] " << endl;
+    if(runTime) {
+        GnuCom << " set ylabel 'Runtime' " << endl;
+        GnuCom << " set yrange [0:0.0001]" << endl;
+    }
+    else {
         GnuCom << " set ylabel 'Length of path (number of passed triangles)' " << endl;
+        GnuCom << " set yrange [0:300] " << endl;
+    }
     
     GnuCom << "plot '" << file1 << "' , '" << file2 << "'" << endl;
     GnuCom << "pause -1 'Hit any key to continue' " << endl;
