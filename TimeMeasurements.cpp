@@ -10,7 +10,7 @@ using namespace std::chrono;
 
 void defineTriandPoints(Maillage & m, string input, int numbExp);
 void runPromenade(Maillage & m, string input, string name1, string name2);
-void exportGnuplot(string file1, string file2);
+void exportGnuplot(string file1, string file2,bool runTime);
 
 
 int main(){
@@ -18,15 +18,15 @@ int main(){
     string name = "maillage5.msh";
     Maillage m(name);
     m.setAdjacencyViaList();
-    int numbExp = 15;
+    int numbExp = 2000;
 
     // file stores starting triangles and points to cover
     string input = "randomData.txt";
     // do not execute defineTriandPoints in order to compare the results of min_neg and random_neg
-    defineTriandPoints(m, input, numbExp);
+    //defineTriandPoints(m, input, numbExp);
     
-    runPromenade(m,"RandomData.txt", "MinMeasRunTime.txt", "MinMeasPathlength.txt");
-    //exportGnuplot("MinMeasPathlength.txt","RandMeasPathlength.txt");
+    //runPromenade(m,"RandomData.txt", "MinMeasRunTime.txt", "MinMeasPathlength.txt");
+    exportGnuplot("MinMeasRunTime2000.txt","RandMeasRunTime2000.txt",true);
     
     
    
@@ -34,11 +34,13 @@ int main(){
 }
 double trianglePointDistance(Maillage & m,const int triIndex, T3<double> &p){
     //distance is defined to be the distance of the centroid of the triangle and the point
-    Triangle t = m.GetTriangles()[triIndex];
+    Triangle t = m.GetTriangles()[triIndex-1];
     T3<double>* vertices = m.GetVertices();
-    T3<double> x = vertices[t[0]], y = vertices[t[1]], z = vertices[t[2]];
-    T3<double> s = (x+y+z)*(1/3);
+    T3<double> x = vertices[t[0]-1], y = vertices[t[1]-1], z = vertices[t[2]-1];
+    T3<double> s = (x+y+z)*0.3333333;
+    //cout << "The starting triangle is " << endl << x << endl << y << endl << z << endl;
     return s.dist(p);
+    
 }
 
 void defineTriandPoints(Maillage & m, string input,const int numbExp){
@@ -54,7 +56,7 @@ void defineTriandPoints(Maillage & m, string input,const int numbExp){
 	double radius, angle;
 	srand(time(NULL));
 	for (int i = 0; i < numbExp; i++){
-		int randomTriIndex = rand()%numbTri;
+		int randomTriIndex = rand()%numbTri+1;
         
         //index of the random starting triangle
 		randomData << randomTriIndex << endl;
@@ -108,8 +110,7 @@ void runPromenade(Maillage & m, string input, string name1, string name2){
 		// reading list position of the starting triangle
 		idx = stoi(line);
         
-		StartTri = triangles[idx];
-		
+		StartTri = triangles[idx-1];
 		
 		// reading point to cover
 		getline(randomData,line);
@@ -147,9 +148,15 @@ void runPromenade(Maillage & m, string input, string name1, string name2){
 };
 
 
-void exportGnuplot(string file1, string file2){
+void exportGnuplot(string file1, string file2, bool runTime){
     ofstream GnuCom;
     GnuCom.open("GnuExe.txt");
+    GnuCom << " set xlabel 'Distance between centroid of the starting triangle and searched point' "<< endl;
+    if(runTime)
+        GnuCom << " set ylabel 'Runtime' '" << endl; 
+    else
+        GnuCom << " set ylabel 'Length of path (number of passed triangles)' " << endl;
+    
     GnuCom << "plot '" << file1 << "' , '" << file2 << "'" << endl;
     GnuCom << "pause -1 'Hit any key to continue' " << endl;
     GnuCom.close();
