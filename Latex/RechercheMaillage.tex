@@ -41,7 +41,7 @@
 	
 \begin{titlepage}
 	\begin{center}
-		\vspace{2cm}
+	
 		{\Large
 			Université de Pierre et Marie Curie 
 		}
@@ -109,8 +109,9 @@ The sign is positive for triangles oriented in trigonometric sense. This method 
 
 
 \subsection{The class Triangle} \label{triangle}
-The class Triangle inherits form the class T3. Its derived members $ x,y,z $ are specialized as integers representing the position of its defining vertices in the array of the points of the given mesh. This array is a member of the class mesh (SHOULD be changed from maillage to mesh...) in \ref{mesh}. In addition, it has three extra integer members {\itshape neighbor1, neighbor2, neighbor3} representing the position of the adjacent triangles in the array of triangles which is also a member of the class mesh. (MENTION THAT INDEXING STARTS AT 0?) An adjacent triangle $ t^{'} $ is said to be  {\itshape neighbor1 } of a triangle $ t $ if $ x $ is the first vertex of $t$ and $x$ is not a vertex of $ t^{'} $. The same holds for the indices $ 2,3 $. Note that this relation is not symmetric, that is to say that $ t^{'} $ is {\itshape neighbor1} does not imply that $t$ is {\itshape neighbor1} of $t^{'}$. 
-Note that this assignment facilitates the access to the following in the algorithm {\itshape promenade} (see \ref{promenade}).  \\
+The class Triangle inherits form the class T3. Its derived members $ i,j,k $ are specialized as integers representing the position of its defining vertices in the array of the points of the given mesh. This array is a member of the class mesh in \ref{mesh}. In addition, it has three extra integer members {\itshape neighbor1, neighbor2, neighbor3} representing the position of the adjacent triangles in the array of triangles which is also a member of the class mesh. Notice that theses index lies between zero and the number of triangles minus one. \\
+ An adjacent triangle $ t^{'} $ is said to be  {\itshape neighbor1 } of a triangle $ t $ if, saying $ i $ represents the first index of a vertex of $t$ but $i$ does not represent a vertex of $ t^{'} $. The same holds for $ neighbor1 $ and $ neighbor2 $. Note that this relation is not symmetric, that is to say that $ t^{'} $ is {\itshape neighbor1} does not imply that $t$ is {\itshape neighbor1} of $t^{'}$. 
+This assignment facilitates the access to the following adjacent triangle in the algorithm {\itshape promenade} (see \ref{promenade}).  \\
 At the creation of a new triangle the latter three members are initialized by $ -1 $ which means that a triangle has no neighbors when it is created. The neighbors are set via the functions {\itshape setAdjacencyViaMultimap} \ref{multimap}, respectively {\itshape setAdjacencyViaList} \ref{list}. After the execution of one of these two functions $neighbor1 =  -1 $ describes the case that there is no adjacent triangle on the opposite side of the first vertex. 
 Since the neighbors are private members there are getter and setter in order to read and manipulate them. \\
 
@@ -118,18 +119,19 @@ Since the neighbors are private members there are getter and setter in order to 
 
 \section{The class Mesh} \label{mesh}
 The class Mesh contains all necessary information of the mesh and the search of a vertex in (or outside) the mesh can be realized by its member functions. Its private members are pointers to the arrays of vertices and triangles of the mesh as integers who store the size of these two lists.
-In order to create an object of type Mesh the name of the desired .msh file has to be transmitted. The file is read by the functions {\itshape LoadVertices} and {\itshape LoadTriangles} \ref{Load} who then initialize the members {\itshape triangles, sommets, numbTriangles, numbSommets}. 
-There are getter and setter for {\itshape numbTriangles} and {\itshape numbSommets} as well as getter for {\itshape triangles} and {\itshape sommets}. The functions {\itshape LoadTriangles} and {\itshape LoadVertices} are their setters. \\
+In order to create an object of type Mesh the name of the desired {\itshape .msh} file has to be transmitted. The file is read by the functions {\itshape LoadVertices} and {\itshape LoadTriangles} \ref{Load} who then initialize the members $ triangles, sommets, numbTriangles$, $numbSommets$.
+Since the members are private there are getter and setter for {\itshape numbTriangles} and {\itshape numbSommets} as well as getter for {\itshape triangles} and {\itshape sommets}. The functions {\itshape LoadTriangles} and {\itshape LoadVertices} are their setters. \\
 
 l’intersection de 2 triangles distincts soit une arête commune, un sommet commun ou rien, we consider convexe meshes
 
 
 \subsection{LoadVertices and LoadTriangles} \label{Load}
-Both functions are called in the constructor of the class mesh setting the members {\itshape vertices} and {\itshape triangles}. 
-They work basically the same way with the small difference that they create arrays of different data types and searching for different key words in the .msh file. 
-At first the .msh file is opened according to its name. Then the functions search for the line indicating the number of vertices respectively the number of triangles. 
-To make the code work the next line must include the according number which is then stored in {\itshape numbSommets}, respectively {\itshape numbTri}. The data is read as a string which is transformed to an integer by the command {\itshape astoi}. These numbers also define the size of the arrays of $  type T3<double> $ and Triangle which are created by new. The following lines must include the coordinates of all vertices, respectively the positions of the triangles in the table of vertices. The lines are read as strings who are then 
-Both functions finally return the arrays filled with the according vertices or triangles.
+Both functions are called in the constructor of the class $ mesh $ setting the members $  vertices$ and $ triangles $. 
+They work basically the same way with the small difference that they create arrays of different data types ($ T3<double> $ and $ T3<int> $) and searching for different key words in the $ .msh $ file. 
+At first, the $ .msh $ file is opened according to its name. Then the functions search for the line indicating the number of vertices respectively the number of triangles. This is implemented by using an $ fstream $ and the function $ getline $ who stores the information of a line and skips to the next line. \\
+To make the code work the next line must include the according number which is then stored in {\itshape numbVertices}, respectively {\itshape numbTri}. The data is read as a string which is transformed to an integer by the command {\itshape astoi}. These numbers also define the size of the arrays of type $T3<double> $ and $ Triangle $ which are created by $ new $ in order to allocate the necessary memory. The following lines must include the coordinates of all vertices, respectively the positions of the triangles in the table of vertices. The lines are read as strings who are casted in to $ doubles $ respectively $ integers $. \\
+Each line defines a vertex or a triangle which is then stores in the correspondent array.
+Both functions finally return the arrays filled with the vertices or triangles.
 
 
 \subsection{Find the adjacent triangle}
@@ -138,9 +140,9 @@ Both functions finally return the arrays filled with the according vertices or t
 
 The goal of this function is the initialization of the members {\itshape neighbor1, neighbor2, neighbor3} of the class Triangle. As a reminder they are defined by their position in the array of triangles. Their initialization is realized by the container {\itshape multimaps}. 
 Each triangle $ t = (v_{i_1},v_{i_2},v_{i_3}) $ is represented by the sequence $ (i_1,i_2,i_3) $ where these indices indicate the position of the vertices in the array of vertices. 
-For each $ t $ three pairs are added to the multimap, where the edges $(v_{i_k},v_{i_l}), \, k,l \in \{1,2,3\}, \ k \neq l $, stored by the data type $ pair<int,int> $ (more precisely $ pair<k,l> $), represent the keys, whereas the mapped value is an integer representing the position of the triangle in the array of triangles. Hence the initalization if the mulimap is realized in $ 3n_T $ loops, so in $ O(n_T) $. \\
-Essentially for the functioning of the method is the ordering of the of the indices $ i_1,i_2,i_3 $ in $ t $. As in {\itshape setAdjacencyViaList} an edge $ \{ v_k, v_l\} $
- has to be uniquely identified by the pair $ (k,l) $ which should not be mixed up with $(l,k) $. This is achieved by demanding that for each triangle $ t =  (v_{i_1},v_{i_2},v_{i_3})$ the vertices are ordered, so $ i_1 < i_2 < i_3 $. Thus, an edge $(v_{i_k},v_{i_l}) $ can uniquely be identified by the pair $ (k,l), \, k < l $. \\
+For each $ t $ three pairs are added to the multimap, where the edges $(v_{i_k},v_{i_l}), \, k,l \in \{1,2,3\}, \ k \neq l $, stored by the data type $ pair<int,int> $ (more precisely $ pair<i_k,i_l> $), represent the keys, whereas the mapped value is an integer representing the position of the triangle in the array of triangles. Hence, the initialization if the multimap is realized in $ 3n_T $ loops, so in $ O(n_T) $. \\
+Essentially for the functioning of the method is the ordering of the of the indices $ i_1,i_2,i_3 $ in $ t $. As in {\itshape setAdjacencyViaList}, an edge $ \{ v_{i_k}, v_{i_l}\} $
+ has to be uniquely identified by the pair $ (i_k,i_l) $ which should not be mixed up with $(i_l,i_k) $. This is achieved by demanding that for each triangle $ t =  (v_{i_1},v_{i_2},v_{i_3})$ the vertices are ordered, so $ i_1 < i_2 < i_3 $. Thus, an edge $(v_{i_k},v_{i_l}) $ can uniquely be identified by the pair $ (i_k,i_l), \, i_k < i_l $. \\
  We find the adjacent triangles by the following three steps: 
  \begin{enumerate}
  	\item 
@@ -158,18 +160,34 @@ The application of all three steps needs a time of $ O(n_T)O(\log(n_T)) = O(n\lo
 	\begin{minipage}{0.4\textwidth}
 		\begin{tikzpicture}   
 		
-				\node (A) at (0,95)  {$(k,l)$};
-				\node (B) at (3,97) {$((k,l),i)$};
-				\node (C) at (3,93) {$((k,l)j)$};
+				\node (A) at (0,95)  {$(i_k,i_l)$};
+				\node (B) at (3,97) {$((i_k,i_l),i)$};
+				\node (C) at (3,93) {$((i_k,i_l),j)$};
+				\node (E) at (3,96) {$( (m,n),s )$ };
 				\node (D) at (5,97) {iterator};
 				\draw [->] (A) to (B);
 				\draw [->] (A) to (C); 
 				\draw [dotted,->] (D) to (B); 
 		
 		\end{tikzpicture}
-	\caption{Initial situation for determing the neighbors}
+		
 	\end{minipage}
-
+	\hfill
+	\begin{minipage}{0.4\textwidth}
+		\vspace{1cm}
+		\begin{tikzpicture}
+			\node (A) at (0,95)  {$(i_k,i_l)$};
+			\node (C) at (3,93) {$((i_k,i_l)j)$};
+			\node (B) at (3,96) {$( (m,n),s )$ };
+			\node (D) at (5,96) {iterator};
+			\draw [dotted,->] (D) to (B); 
+			\draw [->] (A) to (C); 
+		
+		\end{tikzpicture}
+		
+		
+	\end{minipage}
+	\caption{The initial situation for determining the neighbors (left). The element$ ((i_k,i_l),i) $ is erased from the map in the iterator points to another element, not necessarily $((i_k,i_l),j)$. This essentially depends on the internal ordering of the multimap.  }
 
 \end{figure}
 
@@ -230,18 +248,26 @@ only case in which neighbor selection is not uniquely determined: $p$ on half pl
 	\subfigure{\includegraphics[width=0.55\linewidth,height=0.55\linewidth]{../Figures/StartTri600_p(1,0)_random_neg3}}
 \end{figure}
 
-\begin{figure}[h]  \label{ex}
 
-		\subfigure{\includegraphics[width=0.55\linewidth,height=0.55\linewidth]{ExampleMaillage.png}}
-		\caption{An example of a mesh where a random choice of the consecutive triangle is better.}
-		\subfigure{\includegraphics[width=0.55\linewidth,height=0.55\linewidth]{ExampleComparisaon.png}}
-		\caption{If the choice of the next triangle is not random it is determined according to the size of the blue and red surfaces.  }
-	
-
-	
-\end{figure}
-As shown in figure \ref{ex} a random choice of the following triangle can be better. If the algorithm starts with the red triangle and is searching for the green point it has to decide if it takes the neighbor lying relatively higher in the plane or the one lying relatively lower. Deciding this by the smaller oriented volume the lower one will be chosen. 
-
+\subsection{Can an arbitrary choice of the consecutive triangle be a better choice?}\label{Question}
+	This example shows that a random choice of the consecutive triangle can be better. 
+	\begin{figure}[h]\label{Example}
+			\begin{minipage}{0.4\textwidth}
+				\includegraphics[scale=0.2]{Example.jpg}
+			\end{minipage}
+			\hspace{2cm}
+			\begin{minipage}{0.4\textwidth}
+				\includegraphics[scale=0.2]{Calculation.jpg}
+			\end{minipage}
+		\caption{The illustration of \ref{Question}.}
+			
+			
+	\end{figure}
+	Assume that the algorithm $ promenade $ currently considers  the triangle $ A $ of figure \ref{Example} and searches for a covering triangle of the point $ p $.
+	Hence, the algorithm will proceed with triangle $ B $ or $ C $. \\
+	 If we use the size of the oriented volume (the oriented volume of the convex hull of $ p $ and the lower right edge of $ A $, respectively the upper right edge of $ A $) we will clearly choose $ C $, as illustrated in the second figure (the green area is clearly bigger than the blue one). This is obviously the worse choice since $ B $ is a covering triangle of the point $ p $.  \\
+	 An important observation is that the regularity of the triangles plays an important role. In this case, regularity means that all triangles of the mesh have a 'similar' area, 'similar' angles and its vertices are adjacent to a 'similar' number of triangles.
+	 
 \subsection{The visualization via gnuplot}
 	The visualization is done by the function $ exportGnuplot $ being able to visualize two different things: 
 	\begin{enumerate}
@@ -250,7 +276,7 @@ As shown in figure \ref{ex} a random choice of the following triangle can be bet
 		In this case the input variable $ triangles_path $ contains the sequence of triangles and the input variable $  points $ contains just one point, hence the input $ int numbpoints $ is $ 1 $. 
 		\item 
 		Given a mesh and the vertices of another mesh it can visualize the set of the covering triangles (a subset of triangles of the first mesh) of the points of the second mesh. 
-		In this case the input variable $ triangles\_path $ contains the covering triangles and the $ points $ (IN VERTICES UMBENENNEN?) are the points of the second mesh. 
+		In this case the input variable $ triangles\_path $ contains the covering triangles and the $ points $ (IN VERTICES UMBENENNEN?, würde ich nicht, denn die variable heißt points und in diesem fall werden sie auch nur als points und nicht als vertices behandelt) are the vertices of the second mesh. 
 	\end{enumerate}
 The functions writes four text files, one for all triangles of the mesh, one for the triangles in $ triangles\_path $, one for the points in $ points $ and one for the commands which shall be executed by gnuplot. This is all realized by a simple $ ofstream $ variable, allowing to create and manipulate a text file. \\
 The script for gnuplot contains a line which keeps the plot open until some key is hit in the terminal. 
@@ -258,8 +284,9 @@ The actual execution in the terminal is achieved by the command $ system $ which
 
 \section{5 find covering Triangles}
 
-\section{Testumgebung - main}
-
+\section{Test environment- the main function}
+	
+	
 \end{document}
 
 

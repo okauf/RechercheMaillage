@@ -11,6 +11,7 @@
 \contentsline {subsection}{\numberline {3.3}L'algorithme promenade}{4}{subsection.3.3}
 \contentsline {subsubsection}{\numberline {3.3.1}Random neighbor selection}{5}{subsubsection.3.3.1}
 \contentsline {subsubsection}{\numberline {3.3.2}Selection of neighbor with minimal oriented volume}{5}{subsubsection.3.3.2}
-\contentsline {subsection}{\numberline {3.4}The visualization via gnuplot}{5}{subsection.3.4}
-\contentsline {section}{\numberline {4}5 find covering Triangles}{6}{section.4}
-\contentsline {section}{\numberline {5}Testumgebung - main}{6}{section.5}
+\contentsline {subsection}{\numberline {3.4}Can an arbitrary choice of the consecutive triangle be a better choice?}{5}{subsection.3.4}
+\contentsline {subsection}{\numberline {3.5}The visualization via gnuplot}{6}{subsection.3.5}
+\contentsline {section}{\numberline {4}5 find covering Triangles}{7}{section.4}
+\contentsline {section}{\numberline {5}Test environment- the main function}{7}{section.5}
