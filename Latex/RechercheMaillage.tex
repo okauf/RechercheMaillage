@@ -252,7 +252,7 @@ only case in which neighbor selection is not uniquely determined: $p$ on half pl
 \subsection{Can an arbitrary choice of the consecutive triangle be a better choice?}\label{Question}
 	This example shows that a random choice of the consecutive triangle can be better. 
 	\begin{figure}[h]\label{Example}
-			\begin{minipage}{0.4\textwidth}
+			\begin{minipage}{0.3\textwidth}
 				\includegraphics[scale=0.2]{Example.jpg}
 			\end{minipage}
 			\hspace{2cm}
@@ -285,7 +285,17 @@ The actual execution in the terminal is achieved by the command $ system $ which
 \section{5 find covering Triangles}
 
 \section{Test environment- the main function}
-	
+	The cpp file main offers the possibility to test the properties of the program:
+	\begin{enumerate}
+		\item 
+		Find the neighbors of a triangle.
+		\item 
+		Find the triangle for a point (the point can be chosen).
+		\item 
+		Find the covering triangles for the vertices of another mesh. 
+	\end{enumerate}
+	All three options contain the option to choose the mesh where the mesh becomes finer from maillage1.msh increasingly to maillage5.msh. 
+	Of course it is also possible to add own meshs. In this case yet, it has to be noted that the triangle's indices ordering must be increasing, as mentioned in the sections before. Moreover, the shown intervall is set 
 	
 \end{document}
 

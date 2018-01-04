@@ -9,7 +9,7 @@ int main(){
    cout << "Choose from the following testing options" << endl;
    cout << "1: Find neighbors for a triangle" << endl;
    cout << "2: Find the covering triangle for a point of your choice" << endl;
-   cout << "3: Find the covering triangles for all the points of another maillage" << endl;
+   cout << "3: Find the covering triangles for all the points of another mesh" << endl;
    
    int option;
    cin >> option;
