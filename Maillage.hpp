@@ -413,7 +413,7 @@ void Triangle_Recurrence(vector<Triangle> & coveringTriangles, Maillage & m, Mai
             
             //Find the actual covering triangle and ad it to the list
             coveringTriangles[Neighbor1_m[adjPoint]-1] = M.Promenade(Start, vertices_m[Neighbor1_m[adjPoint]-1]);
-            //start the algorithm again with neighbor1_m 
+            //start the algorithm again with neighbor1_m
             Triangle_Recurrence(coveringTriangles, m, M, Neighbor1_m);
         }
     }
