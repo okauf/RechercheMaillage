@@ -6,6 +6,7 @@
 #include <list>
 #include <map>
 #include <vector>
+#include <time.h>
 using namespace std;
 
 class Maillage{
@@ -320,7 +321,8 @@ void exportGnuplot(vector<Triangle> & triangles_path, const T3<double>* points, 
         }
         Data << vertices[triangles[i][0]-1] << endl;
         // insert the last point again in order to connect the points
-        Data << endl;  //This creates blocks of points which will be connected by lines
+        //This creates blocks of points which will be connected by lines
+        Data << endl;
     }
     Data.close();
     
@@ -347,7 +349,6 @@ void exportGnuplot(vector<Triangle> & triangles_path, const T3<double>* points, 
 	}
 	
 	// GnuCom << "set output 'b.png'" << endl;
-    
     // In order to keep the file open
     GnuCom << "pause -1 'Hit any key to continue' " << endl;
     GnuCom.close();
@@ -436,39 +437,48 @@ void Triangle_Recurrence(vector<Triangle> & coveringTriangles, Maillage & m, Mai
 
 vector<Triangle>& findVertices(Maillage & m, Maillage & M, vector<Triangle> & coveringTriangles){
     
-    // suche nach Knoten von m in M
+    //search for vertices of m in M 
     
     // int numbVertices_m = m.GetNumbVertices();
     T3<double> * vertices_m = m.GetVertices();
     Triangle * triangles_m = m.GetTriangles();
     
-    // int numbVertices_M = M.GetNumbVertices();
+    //int numbVertices_M = M.GetNumbVertices();
     int numbTri_M = M.GetNumbTri();
     // T3<double> * vertices_M = M.GetVertices();
     Triangle * triangles_M = M.GetTriangles();
     
+    srand(time(NULL));
     
-    Triangle firstTriangle_m = triangles_m[0];
+    //choose a random start triangle whose vertices shall be searched
+    Triangle firstTriangle_m = triangles_m[rand()%m.GetNumbTri()];
     
+    //choose the first vertex for which a covering triangle shall be found
     T3<double> firstVertex = vertices_m[firstTriangle_m[0]-1];
+    
+    //choose a random start triangle for the algorithm promenade
     Triangle firstStartTri = triangles_M[rand()%numbTri_M];
     
+    //find the first covering triangle for the vertex
     Triangle firstTriangle_M = M.Promenade(firstStartTri, firstVertex);
     
- 
+    //all covering triangles will be saved in the vector covering triangles
     coveringTriangles[firstTriangle_m[0]-1] = firstTriangle_M;
     
+    //find the other covering triangles of the second and third vertex of the start triangle whose vertices shall be covered
     T3<double> secondVertex = vertices_m[firstTriangle_m[1]-1];
+    //start the algorithm with the covering triangle of the first vertex
     Triangle secondStartTri = firstTriangle_M;
     Triangle secondTriangle_M = M.Promenade(secondStartTri, secondVertex);
     coveringTriangles[firstTriangle_m[1]-1] = secondTriangle_M;
     
     T3<double> thirdVertex = vertices_m[firstTriangle_m[2]-1];
+    //start the algorithm with the covering triangle of the second vertex
     Triangle thirdStartTri = secondTriangle_M;
     Triangle thirdTriangle_M = M.Promenade(thirdStartTri, thirdVertex);
     coveringTriangles[firstTriangle_m[2]-1] = thirdTriangle_M;
     
-    
+    //after the first three covering triangles are found the recurrence can be started 
     Triangle_Recurrence(coveringTriangles, m, M, firstTriangle_m);
     
     return coveringTriangles;
