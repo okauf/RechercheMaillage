@@ -374,28 +374,46 @@ void Triangle_Recurrence(vector<Triangle> & coveringTriangles, Maillage & m, Mai
     Triangle * triangles_m = m.GetTriangles();
     T3<double> * vertices_m = m.GetVertices();
     
+    //the starting triangles are exactly the triangles (in M) who cover the vertices of the triangle in m (firstTriangle_m)
+    
+    //covers the 1st vertex of firstTriangle_m
     Triangle firstTriangle_M = coveringTriangles[firstTriangle_m[0]-1];
+    //covers the 2nd vertex of firstTriangle_m
     Triangle secondTriangle_M = coveringTriangles[firstTriangle_m[1]-1];
+    //covers the 3rd vertex of firstTriangle_m
     Triangle thirdTriangle_M = coveringTriangles[firstTriangle_m[2]-1];
    
     Triangle Start;
     int adjPoint;
     
+    //the vertices of m who shall be covered next are the vertices of the neighbors of firstTriangle_m
+    //they are (relatively) close to first/second/third triangle_M
+    
+    //check if it has a neighbor
     if (firstTriangle_m.getNeighbor1() != -1){
+        
+        //selesct neighbor1_m
         Triangle Neighbor1_m = triangles_m[firstTriangle_m.getNeighbor1()];
+        
+        //find the vertex of the neighbor1_m that is possibly not covered yet
         pair<int,int> edge (firstTriangle_m[1],firstTriangle_m[2]);
         adjPoint = selectAdjacentPoint(edge, Neighbor1_m);
         
         
         if (adjPoint == 0) {
+            // if the first vertex of neighbor1_m is possibly not covered yet we will start the algorithm with the covering triangle of
+            // a vertex of the adjacent triangle neghbor1_m of firstTriangle_m; these are secondTriangle_M and thirdTriangle_M
+            //they are closer to this vertex than firstTriangle_M
             Start = secondTriangle_M;
         } else if (adjPoint == 1){
             Start = thirdTriangle_M;
         } else { Start = firstTriangle_M; }
-        
+        // check if a covering triangle has been found before
         if (coveringTriangles[Neighbor1_m[adjPoint]-1][0] == 0){
             
+            //Find the actual covering triangle and ad it to the list
             coveringTriangles[Neighbor1_m[adjPoint]-1] = M.Promenade(Start, vertices_m[Neighbor1_m[adjPoint]-1]);
+            //start the algorithm again with neighbor1_m 
             Triangle_Recurrence(coveringTriangles, m, M, Neighbor1_m);
         }
     }
@@ -463,6 +481,7 @@ vector<Triangle>& findVertices(Maillage & m, Maillage & M, vector<Triangle> & co
     Triangle firstTriangle_M = M.Promenade(firstStartTri, firstVertex);
     
     //all covering triangles will be saved in the vector covering triangles
+    //they have to be saved at the right position, that is the number of the vertex they cover (-1)
     coveringTriangles[firstTriangle_m[0]-1] = firstTriangle_M;
     
     //find the other covering triangles of the second and third vertex of the start triangle whose vertices shall be covered
@@ -478,7 +497,7 @@ vector<Triangle>& findVertices(Maillage & m, Maillage & M, vector<Triangle> & co
     Triangle thirdTriangle_M = M.Promenade(thirdStartTri, thirdVertex);
     coveringTriangles[firstTriangle_m[2]-1] = thirdTriangle_M;
     
-    //after the first three covering triangles are found the recurrence can be started 
+    //after the first three covering triangles are found the recurrence can be started
     Triangle_Recurrence(coveringTriangles, m, M, firstTriangle_m);
     
     return coveringTriangles;
