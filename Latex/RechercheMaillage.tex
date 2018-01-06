@@ -84,10 +84,6 @@
 	
 %\title{Recherche rapide d’un triangle contenant un point dans un maillage}
 
-Adj vis Map, Exp Gnu
-
-O Prom, Adj vis List, find Sommets und Rec
-
 \section{Project description and aim}
 
 The aim of this project is to implement an algorithm which searches for a triangle in a convexe mesh covering a point $(x,y)$. A linear complexity (in number of vertices of the mesh) is desired.
@@ -96,7 +92,7 @@ The aim of this project is to implement an algorithm which searches for a triang
 
 \subsection{The template class T3} \label{T3}
 
-Objects of the class $T3$ represent elements of a three dimensional space in $T$. Hereby, the data type $T$ is defined using a template. Within this project, either $T3<int>$ for the definition of a triangle (see \ref{triangle}) or $T3<double>$ for the definition of the coordinates of a vertex (see X) is used. The private members $x,y$ and $z$ of type $T$ store the entries of the $T3$ vector. The class has a default constructor, a constructor by copy and a constructor creating a vector given the three vector entries. Moreover, the class has operators to access and modify the entries, add to elements of $T3$, multiply an element of $T3$ by a scalar of the type T and calculate the scalar product of two $T3$ vectors. The operator $<$ compares two elements of $T3$, $v_1 = \begin{pmatrix} x_1 & y_1 & z_1 \end{pmatrix}^T$ and $v_2 = \begin{pmatrix} x_2 & y_2 & z_2 \end{pmatrix}^T$, in the following way:
+Objects of the class $T3$ represent elements of a three dimensional space in $T$. Hereby, the data type $T$ is defined using a template. Within this project, either $T3<int>$ for the definition of a triangle (see \ref{triangle}) or $T3<double>$ for the definition of the coordinates of a vertex (see \ref{mesh}) is used. The private members $x,y$ and $z$ of type $T$ store the entries of the $T3$ vector. The class has a default constructor, a constructor by copy and a constructor creating a vector given the three vector entries. Moreover, the class has operators to access and modify the entries, add to elements of $T3$, multiply an element of $T3$ by a scalar of the type T and calculate the scalar product of two $T3$ vectors. The operator $<$ compares two elements of $T3$, $v_1 = \begin{pmatrix} x_1 & y_1 & z_1 \end{pmatrix}^T$ and $v_2 = \begin{pmatrix} x_2 & y_2 & z_2 \end{pmatrix}^T$, in the following way:
 $$ v_1 < v_2 \quad \Leftrightarrow \quad \begin{cases}
  x_1 < x_2 \text{ or }\\
  x_1 = x_2 \text{ and } y_1 < y_2 \text{ or }\\
@@ -138,11 +134,11 @@ Both functions finally return the arrays filled with the vertices or triangles.
 
 \subsubsection{setAdjacencyViaMultimap} \label{multimap}
 
-The goal of this function is the initialization of the members {\itshape neighbor1, neighbor2, neighbor3} of the class Triangle. As a reminder they are defined by their position in the array of triangles. Their initialization is realized by the container {\itshape multimaps}. 
-Each triangle $ t = (v_{i_1},v_{i_2},v_{i_3}) $ is represented by the sequence $ (i_1,i_2,i_3) $ where these indices indicate the position of the vertices in the array of vertices. 
+The goal of this function is the initialization of the members {\itshape neighbor1, neighbor2, neighbor3} of the class Triangle. As a reminder, they are defined by their position in the array of triangles. Their initialization is realized by the container {\itshape multimaps}. 
+Each triangle $ t = (v_{i_1},v_{i_2},v_{i_3}) $ is represented by the sequence $ (i_1,i_2,i_3) $, where these indices indicate the position of the vertices $v_{i_1},v_{i_2}$ and $v_{i_3}$ in the array of vertices. 
 For each $ t $ three pairs are added to the multimap, where the edges $(v_{i_k},v_{i_l}), \, k,l \in \{1,2,3\}, \ k \neq l $, stored by the data type $ pair<int,int> $ (more precisely $ pair<i_k,i_l> $), represent the keys, whereas the mapped value is an integer representing the position of the triangle in the array of triangles. Hence, the initialization if the multimap is realized in $ 3n_T $ loops, so in $ O(n_T) $. \\
-Essentially for the functioning of the method is the ordering of the of the indices $ i_1,i_2,i_3 $ in $ t $. As in {\itshape setAdjacencyViaList}, an edge $ \{ v_{i_k}, v_{i_l}\} $
- has to be uniquely identified by the pair $ (i_k,i_l) $ which should not be mixed up with $(i_l,i_k) $. This is achieved by demanding that for each triangle $ t =  (v_{i_1},v_{i_2},v_{i_3})$ the vertices are ordered, so $ i_1 < i_2 < i_3 $. Thus, an edge $(v_{i_k},v_{i_l}) $ can uniquely be identified by the pair $ (i_k,i_l), \, i_k < i_l $. \\
+Essentially for the functioning of the method is the ordering of the of the indices $ i_1,i_2,i_3 $ in $ t $. As in {\itshape setAdjacencyViaList} (LIST ODER MAPS?), an edge $ \{ v_{i_k}, v_{i_l}\} $
+ has to be uniquely identified by the pair $ (i_k,i_l) $ which should not be mixed up with $(i_l,i_k) $. This is achieved by demanding that for each triangle $ t =  (v_{i_1},v_{i_2},v_{i_3})$ the vertices are ordered in a manner such that $ i_1 < i_2 < i_3 $. Thus, an edge $(v_{i_k},v_{i_l}) $ can uniquely be identified by the pair $ (i_k,i_l), \, i_k < i_l $. \\
  We find the adjacent triangles by the following three steps: 
  \begin{enumerate}
  	\item 
@@ -193,19 +189,35 @@ The application of all three steps needs a time of $ O(n_T)O(\log(n_T)) = O(n\lo
 
 
 \subsubsection{setAdjacencyViaList} \label{list}
-As in setAdjacencyViaMultimap, this method sets the members, describing the neighbors, for each triangle in the considered mesh. In the same manner as before, the members are described using their position in the triangle array.
+As in setAdjacencyViaMultimap, this method sets the members, describing the neighbors, for each triangle in the considered mesh. In the same manner as before, the members are described using their position in the triangle array. The idea of this method is to create a list in each adjacent triangles appear in consecutive order. After this list is created, the adjacencies of the triangles can be set in linear complexity.
 
-The idea is to store each triangle, in varying order, three times in a list. For the triangle $t$ with the vertices $(a_1,a_2,a_3)$, the triangles $(a_1,a_2,t), (a_1,a_3,t)$ and $(a_2,a_3,t)$ are appended to the list. The creation of this list has complexity $O(3n_T)$.
+The list with the desired property is created in the following way: For each triangle three new triangles are created and appended to the list. For the triangle $t = (v_{i_1},v_{i_2},v_{i_3})$ with the index $i$, a new triangle for every edge is defined. More precisely, the triangles $({i_1},{i_2},i), ({i_1},{i_3},i)$ and $({i_2},{i_3},i)$ are pushed on the list. The creation of this list has complexity $O(n_T)$. In order to archive that two neighboring triangle are positioned one after another in the list, the list is sorted in lexicographic order. XXX The complexity for sorting a list with $n_T$ elements is $O(n_Tlogn_T)$.
 
-After the creation, the list is sorted in lexicographic order. The complexity for sorting a list with $n_T$ elements is $O(n_Tlogn_T)$.
+\begin{equation*}
+\begin{matrix}
+i_1 & i_2 & i \\
+i_1 & i_2 & j \\
+i_1 & i_3 & i \\
+& \vdots & \\
+i_1 & * & * \\
+i_2 & i_3 & i \\
+i_2 & i_3 & k \\
+& \vdots & \\
+i_{n_T} & * & * 
+\end{matrix}
+\end{equation*}
 
-Due to the lexicographical ordering, the list allows now to define adjacencies between triangles. Two consecutive triangles of the list are considered. The first two entries of the triangles are compared. If they are equal, the triangles share an edge and can be defined as adjacent. $(a,b,t_1), (a,b,t_2)$
+keine übereinstimmung bei vergleich , nachbar von der kante schon gesetzt (vorhergehendes listenelement) oder äußere kante
 
-complexity $O(3n_T)$
+order of edges
 
-In summary, the method setAdjacencyViaList has complexity $O(n_Tlogn_T)$.
+After the list creation, the members of the mesh triangles can be set. Due to the lexicographical ordering, the list allows now to define adjacencies between triangles with a number of comparison which is linear in the number of triangles. Two consecutive triangles of the list are considered. The first two entries of the triangles are compared. If they are equal, the triangles share an edge and hence can be defined as adjacent. Particularly, if the triangles with the indices $i$ and $j$ have the vertices $v_k$ and $v_l$ in common, the triangles $({k},{l},i)$ and $({k},{l},j)$ appear consecutively in the list. The head element of the list is popped from the front and the comparison is repeated for the next triangles. The comparison of every pair of triangles has constant complexity. As a list of size $3 n_T$ is considered, the complexity of setting the neighbors of the $n_T$ mesh triangles given this list is $O(n_T)$.
 
-Laufzeitvergleich
+In summary, the method setAdjacencyViaList has complexity $O(n_Tlogn_T) + O(n_T) = O(n_Tlogn_T)$.
+
+\subsubsection{Vergleich}
+
+Laufzeitvergleich, komplexität
 
 \subsection{L'algorithme promenade} \label{promenade}
 
@@ -304,7 +316,39 @@ The functions writes four text files, one for all triangles of the mesh, one for
 The script for gnuplot contains a line which keeps the plot open until some key is hit in the terminal. 
 The actual execution in the terminal is achieved by the command $ system $ which executes its input string in the terminal. 
 
-\section{5 find covering Triangles}
+\section{Cover vertices of a mesh by another mesh}
+
+The aim of this section is to find the covering triangle for every vertex of another mesh in the same domain. This can be useful when a mesh is refined or coarsened. For this purpose, the promenade algorithm is executed frequently, once for every vertex. In order nevertheless to obtain a good running time, the starting triangle for $promenade$ should be chosen in an efficient way. The idea is to use starting triangle for which we already know that they are located close to the vertex to cover.
+
+The function $ findVertices$ is given two meshes $m$ and $M$ and a reference of a vector of triangles $coveringTriangle$ and returns $coveringTriangle$ after modification. The function's goal is to search for covering triangles in $M$ for the vertices in $m$. At the position $i$ of $coveringTriangles$ the triangle in $M$ covering the $i$-th vertex of the mesh $m$ is stored.
+
+First, two random triangles, one in $m$ and one in $M$, are chosen. In $ findVertices$ covering triangles for the vertices of the triangle randomly chosen in $m$ are computed.
+
+start with random triangle of mesh m (JUST START WITH FIRST TRI?)
+
+random triangle in mesh $M$, use as a starting triangle for $promenade$, find covering triangle in $M$ for the vertex XX
+call promenade (not that we do not store the path taken by promenade here)
+
+covering triangle: as triangles initialized as with vertex with index 0 (start at 1 in mesh files)
+
+choose triangle in $m$, cover all vertices of this triangle (use covering tri in $M$ for neighboring vertex as starting tri)
+
+RECURRENCE
+
+covers vertices of one triangle and calls $Triangle_Recurrence$, pass the two meshes, the vector coveringTriangles and the triangle in $m$ which we started with and which is already covered
+
+recurrence modifies the vector of coveringTriangles
+
+searhc for covering triangles for the vertices of the neighbpring triangles of the already covered triangle, the covering triangles are 'relatively' close, so we hope to have a fast termination of the algorithm $promenade$ like this
+
+start with member neighbor1 then 2 3 (have to check for existence of the neighbors)
+
+searching structure is similar to approach of depth-first search
+
+$selectAdjacentPoint$ to select Triangle to start $promenade$ (if the vertex is not already covered), then cover neighbors of this triangle
+
+
+
 
 \section{Test environment- the main function}
 	The cpp file main offers the possibility to test the properties of the program:

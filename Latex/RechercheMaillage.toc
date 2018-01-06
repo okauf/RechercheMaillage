@@ -3,16 +3,17 @@
 \contentsline {section}{\numberline {2}The template class T3 and the class Triangle}{2}{section.2}
 \contentsline {subsection}{\numberline {2.1}The template class T3}{2}{subsection.2.1}
 \contentsline {subsection}{\numberline {2.2}The class Triangle}{2}{subsection.2.2}
-\contentsline {section}{\numberline {3}The class Mesh}{3}{section.3}
+\contentsline {section}{\numberline {3}The class Mesh}{2}{section.3}
 \contentsline {subsection}{\numberline {3.1}LoadVertices and LoadTriangles}{3}{subsection.3.1}
 \contentsline {subsection}{\numberline {3.2}Find the adjacent triangle}{3}{subsection.3.2}
 \contentsline {subsubsection}{\numberline {3.2.1}setAdjacencyViaMultimap}{3}{subsubsection.3.2.1}
 \contentsline {subsubsection}{\numberline {3.2.2}setAdjacencyViaList}{4}{subsubsection.3.2.2}
-\contentsline {subsection}{\numberline {3.3}L'algorithme promenade}{4}{subsection.3.3}
+\contentsline {subsubsection}{\numberline {3.2.3}Vergleich}{5}{subsubsection.3.2.3}
+\contentsline {subsection}{\numberline {3.3}L'algorithme promenade}{5}{subsection.3.3}
 \contentsline {subsubsection}{\numberline {3.3.1}Random neighbor selection}{5}{subsubsection.3.3.1}
 \contentsline {subsubsection}{\numberline {3.3.2}Selection of neighbor with minimal oriented volume}{5}{subsubsection.3.3.2}
 \contentsline {subsection}{\numberline {3.4}Can an arbitrary choice of the consecutive triangle be a better choice?}{5}{subsection.3.4}
 \contentsline {subsection}{\numberline {3.5}Empirical demonstration that the deterministic choice of the consecutive triangle is better in regular meshs}{6}{subsection.3.5}
 \contentsline {subsection}{\numberline {3.6}The visualization via gnuplot}{6}{subsection.3.6}
-\contentsline {section}{\numberline {4}5 find covering Triangles}{7}{section.4}
-\contentsline {section}{\numberline {5}Test environment- the main function}{7}{section.5}
+\contentsline {section}{\numberline {4}Cover vertices of a mesh by another mesh}{7}{section.4}
+\contentsline {section}{\numberline {5}Test environment- the main function}{8}{section.5}

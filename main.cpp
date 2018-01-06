@@ -125,8 +125,9 @@ int main(){
            m.setAdjacencyViaMultiMap(); M.setAdjacencyViaList();
            
            vector<Triangle> coveringTriangles;
-           for(int i = 0; i <m.GetNumbVertices();i++)
+           for(int i = 0; i <m.GetNumbVertices();i++){
                coveringTriangles.push_back(Triangle(0,0,0));
+		   }
            
            coveringTriangles = findVertices(m,M,coveringTriangles);
            
