@@ -253,11 +253,11 @@ only case in which neighbor selection is not uniquely determined: $p$ on half pl
 	This example shows that a random choice of the consecutive triangle can be better. 
 	\begin{figure}[h]\label{Example}
 			\begin{minipage}{0.3\textwidth}
-				\includegraphics[scale=0.2]{Example.jpg}
+				\includegraphics[scale=0.2]{../Figures/Example.jpg}
 			\end{minipage}
-			\hspace{2cm}
+			\hfill
 			\begin{minipage}{0.4\textwidth}
-				\includegraphics[scale=0.2]{Calculation.jpg}
+				\includegraphics[scale=0.2]{../Figures/Calculation.jpg}
 			\end{minipage}
 		\caption{The illustration of \ref{Question}.}
 			
@@ -267,7 +267,29 @@ only case in which neighbor selection is not uniquely determined: $p$ on half pl
 	Hence, the algorithm will proceed with triangle $ B $ or $ C $. \\
 	 If we use the size of the oriented volume (the oriented volume of the convex hull of $ p $ and the lower right edge of $ A $, respectively the upper right edge of $ A $) we will clearly choose $ C $, as illustrated in the second figure (the green area is clearly bigger than the blue one). This is obviously the worse choice since $ B $ is a covering triangle of the point $ p $.  \\
 	 An important observation is that the regularity of the triangles plays an important role. In this case, regularity means that all triangles of the mesh have a 'similar' area, 'similar' angles and its vertices are adjacent to a 'similar' number of triangles.
-	 
+
+\subsection{Empirical demonstration that the deterministic choice of the consecutive triangle is better in regular meshs}
+If we take a look at figures \ref{30} and \ref{2000} it becomes empirically clear that the minimum choice of the consecutive triangle speeds up the algorithm. Figure \ref{30} even states that the path created by the minimum choice is always shorter or as long as the path created by the random choice. Looking at the runtime in \ref{2000} we see that the runtime is about as twice as high for the random choice when the starting triangle and the given point have a bog distance. 
+ \\
+Nevertheless, it has to be kept in mind that the underlying mesh plays an important role.
+In this case the mesh 'maillage5.msh' is regular in the sense explained in the previous section.  
+
+\begin{figure}[h] \label{30}
+	\subfigure{\includegraphics[width=0.5\linewidth, height=0.5\linewidth]{../Figures/Pathlength30.jpg}}
+	\subfigure{\includegraphics[width=0.5\linewidth,height=0.5\linewidth]{../Figures/Runtime30.jpg}}
+	\caption{The pathlength and the runtime compared using $ min_neg $ and $ random_neg $. In this example, $ 30 $ data points were randomly created in the file 'TimeMeasurements.cpp'.  The underlying mesh is 'maillage5.msh'.}
+\end{figure}
+
+\begin{figure}[h] \label{2000}
+	\subfigure{\includegraphics[width=0.5\linewidth, height=0.5\linewidth]{../Figures/Pathlength2000.jpg}}
+	\subfigure{\includegraphics[width=0.5\linewidth,height=0.5\linewidth]{../Figures/Runtime2000.jpg}}
+	\caption{Here, $ 2000 $ data points were randomly created.}
+\end{figure}
+		
+		
+		
+
+
 \subsection{The visualization via gnuplot}
 	The visualization is done by the function $ exportGnuplot $ being able to visualize two different things: 
 	\begin{enumerate}
