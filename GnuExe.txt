@@ -1,7 +1,0 @@
- set xlabel 'Distance between centroid of the starting triangle and searched point' 
- set xrange [0:2.3] 
- set ylabel 'Runtime' 
- set yrange [0:0.0001]
- set font '100' 
-plot 'Minimum Choice' , 'Random Choice'
-pause -1 'Hit any key to continue' 
