@@ -37,6 +37,9 @@
 %Einbinden von Graphen
 \usepackage{tikz}
 
+%für die pc schriftart 
+
+
 \begin{document}
 	
 \begin{titlepage}
@@ -86,46 +89,45 @@
 
 \section{Project description and aim}
 
+
 The aim of this project is to implement an algorithm which searches for a triangle in a convexe mesh covering a point $(x,y)$. A linear complexity (in number of vertices of the mesh) is desired.
 
 \section{The template class T3 and the class Triangle}
 
 \subsection{The template class T3} \label{T3}
 
-Objects of the class $T3$ represent elements of a three dimensional space in $T$. Hereby, the data type $T$ is defined using a template. Within this project, either $T3<int>$ for the definition of a triangle (see \ref{triangle}) or $T3<double>$ for the definition of the coordinates of a vertex (see \ref{mesh}) is used. The private members $x,y$ and $z$ of type $T$ store the entries of the $T3$ vector. The class has a default constructor, a constructor by copy and a constructor creating a vector given the three vector entries. Moreover, the class has operators to access and modify the entries, add to elements of $T3$, multiply an element of $T3$ by a scalar of the type T and calculate the scalar product of two $T3$ vectors. The operator $<$ compares two elements of $T3$, $v_1 = \begin{pmatrix} x_1 & y_1 & z_1 \end{pmatrix}^T$ and $v_2 = \begin{pmatrix} x_2 & y_2 & z_2 \end{pmatrix}^T$, in the following way:
+Objects of the class {\ttfamily T3} represent elements of a three dimensional space in {\ttfamily T}. Hereby, the data type {\ttfamily T} is defined using a template. Within this project, either {\ttfamily T3<int>} for the definition of a triangle (see \ref{triangle}) or {\ttfamily T3<double>} for the definition of the coordinates of a vertex (see \ref{mesh}) is used. The private members $x,y$ and $z$ of type {\ttfamily T} store the entries of the {\ttfamily T3} vector. The class has a default constructor, a constructor by copy and a constructor creating a vector given the three vector entries. Moreover, the class has operators to access and modify the entries, add to elements of {\ttfamily T3}, multiply an element of {\ttfamily T3} by a scalar of the type T and calculate the scalar product of two {\ttfamily T3} vectors. The operator $<$ compares two elements of {\ttfamily T3}, $v_1 = \begin{pmatrix} x_1 & y_1 & z_1 \end{pmatrix}^T$ and $v_2 = \begin{pmatrix} x_2 & y_2 & z_2 \end{pmatrix}^T$, in the following way:
 $$ v_1 < v_2 \quad \Leftrightarrow \quad \begin{cases}
  x_1 < x_2 \text{ or }\\
  x_1 = x_2 \text{ and } y_1 < y_2 \text{ or }\\
  x_1 = x_2 \text{ and } y_1 = y_2 \text{ and } z_1 < z_2
 \end{cases}. $$ 
-This allows a lexicographic ordering of a list of $T3$ elements (see \ref{list}, $T3<int>$). For three $T3$ vectors, which define the vertices of a triangle, the method $ oriented\_vol $ computes the corresponding signed volume. Let $a,b$ and $c$ denote $T3$ vectors. The oriented volume $A_{abc}$ is defined as
+This allows a lexicographic ordering of a list of {\ttfamily T3} elements (see \ref{list}, {\ttfamily T3<int>}). For three {\ttfamily T3} vectors, which define the vertices of a triangle, the method $ oriented\_vol $ computes the corresponding signed volume. Let $a,b$ and $c$ denote {\ttfamily T3} vectors. The oriented volume $A_{abc}$ is defined as
 $$ A_{abc} = \left( \overrightarrow{ab} \times \overrightarrow{bc} \right)^T \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix} = (b_1-a_1)(c_2-b_2) - (b_2-a_2)(c_1-b_1)$$
 
-The sign is positive for triangles oriented in trigonometric sense. This method is used in the method $promenade$ \ref{promenade} to determine a suitable 'walking' direction.
+The sign is positive for triangles oriented in trigonometric sense. This method is used in the method {\ttfamily Maillage::Promenade} \ref{promenade} to determine a suitable 'walking' direction.
 
 
 \subsection{The class Triangle} \label{triangle}
-The class Triangle inherits form the class T3. Its derived members $ i,j,k $ are specialized as integers representing the position of its defining vertices in the array of the points of the given mesh. This array is a member of the class mesh in \ref{mesh}. In addition, it has three extra integer members {\itshape neighbor1, neighbor2, neighbor3} representing the position of the adjacent triangles in the array of triangles which is also a member of the class mesh. Notice that theses index lies between zero and the number of triangles minus one. \\
- An adjacent triangle $ t^{'} $ is said to be  {\itshape neighbor1 } of a triangle $ t $ if, saying $ i $ represents the first index of a vertex of $t$ but $i$ does not represent a vertex of $ t^{'} $. The same holds for $ neighbor1 $ and $ neighbor2 $. Note that this relation is not symmetric, that is to say that $ t^{'} $ is {\itshape neighbor1} does not imply that $t$ is {\itshape neighbor1} of $t^{'}$. 
-This assignment facilitates the access to the following adjacent triangle in the algorithm {\itshape promenade} (see \ref{promenade}).  \\
-At the creation of a new triangle the latter three members are initialized by $ -1 $ which means that a triangle has no neighbors when it is created. The neighbors are set via the functions {\itshape setAdjacencyViaMultimap} \ref{multimap}, respectively {\itshape setAdjacencyViaList} \ref{list}. After the execution of one of these two functions $neighbor1 =  -1 $ describes the case that there is no adjacent triangle on the opposite side of the first vertex. 
+The class Triangle inherits form the class T3. Its derived members $ i,j,k $ are specialized as integers representing the position of its defining vertices in the array of the points of the given mesh. This array is a member of the class mesh in \ref{mesh}. In addition, it has three extra integer members {\ttfamily Triangle::int neighbor1, neighbor2, neighbor3} representing the position of the adjacent triangles in the array of triangles which is also a member of the class mesh. Notice that theses index lies between zero and the number of triangles minus one. \\
+ An adjacent triangle $ t^{'} $ is said to be  {\ttfamily neighbor1} of a triangle $ t $ if, saying $ i $ represents the first index of a vertex of $t$ but $i$ does not represent a vertex of $ t^{'} $. The same holds for {\ttfamily neighbor1} and {\ttfamily neighbor2}. Note that this relation is not symmetric, that is to say that $ t^{'} $ is {\itshape neighbor1} does not imply that $t$ is {\ttfamily neighbor1} of $t^{'}$. 
+This assignment facilitates the access to the following adjacent triangle in the algorithm {\ttfamily Mesh::Promenade} (see \ref{promenade}).  \\
+At the creation of a new triangle the latter three members are initialized by $ -1 $ which means that a triangle has no neighbors when it is created. The neighbors are set via the functions {\ttfamily Mesh::setAdjacencyViaMultimap} \ref{multimap}, respectively {\ttfamily Mesh::setAdjacencyViaList} \ref{list}. After the execution of one of these two functions {\ttfamily neighbor1 $ = 1$} describes the case that there is no adjacent triangle on the opposite side of the first vertex. 
 Since the neighbors are private members there are getter and setter in order to read and manipulate them. \\
 
 
 
 \section{The class Mesh} \label{mesh}
 The class Mesh contains all necessary information of the mesh and the search of a vertex in (or outside) the mesh can be realized by its member functions. Its private members are pointers to the arrays of vertices and triangles of the mesh as integers who store the size of these two lists.
-In order to create an object of type Mesh the name of the desired {\itshape .msh} file has to be transmitted. The file is read by the functions {\itshape LoadVertices} and {\itshape LoadTriangles} \ref{Load} who then initialize the members $ triangles, sommets, numbTriangles$, $numbSommets$.
-Since the members are private there are getter and setter for {\itshape numbTriangles} and {\itshape numbSommets} as well as getter for {\itshape triangles} and {\itshape sommets}. The functions {\itshape LoadTriangles} and {\itshape LoadVertices} are their setters. \\
-
-l’intersection de 2 triangles distincts soit une arête commune, un sommet commun ou rien, we consider convexe meshes
+In order to create an object of type Mesh the name of the desired .msh file has to be transmitted. The file is read by the functions {\ttfamily Mesh::LoadVertices} and {\ttfamily Mesh::LoadTriangles} \ref{Load} who then initialize the members {\ttfamily Mesh:: Triangle* triangles, T3<double> vertices, int numbTriangles, int numbVertices}.
+Since the members are private there are getter and setter for {\ttfamily numbTriangles} and {\ttfamily numbVertices} as well as getter for {\ttfamily triangles} and {\ttfamily vertices}. The functions {\ttfamily LoadTriangles} and {\ttfamily LoadVertices} are their setters. \\
 
 
 \subsection{LoadVertices and LoadTriangles} \label{Load}
-Both functions are called in the constructor of the class $ mesh $ setting the members $  vertices$ and $ triangles $. 
-They work basically the same way with the small difference that they create arrays of different data types ($ T3<double> $ and $ T3<int> $) and searching for different key words in the $ .msh $ file. 
-At first, the $ .msh $ file is opened according to its name. Then the functions search for the line indicating the number of vertices respectively the number of triangles. This is implemented by using an $ fstream $ and the function $ getline $ who stores the information of a line and skips to the next line. \\
-To make the code work the next line must include the according number which is then stored in {\itshape numbVertices}, respectively {\itshape numbTri}. The data is read as a string which is transformed to an integer by the command {\itshape astoi}. These numbers also define the size of the arrays of type $T3<double> $ and $ Triangle $ which are created by $ new $ in order to allocate the necessary memory. The following lines must include the coordinates of all vertices, respectively the positions of the triangles in the table of vertices. The lines are read as strings who are casted in to $ doubles $ respectively $ integers $. \\
+Both functions are called in the constructor of the class {\ttfamily Mesh} setting the members {\ttfamily vertices} and {\ttfamily triangles}
+They work basically the same way with the small difference that they create arrays of different data types ({\ttfamily T3<double>} and {\ttfamily T3<int>}) and searching for different key words in the  .msh file. 
+At first, the .msh file is opened according to its name. Then the functions search for the line indicating the number of vertices respectively the number of triangles. This is implemented by using an {\ttfamily std::fstream} and the function {\ttfamily std::getline} who stores the information of a line and skips to the next line. \\
+To make the code work the next line must include the according number which is then stored in {\ttfamily numbVertices}, respectively {\ttfamily numbTri}. The data is read as a string which is transformed to an integer by the command {\ttfamily astoi}. These numbers also define the size of the arrays of type {\ttfamily T3<double>} and {\ttfamily Triangle } which are created by {\ttfamily new} in order to allocate the necessary memory. The following lines must include the coordinates of all vertices, respectively the positions of the triangles in the table of vertices. The lines are read as strings who are casted in to {\ttfamily doubles} respectively {\ttfamily integers}. \\
 Each line defines a vertex or a triangle which is then stores in the correspondent array.
 Both functions finally return the arrays filled with the vertices or triangles.
 
@@ -134,10 +136,10 @@ Both functions finally return the arrays filled with the vertices or triangles.
 
 \subsubsection{setAdjacencyViaMultimap} \label{multimap}
 
-The goal of this function is the initialization of the members {\itshape neighbor1, neighbor2, neighbor3} of the class Triangle. As a reminder, they are defined by their position in the array of triangles. Their initialization is realized by the container {\itshape multimaps}. 
+The goal of this function is the initialization of the members {\ttfamily neighbor1, neighbor2, neighbor3} of the class Triangle. As a reminder, they are defined by their position in the array of triangles. Their initialization is realized by the container {\ttfamily std::multimap}. 
 Each triangle $ t = (v_{i_1},v_{i_2},v_{i_3}) $ is represented by the sequence $ (i_1,i_2,i_3) $, where these indices indicate the position of the vertices $v_{i_1},v_{i_2}$ and $v_{i_3}$ in the array of vertices. 
 For each $ t $ three pairs are added to the multimap, where the edges $(v_{i_k},v_{i_l}), \, k,l \in \{1,2,3\}, \ k \neq l $, stored by the data type $ pair<int,int> $ (more precisely $ pair<i_k,i_l> $), represent the keys, whereas the mapped value is an integer representing the position of the triangle in the array of triangles. Hence, the initialization if the multimap is realized in $ 3n_T $ loops, so in $ O(n_T) $. \\
-Essentially for the functioning of the method is the ordering of the of the indices $ i_1,i_2,i_3 $ in $ t $. As in {\itshape setAdjacencyViaList} (LIST ODER MAPS?), an edge $ \{ v_{i_k}, v_{i_l}\} $
+Essentially for the functioning of the method is the ordering of the of the indices $ i_1,i_2,i_3 $ in $ t $. As in {\ttfamily setAdjacencyViaList}, an edge $ \{ v_{i_k}, v_{i_l}\} $
  has to be uniquely identified by the pair $ (i_k,i_l) $ which should not be mixed up with $(i_l,i_k) $. This is achieved by demanding that for each triangle $ t =  (v_{i_1},v_{i_2},v_{i_3})$ the vertices are ordered in a manner such that $ i_1 < i_2 < i_3 $. Thus, an edge $(v_{i_k},v_{i_l}) $ can uniquely be identified by the pair $ (i_k,i_l), \, i_k < i_l $. \\
  We find the adjacent triangles by the following three steps: 
  \begin{enumerate}
@@ -189,7 +191,7 @@ The application of all three steps needs a time of $ O(n_T)O(\log(n_T)) = O(n\lo
 
 
 \subsubsection{setAdjacencyViaList} \label{list}
-As in setAdjacencyViaMultimap, this method sets the members, describing the neighbors, for each triangle in the considered mesh. In the same manner as before, the members are described using their position in the triangle array. The idea of this method is to create a list in each adjacent triangles appear in consecutive order. After this list is created, the adjacencies of the triangles can be set in linear complexity.
+As in {\ttfamily setAdjacencyViaMultimap}, this method sets the members, describing the neighbors, for each triangle in the considered mesh. In the same manner as before, the members are described using their position in the triangle array. The idea of this method is to create a list in each adjacent triangles appear in consecutive order. After this list is created, the adjacencies of the triangles can be set in linear complexity.
 
 The list with the desired property is created in the following way: For each triangle three new triangles are created and appended to the list. For the triangle $t = (v_{i_1},v_{i_2},v_{i_3})$ with the index $i$, a new triangle for every edge is defined. More precisely, the triangles $({i_1},{i_2},i), ({i_1},{i_3},i)$ and $({i_2},{i_3},i)$ are pushed on the list. The creation of this list has complexity $O(n_T)$. In order to archive that two neighboring triangle are positioned one after another in the list, the list is sorted in lexicographic order. XXX The complexity for sorting a list with $n_T$ elements is $O(n_Tlogn_T)$.
 
@@ -213,7 +215,7 @@ order of edges
 
 After the list creation, the members of the mesh triangles can be set. Due to the lexicographical ordering, the list allows now to define adjacencies between triangles with a number of comparison which is linear in the number of triangles. Two consecutive triangles of the list are considered. The first two entries of the triangles are compared. If they are equal, the triangles share an edge and hence can be defined as adjacent. Particularly, if the triangles with the indices $i$ and $j$ have the vertices $v_k$ and $v_l$ in common, the triangles $({k},{l},i)$ and $({k},{l},j)$ appear consecutively in the list. The head element of the list is popped from the front and the comparison is repeated for the next triangles. The comparison of every pair of triangles has constant complexity. As a list of size $3 n_T$ is considered, the complexity of setting the neighbors of the $n_T$ mesh triangles given this list is $O(n_T)$.
 
-In summary, the method setAdjacencyViaList has complexity $O(n_Tlogn_T) + O(n_T) = O(n_Tlogn_T)$.
+In summary, the method {\ttfamily setAdjacencyViaList} has complexity $O(n_Tlogn_T) + O(n_T) = O(n_Tlogn_T)$.
 
 \subsubsection{Vergleich}
 
@@ -221,11 +223,11 @@ Laufzeitvergleich, komplexität
 
 \subsection{L'algorithme promenade} \label{promenade}
 
-Promenade is a method of the class Mesh which is given a triangle $T$ and a point $p$ of the type $T3<double>$. As output a triangle in the mesh covering $p$ is returned. 
+Promenade is a method of the class Mesh which is given a triangle {\ttfamily T} and a point $p$ of the type {\ttfamily T3<double>}. As output a triangle in the mesh covering $p$ is returned. 
 
-Denote the $T3<double>$ vectors of the vertices of the triangle $T$ by $c_1,c_2$ and $c_3$. Hereby, the vertices are numbered in trigonometric sense. Thus, the oriented volume of the triangle $(c_1,c_2,c_3)$ is positive. Recall that $oriented\_volume$ is a method of the class $T3$ which takes two additional $T3$ vectors as input (see \ref{T3}). (negierung in code) For each edge of the triangle $T$, a new triangle containing the edge and the point $p$ is considered. We are interested in the oriented volumes of the triangles $(c_1,c_2,p), (c_2,c_3,p)$ and $(c_3,c_1,p)$. If the oriented volume of one of those new triangles is positive, then $p$ and the triangle $T$ are contained in the half plane defined by the currently considered edge of $T$. Consequently, $p$ os contained in $T$ if the oriented volumes of the triangles $(c_1,c_2,p), (c_2,c_3,p)$ and $(c_3,c_1,p)$ are all positive. In this case, the method $promenade$ returns the input triangle $T$. On the other hand, if there is one triangle with negative oriented volume, $T$ is not covering $p$. We choose a neighboring triangle $N$ of $T$ with negative oriented volume and call the method promenade recursively with starting triangle $N$.
+Denote the {\ttfamily T3<double>} vectors of the vertices of the triangle {\ttfamily T} by $c_1,c_2$ and $c_3$. Hereby, the vertices are numbered in trigonometric sense. Thus, the oriented volume of the triangle $(c_1,c_2,c_3)$ is positive. Recall that {\ttfamily T3:: oriented\_volume} is a method of the class {\ttfamily T3} which takes two additional {\ttfamily T3} vectors as input (see \ref{T3}). (negierung in code) For each edge of the triangle {\ttfamily T}, a new triangle containing the edge and the point $p$ is considered. We are interested in the oriented volumes of the triangles $(c_1,c_2,p), (c_2,c_3,p)$ and $(c_3,c_1,p)$. If the oriented volume of one of those new triangles is positive, then $p$ and the triangle {\ttfamily T} are contained in the half plane defined by the currently considered edge of {\ttfamily T}. Consequently, $p$ os contained in {\ttfamily T} if the oriented volumes of the triangles $(c_1,c_2,p), (c_2,c_3,p)$ and $(c_3,c_1,p)$ are all positive. In this case, the method {\ttfamily Mesh::promenade} returns the input triangle {\ttfamily T}. On the other hand, if there is one triangle with negative oriented volume, {\ttfamily T} is not covering $p$. We choose a adjacent triangle $N$ of {\ttfamily T} with negative oriented volume and call the method promenade recursively with starting triangle $N$.
 
-the oriented volume of crossed edge is now positive, edge in other direction to consider neighboring triangle in trigonometric sense
+The oriented volume of crossed edge is now positive, edge in other direction to consider neighboring triangle in trigonometric sense
 
 head in direction of $p$, approach
 
@@ -234,6 +236,8 @@ pay attention for triangles on the border of the mesh. neighbor initialization w
 Optionally, the method promenade takes also a vector with entries of the class Triangle, called path, as input variable. The current triangle is pushed back on the vector and, due to the recursion, the vector stores the consecutively passed triangle when the algorithm terminates. The path is used to visualize the results of the method promenade in \ref{}.
 
 terminates because?
+Terminates because the covering triangle is found 
+Otherwise, the point lies outside of the mesh and all edges associated to negative oriented volumes are at the  boundary of the mesh, i. e. there is no adjacent triangle to this edge. In this case, the nearest triangle to the point is returned. 
 
 \subsubsection{Random neighbor selection}
 
@@ -261,7 +265,7 @@ only case in which neighbor selection is not uniquely determined: $p$ on half pl
 \end{figure}
 
 
-\subsection{Can an arbitrary choice of the consecutive triangle be a better choice?}\label{Question}
+\subsubsection{Can an arbitrary choice of the consecutive triangle be a better choice?}\label{Question}
 	This example shows that a random choice of the consecutive triangle can be better. 
 	\begin{figure}[h]\label{Example}
 			\begin{minipage}{0.3\textwidth}
@@ -275,26 +279,28 @@ only case in which neighbor selection is not uniquely determined: $p$ on half pl
 			
 			
 	\end{figure}
-	Assume that the algorithm $ promenade $ currently considers  the triangle $ A $ of figure \ref{Example} and searches for a covering triangle of the point $ p $.
+	Assume that the algorithm {\ttfamily promenade} currently considers  the triangle $ A $ of figure \ref{Example} and searches for a covering triangle of the point $ p $.
 	Hence, the algorithm will proceed with triangle $ B $ or $ C $. \\
 	 If we use the size of the oriented volume (the oriented volume of the convex hull of $ p $ and the lower right edge of $ A $, respectively the upper right edge of $ A $) we will clearly choose $ C $, as illustrated in the second figure (the green area is clearly bigger than the blue one). This is obviously the worse choice since $ B $ is a covering triangle of the point $ p $.  \\
 	 An important observation is that the regularity of the triangles plays an important role. In this case, regularity means that all triangles of the mesh have a 'similar' area, 'similar' angles and its vertices are adjacent to a 'similar' number of triangles.
 
-\subsection{Empirical demonstration that the deterministic choice of the consecutive triangle is better in regular meshs}
+\subsubsection{Empirical demonstration that the deterministic choice of the consecutive triangle is better in regular meshs}
 If we take a look at figures \ref{30} and \ref{2000} it becomes empirically clear that the minimum choice of the consecutive triangle speeds up the algorithm. Figure \ref{30} even states that the path created by the minimum choice is always shorter or as long as the path created by the random choice. Looking at the runtime in \ref{2000} we see that the runtime is about as twice as high for the random choice when the starting triangle and the given point have a bog distance. 
  \\
 Nevertheless, it has to be kept in mind that the underlying mesh plays an important role.
 In this case the mesh 'maillage5.msh' is regular in the sense explained in the previous section.  
 
-\begin{figure}[h] \label{30}
-	\subfigure{\includegraphics[width=0.5\linewidth, height=0.5\linewidth]{../Figures/Pathlength30.jpg}}
-	\subfigure{\includegraphics[width=0.5\linewidth,height=0.5\linewidth]{../Figures/Runtime30.jpg}}
+\begin{figure}[h] 
+	\label{30}
+	\subfigure{\includegraphics[width=0.8\linewidth, height=0.5\linewidth]{../Figures/Pathlength30.jpg}}
+	\subfigure{\includegraphics[width=0.8\linewidth,height=0.5\linewidth]{../Figures/Runtime30.jpg}}
 	\caption{The pathlength and the runtime compared using $ min_neg $ and $ random_neg $. In this example, $ 30 $ data points were randomly created in the file 'TimeMeasurements.cpp'.  The underlying mesh is 'maillage5.msh'.}
 \end{figure}
 
-\begin{figure}[h] \label{2000}
-	\subfigure{\includegraphics[width=0.5\linewidth, height=0.5\linewidth]{../Figures/Pathlength2000.jpg}}
-	\subfigure{\includegraphics[width=0.5\linewidth,height=0.5\linewidth]{../Figures/Runtime2000.jpg}}
+\begin{figure}[h] 
+	\label{2000}
+	\subfigure{\includegraphics[width=0.8\linewidth, height=0.5\linewidth]{../Figures/Pathlength2000.jpg}}
+	\subfigure{\includegraphics[width=0.8\linewidth,height=0.5\linewidth]{../Figures/Runtime2000.jpg}}
 	\caption{Here, $ 2000 $ data points were randomly created.}
 \end{figure}
 		
@@ -303,30 +309,30 @@ In this case the mesh 'maillage5.msh' is regular in the sense explained in the p
 
 
 \subsection{The visualization via gnuplot}
-	The visualization is done by the function $ exportGnuplot $ being able to visualize two different things: 
+	The visualization is done by the function {\ttfamily Mesh::exportGnuplot} who is able to visualize two different inputs: 
 	\begin{enumerate}
 		\item 
 		The result of the algorithm promenade, that is a sequence of adjacent triangles from a starting triangle to a triangle covering the searched point. 
-		In this case the input variable $ triangles_path $ contains the sequence of triangles and the input variable $  points $ contains just one point, hence the input $ int numbpoints $ is $ 1 $. 
+		In this case the input variable {\ttfamily vector<triangle>:: triangles\_path} contains the sequence of triangles and the input variable {\ttfamily const T3<double>* points} contains just one point, hence the input {\ttfamily int::numbpoint } is $ 1 $. 
 		\item 
 		Given a mesh and the vertices of another mesh it can visualize the set of the covering triangles (a subset of triangles of the first mesh) of the points of the second mesh. 
-		In this case the input variable $ triangles\_path $ contains the covering triangles and the $ points $ (IN VERTICES UMBENENNEN?, würde ich nicht, denn die variable heißt points und in diesem fall werden sie auch nur als points und nicht als vertices behandelt) are the vertices of the second mesh. 
+		In this case the input variable {\ttfamily vector<triangle>::triangles\_path} contains the covering triangles and the {\ttfamily points} are the vertices of the second mesh. 
 	\end{enumerate}
-The functions writes four text files, one for all triangles of the mesh, one for the triangles in $ triangles\_path $, one for the points in $ points $ and one for the commands which shall be executed by gnuplot. This is all realized by a simple $ ofstream $ variable, allowing to create and manipulate a text file. \\
+The functions writes four text files, one for all triangles of the mesh, one for the triangles in {\ttfamily triangles\_path}, one for the points in $ points $ and one for the commands which shall be executed by gnuplot. This is all realized by a simple {\ttfamily std::ofstream} variable, allowing to create and manipulate a text file. \\
 The script for gnuplot contains a line which keeps the plot open until some key is hit in the terminal. 
-The actual execution in the terminal is achieved by the command $ system $ which executes its input string in the terminal. 
+The actual execution in the terminal is achieved by the command {\ttfamily system} which executes its input string in the terminal. 
 
 \section{Cover vertices of a mesh by another mesh}
 
-The aim of this section is to find the covering triangle for every vertex of another mesh in the same domain. This can be useful when a mesh is refined or coarsened. For this purpose, the promenade algorithm is executed frequently, once for every vertex. In order nevertheless to obtain a good running time, the starting triangle for $promenade$ should be chosen in an efficient way. The idea is to use starting triangle for which we already know that they are located close to the vertex to cover.
+The aim of this section is to find the covering triangle for every vertex of another mesh in the same domain. This can be useful when a mesh is refined or coarsened. For this purpose, the promenade algorithm is executed frequently, once for every vertex. In order nevertheless to obtain a good running time, the starting triangle for {\ttfamily promenade} should be chosen in an efficient way. The idea is to use starting triangle for which we already know that they are located close to the vertex to cover.
 
-The function $ findVertices$ is given two meshes $m$ and $M$ and a reference of a vector of triangles $coveringTriangle$ and returns $coveringTriangle$ after modification. The function's goal is to search for covering triangles in $M$ for the vertices in $m$. At the position $i$ of $coveringTriangles$ the triangle in $M$ covering the $i$-th vertex of the mesh $m$ is stored.
+The function {\ttfamily findVertices} is given two meshes {\ttfamily Mesh m} and {\ttfamily Mesh M} and a reference of a vector of triangles {\ttfamily coveringTriangles} and returns {\ttfamily coveringTriangle} after modification. The function's goal is to search for covering triangles in {\ttfamily M} for the vertices in {\ttfamily  m}. At the position $i$ of {\ttfamily coveringTriangles} the triangle in {\ttfamily M} covering the $i$-th vertex of the mesh {\ttfamily m} is stored.
 
-First, two random triangles, one in $m$ and one in $M$, are chosen. In $ findVertices$ covering triangles for the vertices of the triangle randomly chosen in $m$ are computed.
+First, two random triangles, one in {\ttfamily m} and one in {\ttfamily M}, are chosen. In {\ttfamily findVertices} covering triangles for the vertices of the triangle randomly chosen in {\ttfamily m} are computed.
 
 start with random triangle of mesh m (JUST START WITH FIRST TRI?)
 
-random triangle in mesh $M$, use as a starting triangle for $promenade$, find covering triangle in $M$ for the vertex XX
+random triangle in mesh $M$, use as a starting triangle for {\ttfamily promenade}, find covering triangle in $M$ for the vertex XX
 call promenade (not that we do not store the path taken by promenade here)
 
 covering triangle: as triangles initialized as with vertex with index 0 (start at 1 in mesh files)
@@ -335,7 +341,7 @@ choose triangle in $m$, cover all vertices of this triangle (use covering tri in
 
 RECURRENCE
 
-covers vertices of one triangle and calls $Triangle_Recurrence$, pass the two meshes, the vector coveringTriangles and the triangle in $m$ which we started with and which is already covered
+covers vertices of one triangle and calls {\ttfamily Triangle\_Recurrence}, pass the two meshes, the vector {\ttfamily coveringTriangles} and the triangle in $m$ which we started with and which is already covered
 
 recurrence modifies the vector of coveringTriangles
 
@@ -355,13 +361,21 @@ $selectAdjacentPoint$ to select Triangle to start $promenade$ (if the vertex is 
 	\begin{enumerate}
 		\item 
 		Find the neighbors of a triangle.
+		If a valid triangle is index chosen, the triangles and its neighbors are marked in the chosen mesh. This case offers the extra option to choose if the adjacency should be set via list or mutlimap. Essentially the functions 
+		{\ttfamily setAdjacencyViaList } or {\ttfamily setAdjacencyViaMultimap} and {\ttfamily exportGnuplot} are called. 
 		\item 
-		Find the triangle for a point (the point can be chosen).
+		Find the triangle for a point (the point can be chosen). 
+		As a result, the path to the covering triangle of the point is displayed. 
+		If the point lies outside of the mesh, the path to the nearest triangle is marked in the mesh. 
+		In this case, the functions {\ttfamily Promenade} and {\ttfamily exportGnuplot} are called. 
 		\item 
-		Find the covering triangles for the vertices of another mesh. 
+		Find the covering triangles for the vertices of another mesh. These option offers to display all covering triangles of a the vertices of a second mesh. Note that the mesh whose vertices is supposed to be broader (a finer mesh can be embedded in a broader mesh as well but then each triangle serves as a covering triangle).
 	\end{enumerate}
 	All three options contain the option to choose the mesh where the mesh becomes finer from maillage1.msh increasingly to maillage5.msh. 
-	Of course it is also possible to add own meshs. In this case yet, it has to be noted that the triangle's indices ordering must be increasing, as mentioned in the sections before. Moreover, the shown intervall is set 
+	Of course, it is also possible to add own meshs. In this case yet, it has to be respected that the triangle's indices ordering must be increasing, as mentioned in the sections before. 
+	Moreover, the mesh's interval should be at maximum $ [1.5,1.5] $ for a convenient display since the axis of the plot for gnuplot are predefined as the interval $ [2,2] $.  \\
+	The test environment is not robust face to wrong inputs. That means that, for example, if an integer is demanded but a letter is typed, the program has to be started again. The same happens it an index is demanded but a the typed input lies outside of the range (an assert exception is thrown then).  
+	
 	
 \end{document}
 

@@ -88,7 +88,9 @@ int main(){
            T3<double>* vertices = m.GetVertices();
            cout << "The starting triangle is " << endl << vertices[T[0]-1] << endl  << vertices[T[1]-1] << endl  << vertices[T[2]-1] << endl;
            Triangle P = m.Promenade(T,p,path);
-           cout << "The point " << p << " is in the triangle with vertices " << endl << vertices[P[0]-1] << endl << vertices[P[1]-1] << endl << vertices[P[2]-1] << endl;
+           cout << "If " << p << " lies in the mesh it is in the triangle with vertices " << endl << vertices[P[0]-1] << endl << vertices[P[1]-1] << endl << vertices[P[2]-1] << endl;
+           cout << "If " << p << " is not in the mesh then the above triangle is the triangle with the shortest distance to the chosen point " << endl;
+           
            m.exportGnuplot(path,&p,1);
            break; 
        }

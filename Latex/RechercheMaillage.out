@@ -11,8 +11,8 @@
 \BOOKMARK [2][-]{subsection.3.3}{L'algorithme promenade}{section.3}% 11
 \BOOKMARK [3][-]{subsubsection.3.3.1}{Random neighbor selection}{subsection.3.3}% 12
 \BOOKMARK [3][-]{subsubsection.3.3.2}{Selection of neighbor with minimal oriented volume}{subsection.3.3}% 13
-\BOOKMARK [2][-]{subsection.3.4}{Can an arbitrary choice of the consecutive triangle be a better choice?}{section.3}% 14
-\BOOKMARK [2][-]{subsection.3.5}{Empirical demonstration that the deterministic choice of the consecutive triangle is better in regular meshs}{section.3}% 15
-\BOOKMARK [2][-]{subsection.3.6}{The visualization via gnuplot}{section.3}% 16
+\BOOKMARK [3][-]{subsubsection.3.3.3}{Can an arbitrary choice of the consecutive triangle be a better choice?}{subsection.3.3}% 14
+\BOOKMARK [3][-]{subsubsection.3.3.4}{Empirical demonstration that the deterministic choice of the consecutive triangle is better in regular meshs}{subsection.3.3}% 15
+\BOOKMARK [2][-]{subsection.3.4}{The visualization via gnuplot}{section.3}% 16
 \BOOKMARK [1][-]{section.4}{Cover vertices of a mesh by another mesh}{}% 17
 \BOOKMARK [1][-]{section.5}{Test environment- the main function}{}% 18

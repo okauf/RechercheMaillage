@@ -12,8 +12,8 @@
 \contentsline {subsection}{\numberline {3.3}L'algorithme promenade}{5}{subsection.3.3}
 \contentsline {subsubsection}{\numberline {3.3.1}Random neighbor selection}{5}{subsubsection.3.3.1}
 \contentsline {subsubsection}{\numberline {3.3.2}Selection of neighbor with minimal oriented volume}{5}{subsubsection.3.3.2}
-\contentsline {subsection}{\numberline {3.4}Can an arbitrary choice of the consecutive triangle be a better choice?}{5}{subsection.3.4}
-\contentsline {subsection}{\numberline {3.5}Empirical demonstration that the deterministic choice of the consecutive triangle is better in regular meshs}{6}{subsection.3.5}
-\contentsline {subsection}{\numberline {3.6}The visualization via gnuplot}{6}{subsection.3.6}
+\contentsline {subsubsection}{\numberline {3.3.3}Can an arbitrary choice of the consecutive triangle be a better choice?}{5}{subsubsection.3.3.3}
+\contentsline {subsubsection}{\numberline {3.3.4}Empirical demonstration that the deterministic choice of the consecutive triangle is better in regular meshs}{6}{subsubsection.3.3.4}
+\contentsline {subsection}{\numberline {3.4}The visualization via gnuplot}{6}{subsection.3.4}
 \contentsline {section}{\numberline {4}Cover vertices of a mesh by another mesh}{7}{section.4}
 \contentsline {section}{\numberline {5}Test environment- the main function}{8}{section.5}
