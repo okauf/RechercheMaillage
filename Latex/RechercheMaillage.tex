@@ -96,7 +96,7 @@ The aim of this project is to implement an algorithm which searches for a triang
 
 \subsection{The template class T3} \label{T3}
 
-Objects of the class {\ttfamily T3} represent elements of a three dimensional space in {\ttfamily T}. Hereby, the data type {\ttfamily T} is defined using a template. Within this project, either {\ttfamily T3<int>} for the definition of a triangle (see \ref{triangle}) or {\ttfamily T3<double>} for the definition of the coordinates of a vertex (see \ref{mesh}) is used. The private members $x,y$ and $z$ of type {\ttfamily T} store the entries of the {\ttfamily T3} vector. The class has a default constructor, a constructor by copy and a constructor creating a vector given the three vector entries. Moreover, the class has operators to access and modify the entries, add to elements of {\ttfamily T3}, multiply an element of {\ttfamily T3} by a scalar of the type T and calculate the scalar product of two {\ttfamily T3} vectors. The operator $<$ compares two elements of {\ttfamily T3}, $v_1 = \begin{pmatrix} x_1 & y_1 & z_1 \end{pmatrix}^T$ and $v_2 = \begin{pmatrix} x_2 & y_2 & z_2 \end{pmatrix}^T$, in the following way:
+Objects of the class {\ttfamily T3} represent elements of a three dimensional space in {\ttfamily T}. Hereby, the data type {\ttfamily T} is defined using a template. Within this project, either {\ttfamily T3<int>} for the definition of a triangle (see \ref{triangle}) or {\ttfamily T3<double>} for the definition of the coordinates of a vertex (see \ref{mesh}) is used. The private members $x,y$ and $z$ of type {\ttfamily T} store the entries of the {\ttfamily T3} vector. The class has a default constructor, a constructor by copy and a constructor creating a vector given the three vector entries. Moreover, the class has operators to access and modify the entries, add to elements of {\ttfamily T3}, multiply an element of {\ttfamily T3} by a scalar of the type {\ttfamily T} and calculate the scalar product of two {\ttfamily T3} vectors. The operator $<$ compares two elements of {\ttfamily T3}, $v_1 = \begin{pmatrix} x_1 & y_1 & z_1 \end{pmatrix}^T$ and $v_2 = \begin{pmatrix} x_2 & y_2 & z_2 \end{pmatrix}^T$, in the following way:
 $$ v_1 < v_2 \quad \Leftrightarrow \quad \begin{cases}
  x_1 < x_2 \text{ or }\\
  x_1 = x_2 \text{ and } y_1 < y_2 \text{ or }\\
@@ -234,31 +234,45 @@ best / worst case
 
 \subsection{L'algorithme promenade} \label{promenade}
 
-Promenade is a method of the class Mesh which is given a triangle {\ttfamily T} and a point $p$ of the type {\ttfamily T3<double>}. As output a triangle in the mesh covering $p$ is returned. 
+{\ttfamily promenade} is a method of the class Mesh which is given a triangle {\ttfamily T} and a point $p$ of the type {\ttfamily T3<double>}. As output a triangle in the mesh covering $p$ is returned. 
 
-Denote the {\ttfamily T3<double>} vectors of the vertices of the triangle {\ttfamily T} by $c_1,c_2$ and $c_3$. Hereby, the vertices are numbered in trigonometric sense. Thus, the oriented volume of the triangle $(c_1,c_2,c_3)$ is positive. Recall that {\ttfamily T3:: oriented\_volume} is a method of the class {\ttfamily T3} which takes two additional {\ttfamily T3} vectors as input (see \ref{T3}). (negierung in code) For each edge of the triangle {\ttfamily T}, a new triangle containing the edge and the point $p$ is considered. We are interested in the oriented volumes of the triangles $(c_1,c_2,p), (c_2,c_3,p)$ and $(c_3,c_1,p)$. If the oriented volume of one of those new triangles is positive, then $p$ and the triangle {\ttfamily T} are contained in the half plane defined by the currently considered edge of {\ttfamily T}. Consequently, $p$ os contained in {\ttfamily T} if the oriented volumes of the triangles $(c_1,c_2,p), (c_2,c_3,p)$ and $(c_3,c_1,p)$ are all positive. In this case, the method {\ttfamily Mesh::promenade} returns the input triangle {\ttfamily T}. On the other hand, if there is one triangle with negative oriented volume, {\ttfamily T} is not covering $p$. We choose a adjacent triangle $N$ of {\ttfamily T} with negative oriented volume and call the method promenade recursively with starting triangle $N$.
+Let {\ttfamily T }$ = (c_1,c_2,c_3)$, where the vertices $c_1,c_2$ and $c_3$ are of type {\ttfamily T3<double>}. Hereby, the vertices are considered in trigonometric sense. Thus, the oriented volume of the triangle {\ttfamily T} is positive. Recall that {\ttfamily T3::oriented\_volume} is a method of the class {\ttfamily T3} which takes two additional {\ttfamily T3} vectors as input (see \ref{T3}).
 
-The oriented volume of crossed edge is now positive, edge in other direction to consider neighboring triangle in trigonometric sense
+For each edge of the triangle {\ttfamily T}, a new triangle containing the edge and the point $p$ is considered. We are interested in the oriented volumes of the triangles $(c_1,c_2,p), (c_2,c_3,p)$ and $(c_3,c_1,p)$. If the oriented volume of one of those new triangles is positive, then $p$ and the triangle {\ttfamily T} are contained in the half plane defined by the currently considered edge of {\ttfamily T}. Consequently, $p$ is contained in {\ttfamily T} if the oriented volumes of the triangles $(c_1,c_2,p), (c_2,c_3,p)$ and $(c_3,c_1,p)$ are all positive. In this case, the method {\ttfamily Mesh::promenade} returns the input triangle {\ttfamily T}. On the other hand, if there is one triangle with negative oriented volume, {\ttfamily T} is not covering $p$. {\ttfamily T} and $p$ are separated by the regarded edge. We choose one edge who leads to a negative oriented volume for the triangle formed with $p$ and consider the adjacent triangle {\ttfamily N} sharing this edge with {\ttfamily T}. Thereafter, the method {\ttfamily Mesh::promenade} is called recursively with starting triangle {\ttfamily N}. With this choice of neighboring triangles, the path generated by the algorithm heads in the direction of $p$. In addition, it should be paid attention to the existence of a neighboring triangle. Triangles on the border of the mesh just have two neighbors, the remaining member is initialized by -1.
 
-head in direction of $p$, approach
+In order to make sure that a triangle in treated in trigonometric sense, the oriented volume of the starting triangle {\ttfamily T }$ = (c_1,c_2,c_3)$ is consulted. If {\ttfamily T3::oriented\_volume} returns a negative value for the oriented volume, the results for oriented volumes of the triangles $(c_1,c_2,p), (c_2,c_3,p)$ and $(c_3,c_1,p)$ are negated. Crossing an edge from one triangle to an adjacent one, the sense in which this edge is viewed has to be reversed to guarantee a consideration of the triangles in trigonometric sense. Using the above approach, this can be treated efficiently without need to know the traversed edge and its indices in the neighbor triangle.
 
-pay attention for triangles on the border of the mesh. neighbor initialization with -1, just 2 neighboring triangles
+Optionally, the method {\ttfamily Mesh::promenade} takes also a vector with entries of the class Triangle, called path, as input variable. The current triangle is pushed back on the vector and, due to recursively calling of the method, the vector stores the consecutively passed triangles when the algorithm terminates. The path is used to visualize the results of the method {\ttfamily Mesh::promenade} in \ref{visualization}.
 
-Optionally, the method promenade takes also a vector with entries of the class Triangle, called path, as input variable. The current triangle is pushed back on the vector and, due to the recursion, the vector stores the consecutively passed triangle when the algorithm terminates. The path is used to visualize the results of the method promenade in \ref{}.
+The method terminates when the desired covering triangle, if it exists, is found. Otherwise, if the point $p$ is located outside of the mesh, the method returns a triangle on the border. The only edge forming a triangle with negative oriented volume with $p$ will be part of the mesh border. Thus, no adjacent neighbor exists. The returned triangle is the closest triangle to $p$.\\
 
-terminates because?
-Terminates because the covering triangle is found 
-Otherwise, the point lies outside of the mesh and all edges associated to negative oriented volumes are at the  boundary of the mesh, i. e. there is no adjacent triangle to this edge. In this case, the nearest triangle to the point is returned. 
+terminates because? XXX\\
 
-\subsubsection{Random neighbor selection}
+Following the algorithm, there are three cases for the number of possible walking directions:
+\begin{enumerate}
+	\item Exactly one edge forms a triangle with negative oriented volume with $p$,
+	\item two neighboring triangles are valid choices or
+	\item the current triangle already covers $p$.
+\end{enumerate}
+If there are two neighboring triangles to chose from, different approaches can be pursued. We implemented a random neighbor selection (see \ref{ran_neighb_sel}) and a method choosing the edge forming the triangle with minimal oriented volume with $p$ (see \ref{min_neg_vol}).
 
-$ random\_neg $
+\subsubsection{Random neighbor selection} \label{ran_neighb_sel}
 
-random number generation
+The method {\ttfamily T3::random\_neg} is given three numbers of the type {\ttfamily double} and returns an integer. If at least one input variable is strictly negative, the output takes a value between one and three indicating the handover position of a negative input variable. Otherwise, if non of the input variables is negative, -1 is returned. In the case of several negative input variables, the variable is chosen randomly. Hereby, the time XXX is used to generate random numbers.
 
-\subsubsection{Selection of neighbor with minimal oriented volume}
+Using this approach for the choice of the neighbor triangle in {\ttfamily Mesh::promenade}, the algorithms returns different paths when executing it repeatedly with the same starting triangle and point $p$.
 
-$ min\_neg $
+\#include <time.h>
+
+srand(time(NULL));
+
+details zu return wert?? XXX
+
+\subsubsection{Selection of neighbor with minimal oriented volume} \label{min_neg_vol}
+
+Another option to choose the consecutive triangle is to select the edge forming the triangle with minimal oriented volume with the point to cover. The method {\ttfamily T3::min\_neg} returns the smallest of the three given numbers or -1 if none of them is negative.
+
+Unlike {\ttfamily T3::random\_neg}, the neighbor choice with {\ttfamily T3::min\_neg} XXX \\
 
 same path length for multiply execution with same starting triangle and point $p$ in most cases\\
 only case in which neighbor selection is not uniquely determined: $p$ on half plane
@@ -275,7 +289,6 @@ only case in which neighbor selection is not uniquely determined: $p$ on half pl
 	\subfigure{\includegraphics[width=0.55\linewidth,height=0.55\linewidth]{../Figures/StartTri600_p(1,0)_random_neg3}}
 \end{figure}
 
-
 \subsubsection{Can an arbitrary choice of the consecutive triangle be a better choice?}\label{Question}
 	This example shows that a random choice of the consecutive triangle can be better. 
 	\begin{figure}[h]\label{Example}
@@ -290,16 +303,18 @@ only case in which neighbor selection is not uniquely determined: $p$ on half pl
 			
 			
 	\end{figure}
-	Assume that the algorithm {\ttfamily promenade} currently considers  the triangle $ A $ of figure \ref{Example} and searches for a covering triangle of the point $ p $.
+	Assume that the algorithm {\ttfamily promenade} currently considers  the triangle $ A $ of Figure \ref{Example} and searches for a covering triangle of the point $ p $.
 	Hence, the algorithm will proceed with triangle $ B $ or $ C $. \\
 	 If we use the size of the oriented volume (the oriented volume of the convex hull of $ p $ and the lower right edge of $ A $, respectively the upper right edge of $ A $) we will clearly choose $ C $, as illustrated in the second figure (the green area is clearly bigger than the blue one). This is obviously the worse choice since $ B $ is a covering triangle of the point $ p $.  \\
 	 An important observation is that the regularity of the triangles plays an important role. In this case, regularity means that all triangles of the mesh have a 'similar' area, 'similar' angles and its vertices are adjacent to a 'similar' number of triangles.
+	 
+	 XXX bsp erklären
 
 \subsubsection{Empirical demonstration that the deterministic choice of the consecutive triangle is better in regular meshs}
-If we take a look at figures \ref{30} and \ref{2000} it becomes empirically clear that the minimum choice of the consecutive triangle speeds up the algorithm. Figure \ref{30} even states that the path created by the minimum choice is always shorter or as long as the path created by the random choice. Looking at the runtime in \ref{2000} we see that the runtime is about as twice as high for the random choice when the starting triangle and the given point have a bog distance. 
+If we take a look at the figures \ref{30} and \ref{2000} SELBE NUMMER IN PDF, it becomes empirically clear that the minimum choice of the consecutive triangle speeds up the algorithm. Figure \ref{30} even states that the path created by the minimum choice is always shorter or as long as the path created by the random choice. Looking at the runtime in \ref{2000}, we see that the runtime is about as twice as high for the random choice when the starting triangle and the given point have a big distance XXXX (are remote / distant / far away (from each other / in the mesh)). 
  \\
 Nevertheless, it has to be kept in mind that the underlying mesh plays an important role.
-In this case the mesh 'maillage5.msh' is regular in the sense explained in the previous section.  
+In this case, the mesh 'maillage5.msh', USED FOR THE CREATION OF FIGURE X, is regular in the sense explained in the previous section (see \ref{Question}).  
 
 \begin{figure}[h] 
 	\label{30}
@@ -319,19 +334,19 @@ In this case the mesh 'maillage5.msh' is regular in the sense explained in the p
 		
 
 
-\subsection{The visualization via gnuplot}
-	The visualization is done by the function {\ttfamily Mesh::exportGnuplot} who is able to visualize two different inputs: 
+\subsection{The visualization via gnuplot} \label{visualization}
+	The visualization is done by the function {\ttfamily Mesh::exportGnuplot} which is able to visualize two different inputs: 
 	\begin{enumerate}
 		\item 
 		The result of the algorithm promenade, that is a sequence of adjacent triangles from a starting triangle to a triangle covering the searched point. 
-		In this case the input variable {\ttfamily vector<triangle>:: triangles\_path} contains the sequence of triangles and the input variable {\ttfamily const T3<double>* points} contains just one point, hence the input {\ttfamily int::numbpoint } is $ 1 $. 
+		In this case, the input variable {\ttfamily vector<triangle> triangles\_path} contains the sequence of triangles and the input variable {\ttfamily const T3<double>* points} contains just one point, hence, the input {\ttfamily int numbpoint}, denoting the VECTOR/ARRAY LENGTH/SIZE of {\ttfamily points}, is $ 1 $. 
 		\item 
-		Given a mesh and the vertices of another mesh it can visualize the set of the covering triangles (a subset of triangles of the first mesh) of the points of the second mesh. 
-		In this case the input variable {\ttfamily vector<triangle>::triangles\_path} contains the covering triangles and the {\ttfamily points} are the vertices of the second mesh. 
+		Given a mesh and the vertices of another mesh, it can visualize the set of the covering triangles (a subset of triangles of the first mesh) of the points of the second mesh. 
+		In this case, the input variable {\ttfamily vector<triangle> triangles\_path} contains the covering triangles and {\ttfamily points} stores the vertices of the second mesh. 
 	\end{enumerate}
-The functions writes four text files, one for all triangles of the mesh, one for the triangles in {\ttfamily triangles\_path}, one for the points in $ points $ and one for the commands which shall be executed by gnuplot. This is all realized by a simple {\ttfamily std::ofstream} variable, allowing to create and manipulate a text file. \\
+The function writes four text files, one for all triangles of the mesh, one for the triangles in {\ttfamily triangles\_path}, one for the points in {\ttfamily points} and one for the commands which shall be executed by gnuplot. This is all realized by a simple {\ttfamily std::ofstream} variable, allowing to create and manipulate a text file. \\
 The script for gnuplot contains a line which keeps the plot open until some key is hit in the terminal. 
-The actual execution in the terminal is achieved by the command {\ttfamily system} which executes its input string in the terminal. 
+The actual execution in the terminal is achieved by the command {\ttfamily system} which executes its input string in the terminal. XXXX The actual execution is achieved by typing the command {\ttfamily system} in the terminal. ???
 
 \section{Cover vertices of a mesh by another mesh}
 

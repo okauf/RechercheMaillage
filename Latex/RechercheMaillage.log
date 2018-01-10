@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.10.19)  10 JAN 2018 21:48
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.10.19)  10 JAN 2018 23:45
 entering extended mode
 **RechercheMaillage.tex
 (C:\msys64\home\Olli\RechercheMaillage\Latex\RechercheMaillage.tex
@@ -1001,117 +1001,138 @@ Underfull \hbox (badness 10000) in paragraph at lines 229--231
  []
 
 
-LaTeX Warning: Reference `' on page 5 undefined on input line 247.
+Underfull \hbox (badness 10000) in paragraph at lines 247--248
+
+ []
 
 [5]
-<../Figures/StartTri600_p(1,0)_min_neg.png, id=157, 2168.1pt x 1070.49937pt>
+Underfull \hbox (badness 10000) in paragraph at lines 249--250
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 275--276
+
+ []
+
+<../Figures/StartTri600_p(1,0)_min_neg.png, id=160, 2168.1pt x 1070.49937pt>
 File: ../Figures/StartTri600_p(1,0)_min_neg.png Graphic file (type png)
 
 <use ../Figures/StartTri600_p(1,0)_min_neg.png>
 Package pdftex.def Info: ../Figures/StartTri600_p(1,0)_min_neg.png used on inpu
-t line 268.
+t line 282.
 (pdftex.def)             Requested size: 250.36836pt x 250.37497pt.
 
-<../Figures/StartTri600_p(1,0)_random_neg1.png, id=158, 2168.1pt x 1070.49937pt
+<../Figures/StartTri600_p(1,0)_random_neg1.png, id=161, 2168.1pt x 1070.49937pt
 >
 File: ../Figures/StartTri600_p(1,0)_random_neg1.png Graphic file (type png)
  <use ../Figures/StartTri600_p(1,0)_random_neg1.png>
 Package pdftex.def Info: ../Figures/StartTri600_p(1,0)_random_neg1.png used on 
-input line 270.
+input line 284.
 (pdftex.def)             Requested size: 250.36836pt x 250.37497pt.
 
-Overfull \hbox (47.71486pt too wide) in paragraph at lines 268--271
-[][] [][] 
- []
-
-
-<../Figures/StartTri600_p(1,0)_random_neg2.png, id=159, 2168.1pt x 1070.49937pt
->
-File: ../Figures/StartTri600_p(1,0)_random_neg2.png Graphic file (type png)
- <use ../Figures/StartTri600_p(1,0)_random_neg2.png>
-Package pdftex.def Info: ../Figures/StartTri600_p(1,0)_random_neg2.png used on 
-input line 274.
-(pdftex.def)             Requested size: 250.36836pt x 250.37497pt.
-
-<../Figures/StartTri600_p(1,0)_random_neg3.png, id=160, 2168.1pt x 1070.49937pt
->
-File: ../Figures/StartTri600_p(1,0)_random_neg3.png Graphic file (type png)
- <use ../Figures/StartTri600_p(1,0)_random_neg3.png>
-Package pdftex.def Info: ../Figures/StartTri600_p(1,0)_random_neg3.png used on 
-input line 275.
-(pdftex.def)             Requested size: 250.36836pt x 250.37497pt.
-
-Overfull \hbox (47.71486pt too wide) in paragraph at lines 274--276
+Overfull \hbox (47.71486pt too wide) in paragraph at lines 282--285
 [][] [][] 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<../Figures/Example.jpg, id=161, 929.4725pt x 695.59875pt>
+
+<../Figures/StartTri600_p(1,0)_random_neg2.png, id=162, 2168.1pt x 1070.49937pt
+>
+File: ../Figures/StartTri600_p(1,0)_random_neg2.png Graphic file (type png)
+ <use ../Figures/StartTri600_p(1,0)_random_neg2.png>
+Package pdftex.def Info: ../Figures/StartTri600_p(1,0)_random_neg2.png used on 
+input line 288.
+(pdftex.def)             Requested size: 250.36836pt x 250.37497pt.
+
+<../Figures/StartTri600_p(1,0)_random_neg3.png, id=163, 2168.1pt x 1070.49937pt
+>
+File: ../Figures/StartTri600_p(1,0)_random_neg3.png Graphic file (type png)
+ <use ../Figures/StartTri600_p(1,0)_random_neg3.png>
+Package pdftex.def Info: ../Figures/StartTri600_p(1,0)_random_neg3.png used on 
+input line 289.
+(pdftex.def)             Requested size: 250.36836pt x 250.37497pt.
+
+Overfull \hbox (47.71486pt too wide) in paragraph at lines 288--290
+[][] [][] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<../Figures/Example.jpg, id=164, 929.4725pt x 695.59875pt>
 File: ../Figures/Example.jpg Graphic file (type jpg)
 
 <use ../Figures/Example.jpg>
-Package pdftex.def Info: ../Figures/Example.jpg used on input line 283.
+Package pdftex.def Info: ../Figures/Example.jpg used on input line 296.
 (pdftex.def)             Requested size: 185.8912pt x 139.11728pt.
 
-Overfull \hbox (49.3166pt too wide) in paragraph at lines 283--284
+Overfull \hbox (49.3166pt too wide) in paragraph at lines 296--297
 [][] 
  []
 
-<../Figures/Calculation.jpg, id=162, 712.6625pt x 695.59875pt>
+<../Figures/Calculation.jpg, id=165, 712.6625pt x 695.59875pt>
 File: ../Figures/Calculation.jpg Graphic file (type jpg)
 
 <use ../Figures/Calculation.jpg>
-Package pdftex.def Info: ../Figures/Calculation.jpg used on input line 287.
+Package pdftex.def Info: ../Figures/Calculation.jpg used on input line 300.
 (pdftex.def)             Requested size: 142.52997pt x 139.11728pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<../Figures/Pathlength30.jpg, id=169, 634.37pt x 453.695pt>
+[6] <../Figures/Pathlength30.jpg, id=181, 634.37pt x 453.695pt>
 File: ../Figures/Pathlength30.jpg Graphic file (type jpg)
 
 <use ../Figures/Pathlength30.jpg>
-Package pdftex.def Info: ../Figures/Pathlength30.jpg used on input line 306.
+Package pdftex.def Info: ../Figures/Pathlength30.jpg used on input line 321.
 (pdftex.def)             Requested size: 364.20816pt x 227.6223pt.
 
-<../Figures/Runtime30.jpg, id=170, 632.3625pt x 451.6875pt>
+<../Figures/Runtime30.jpg, id=182, 632.3625pt x 451.6875pt>
 File: ../Figures/Runtime30.jpg Graphic file (type jpg)
 
 <use ../Figures/Runtime30.jpg>
-Package pdftex.def Info: ../Figures/Runtime30.jpg used on input line 307.
+Package pdftex.def Info: ../Figures/Runtime30.jpg used on input line 322.
 (pdftex.def)             Requested size: 364.20386pt x 227.62827pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 306--308
+Underfull \hbox (badness 10000) in paragraph at lines 321--323
 [][]
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<../Figures/Pathlength2000.jpg, id=171, 635.37375pt x 449.68pt>
+<../Figures/Pathlength2000.jpg, id=183, 635.37375pt x 449.68pt>
 File: ../Figures/Pathlength2000.jpg Graphic file (type jpg)
 
 <use ../Figures/Pathlength2000.jpg>
-Package pdftex.def Info: ../Figures/Pathlength2000.jpg used on input line 313.
+Package pdftex.def Info: ../Figures/Pathlength2000.jpg used on input line 328.
 (pdftex.def)             Requested size: 364.21245pt x 227.62523pt.
 
-<../Figures/Runtime2000.jpg, id=172, 630.355pt x 450.68375pt>
+<../Figures/Runtime2000.jpg, id=184, 630.355pt x 450.68375pt>
 File: ../Figures/Runtime2000.jpg Graphic file (type jpg)
 
 <use ../Figures/Runtime2000.jpg>
-Package pdftex.def Info: ../Figures/Runtime2000.jpg used on input line 314.
+Package pdftex.def Info: ../Figures/Runtime2000.jpg used on input line 329.
 (pdftex.def)             Requested size: 364.20186pt x 227.62444pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 313--315
+Underfull \hbox (badness 10000) in paragraph at lines 328--330
 [][]
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[6 <C:/msys64/home/Olli/RechercheMaillage/Figures/StartTri600_p(1,0)_min_neg.pn
+
+Overfull \hbox (3.58882pt too wide) in paragraph at lines 347--350
+\T1/lmr/m/n/10 The func-tion writes four text files, one for all tri-an-gles of
+ the mesh, one for the tri-an-gles in \T1/lmtt/m/n/10 triangles_path\T1/lmr/m/n
+/10 ,
+ []
+
+[7 <C:/msys64/home/Olli/RechercheMaillage/Figures/StartTri600_p(1,0)_min_neg.pn
 g
 
 pdfTeX warning: pdflatex.exe (file C:/msys64/home/Olli/RechercheMaillage/Figure
@@ -1123,15 +1144,8 @@ ry (use non-interlaced PNG to fix this)
 pdfTeX warning: pdflatex.exe (file C:/msys64/home/Olli/RechercheMaillage/Figure
 s/StartTri600_p(1,0)_random_neg1.png): large interlaced PNG might cause out of 
 memory (use non-interlaced PNG to fix this)
->]
-Overfull \hbox (7.53331pt too wide) in paragraph at lines 332--335
-\T1/lmr/m/n/10 The func-tions writes four text files, one for all tri-an-gles o
-f the mesh, one for the tri-an-gles in \T1/lmtt/m/n/10 triangles_path\T1/lmr/m/
-n/10 ,
- []
-
-[7 <C:/msys64/home/Olli/RechercheMaillage/Figures/StartTri600_p(1,0)_random_neg
-2.png
+>] [8 <C:/msys64/home/Olli/RechercheMaillage/Figures/StartTri600_p(1,0)_random_
+neg2.png
 
 pdfTeX warning: pdflatex.exe (file C:/msys64/home/Olli/RechercheMaillage/Figure
 s/StartTri600_p(1,0)_random_neg2.png): large interlaced PNG might cause out of 
@@ -1144,39 +1158,35 @@ s/StartTri600_p(1,0)_random_neg3.png): large interlaced PNG might cause out of
 memory (use non-interlaced PNG to fix this)
 > <C:/msys64/home/Olli/RechercheMaillage/Figures/Example.jpg> <C:/msys64/home/O
 lli/RechercheMaillage/Figures/Calculation.jpg>]
-Overfull \hbox (40.81201pt too wide) in paragraph at lines 355--356
+Overfull \hbox (40.81201pt too wide) in paragraph at lines 370--371
 []\T1/lmr/m/n/10 covers ver-tices of one tri-an-gle and calls \T1/lmtt/m/n/10 T
 riangle_Recurrence\T1/lmr/m/n/10 , pass the two meshes, the vec-tor \T1/lmtt/m/
 n/10 coveringTriangles
  []
 
-[8] [9]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 391.
+[9]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 406.
  [10 <C:/msys64/home/Olli/RechercheMaillage/Figures/Pathlength30.jpg> <C:/msys6
 4/home/Olli/RechercheMaillage/Figures/Runtime30.jpg>] [11 <C:/msys64/home/Olli/
 RechercheMaillage/Figures/Pathlength2000.jpg> <C:/msys64/home/Olli/RechercheMai
 llage/Figures/Runtime2000.jpg>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 391.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 406.
 
 (C:\msys64\home\Olli\RechercheMaillage\Latex\RechercheMaillage.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 391.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 391.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 406.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 406.
 Package rerunfilecheck Info: File `RechercheMaillage.out' has not changed.
 (rerunfilecheck)             Checksum: 377EF4444EF2897B40A8448E3A389E7E;1520.
-
-
-LaTeX Warning: There were undefined references.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 391.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 406.
  ) 
 Here is how much of TeX's memory you used:
- 16820 strings out of 493921
- 309915 string characters out of 3144878
- 366285 words of memory out of 3000000
- 19721 multiletter control sequences out of 15000+200000
+ 16825 strings out of 493921
+ 309977 string characters out of 3144878
+ 366493 words of memory out of 3000000
+ 19723 multiletter control sequences out of 15000+200000
  48207 words of font info for 42 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 55i,14n,54p,1387b,692s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 55i,14n,54p,1457b,692s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Progr
 am Files (x86)/MiKTeX 2.9/fonts/enc/dvips/lm/lm-rm.enc}{C:/Program Files (x86)/
 MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}{C:/Program Files (x86)/MiKTeX 2.9/font
@@ -1195,9 +1205,9 @@ gram Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmr5.pfb><C:/Program Files (x
 e1/public/lm/lmsy10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/l
 m/lmsy5.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmtt10.pfb
 >
-Output written on RechercheMaillage.pdf (12 pages, 4863813 bytes).
+Output written on RechercheMaillage.pdf (12 pages, 4868689 bytes).
 PDF statistics:
- 281 PDF objects out of 1000 (max. 8388607)
- 52 named destinations out of 1000 (max. 500000)
+ 289 PDF objects out of 1000 (max. 8388607)
+ 55 named destinations out of 1000 (max. 500000)
  212 words of extra memory for PDF output out of 10000 (max. 10000000)
 
