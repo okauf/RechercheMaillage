@@ -35,7 +35,7 @@ int main(){
            int adjoption;
            cin >> adjoption;
            assert(adjoption == 1 || adjoption == 2);
-           adjoption == 1? m.setAdjacencyViaList() : m.setAdjacencyViaMultiMap();
+           adjoption == 1? m.setAdjacencyViaList() : m.setAdjacencyViaMultimap();
            cout << "Choose a number between " << 1 << " and " << numbTri << " in order to choose a triangle" << endl;
            int triangleIndex;
            cin >> triangleIndex;
@@ -124,7 +124,7 @@ int main(){
                case 5: {name = "maillage5.msh";    break;}
            }
            Maillage M(name);
-           m.setAdjacencyViaMultiMap(); M.setAdjacencyViaList();
+           m.setAdjacencyViaMultimap(); M.setAdjacencyViaList();
            
            vector<Triangle> coveringTriangles;
            for(int i = 0; i <m.GetNumbVertices();i++){

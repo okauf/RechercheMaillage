@@ -15,23 +15,36 @@ void exportGnuplot(string file1, string file2,bool runTime);
 
 int main(){
 	
-    string name = "maillage5.msh";
-    Maillage m(name);
-    m.setAdjacencyViaList();
-    int numbExp = 2000;
+    // string name = "maillage5.msh";
+    // Maillage m(name);
+    // m.setAdjacencyViaList();
+    // int numbExp = 2000;
 
-    // file stores starting triangles and points to cover
-    string input = "randomData.txt";
-    // do not execute defineTriandPoints in order to compare the results of min_neg and random_neg
-    //defineTriandPoints(m, input, numbExp);
+    //// file stores starting triangles and points to cover
+    //string input = "randomData.txt";
+    //// do not execute defineTriandPoints in order to compare the results of min_neg and random_neg
+    ////defineTriandPoints(m, input, numbExp);
     
-    //runPromenade(m,"RandomData.txt", "MinMeasRunTime.txt", "MinMeasPathlength.txt");
-    exportGnuplot("Minimum Choice","Random Choice",true);
-    
-    
-   
+    ////runPromenade(m,"RandomData.txt", "MinMeasRunTime.txt", "MinMeasPathlength.txt");
+    // exportGnuplot("Minimum Choice","Random Choice",true);  
 	
+	string name = "maillage5.msh";
+    Maillage m(name);
+	int numbExp = 1000;
+	duration<double>* durationIns = new duration<double>[numbExp];
+	double avg_time;
+	for (int i = 0; i < numbExp; i++){
+		auto t1 = high_resolution_clock::now();
+		m.setAdjacencyViaList();
+		auto t2 = high_resolution_clock::now();
+		durationIns[i] = t2-t1;
+		// cout << durationIns[i].count() << endl;
+		avg_time += durationIns[i].count();
+	}
+	avg_time = avg_time / numbExp;
+	cout << "average execution time: " << avg_time << endl;
 }
+
 double trianglePointDistance(Maillage & m,const int triIndex, T3<double> &p){
     //distance is defined to be the distance of the centroid of the triangle and the point
     Triangle t = m.GetTriangles()[triIndex-1];
@@ -40,7 +53,6 @@ double trianglePointDistance(Maillage & m,const int triIndex, T3<double> &p){
     T3<double> s = (x+y+z)*0.3333333;
     //cout << "The starting triangle is " << endl << x << endl << y << endl << z << endl;
     return s.dist(p);
-    
 }
 
 void defineTriandPoints(Maillage & m, string input,const int numbExp){
@@ -69,8 +81,7 @@ void defineTriandPoints(Maillage & m, string input,const int numbExp){
         randomData << p << endl;
         
         //calculating the distance
-        randomData << trianglePointDistance(m,randomTriIndex,p) << endl;
-        
+        randomData << trianglePointDistance(m,randomTriIndex,p) << endl;   
 	}
 	randomData.close();
 };
@@ -82,7 +93,6 @@ void runPromenade(Maillage & m, string input, string name1, string name2){
 	
 	Triangle* triangles = m.GetTriangles();
 	vector<Triangle> path;
-	
     
 	Triangle StartTri;
 	T3<double> p;
@@ -96,8 +106,6 @@ void runPromenade(Maillage & m, string input, string name1, string name2){
     ofstream searchData1, searchData2;
     searchData1.open(name1);
     searchData2.open(name2);
-    
-	
 
     while(getline(randomData,line)){
         //path is rewritten in each loop
@@ -123,9 +131,7 @@ void runPromenade(Maillage & m, string input, string name1, string name2){
 		linestream << line;
 		linestream >> a >> b >> c;
 		p = T3<double>(a,b,c);
-        
-        
-		
+
 		// time measurement and path length for method promenade
 		auto t1 = high_resolution_clock::now();
 		P = m.Promenade(StartTri,p,path);
@@ -137,11 +143,9 @@ void runPromenade(Maillage & m, string input, string name1, string name2){
         
         //writing the data in the file
         searchData1 << line << " "  << durationIns.count() << endl << endl;
-        searchData2 << line << " " <<  path.size() << endl << endl;
-        
-        
-        
+        searchData2 << line << " " <<  path.size() << endl << endl;        
 	}
+	
     searchData1.close();
     searchData2.close();
 	randomData.close();

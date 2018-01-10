@@ -173,7 +173,7 @@ public:
 
     }
 	
-	void setAdjacencyViaMultiMap(){
+	void setAdjacencyViaMultimap(){
     
     multimap<pair<int,int>,int> adjacency;
     // each triangle defines three edges which will serve as keys for the multimap, the mapped value will be the position of triangle int list triangles

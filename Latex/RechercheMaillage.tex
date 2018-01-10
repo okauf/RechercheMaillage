@@ -191,12 +191,15 @@ The application of all three steps needs a time of $ O(n_T)O(\log(n_T)) = O(n\lo
 
 
 \subsubsection{setAdjacencyViaList} \label{list}
-As in {\ttfamily setAdjacencyViaMultimap}, this method sets the members, describing the neighbors, for each triangle in the considered mesh. In the same manner as before, the members are described using their position in the triangle array. The idea of this method is to create a list in each adjacent triangles appear in consecutive order. After this list is created, the adjacencies of the triangles can be set in linear complexity.
+As in {\ttfamily setAdjacencyViaMultimap}, this method sets the members, describing the neighbors, for each triangle in the considered mesh. In the same manner as before, the members are described using their position in the triangle array. The idea of this method is to create a list in each adjacent triangles appear in consecutive order. After this list is created, the adjacencies of the triangles can be set in linear complexity in the number of triangles.
 
-The list with the desired property is created in the following way: For each triangle three new triangles are created and appended to the list. For the triangle $t = (v_{i_1},v_{i_2},v_{i_3})$ with the index $i$, a new triangle for every edge is defined. More precisely, the triangles $({i_1},{i_2},i), ({i_1},{i_3},i)$ and $({i_2},{i_3},i)$ are pushed on the list. The creation of this list has complexity $O(n_T)$. In order to archive that two neighboring triangle are positioned one after another in the list, the list is sorted in lexicographic order. XXX The complexity for sorting a list with $n_T$ elements is $O(n_Tlogn_T)$.
+The list with the desired property is created in the following way: For each triangle three new triangles are created and appended to the list. For the triangle $t = (v_{i_1},v_{i_2},v_{i_3})$ with the index $i$, a new triangle for every edge is defined. More precisely, the triangles $({i_1},{i_2},i), ({i_1},{i_3},i)$ and $({i_2},{i_3},i)$ are pushed on the list. This can be done in $O(n_T)$. As in {\ttfamily setAdjacencyViaMultimap}, it is necessary that an edge is with increasing vertex indexing, so $i_1 < i_2 < i_3$ has to hold. In order to archive that two neighboring triangle are positioned one after another, the list is sorted in lexicographic order. First, edges of triangles including vertex 1 are listed. These are ordered with respect to the second vertex defining the list triangle's edge. For two list entries with coinciding edge, the list is ordered with respect to the triangle index stored in the last list triangle's vertex. In this case, two neighboring triangles are considered. Then, list triangles with leading entry 2 followed by higher indices that are not yet considered are appended. In Figure \ref{list_ill} the structure of the sorted list is depicted.
 
 \begin{equation*}
 \begin{matrix}
+1 & * & * \\
+1 & * & * \\
+& \vdots & \\
 i_1 & i_2 & i \\
 i_1 & i_2 & j \\
 i_1 & i_3 & i \\
@@ -205,21 +208,29 @@ i_1 & * & * \\
 i_2 & i_3 & i \\
 i_2 & i_3 & k \\
 & \vdots & \\
-i_{n_T} & * & * 
+n_T & * & * 
 \end{matrix}
 \end{equation*}
+\begin{figure}[h]
+	\caption{Illustration of the list structure}
+\end{figure}
+\label{list_ill}
 
-keine übereinstimmung bei vergleich , nachbar von der kante schon gesetzt (vorhergehendes listenelement) oder äußere kante
+The increasing order for indices of an edge is crucial since otherwise neighboring triangles would not appear in consecutive order. The complexity for sorting this list of size $ 3 n_T$ is $O(n_Tlogn_T)$.
 
-order of edges
-
-After the list creation, the members of the mesh triangles can be set. Due to the lexicographical ordering, the list allows now to define adjacencies between triangles with a number of comparison which is linear in the number of triangles. Two consecutive triangles of the list are considered. The first two entries of the triangles are compared. If they are equal, the triangles share an edge and hence can be defined as adjacent. Particularly, if the triangles with the indices $i$ and $j$ have the vertices $v_k$ and $v_l$ in common, the triangles $({k},{l},i)$ and $({k},{l},j)$ appear consecutively in the list. The head element of the list is popped from the front and the comparison is repeated for the next triangles. The comparison of every pair of triangles has constant complexity. As a list of size $3 n_T$ is considered, the complexity of setting the neighbors of the $n_T$ mesh triangles given this list is $O(n_T)$.
+After the creation of this list, the members of the mesh triangles can be set. Due to the lexicographical ordering, the list allows now to define adjacencies between triangles with a number of comparison which is linear in the number of triangles. Two consecutive triangles of the list are considered. The first two entries of the triangles are compared. If they are equal, the triangles share an edge and, hence, can be defined as adjacent. Particularly, if the triangles with the indices $i$ and $j$ have the vertices $v_k$ and $v_l$ in common, the triangles $({k},{l},i)$ and $({k},{l},j)$ appear consecutively in the list. The head element of the list is popped from the front and the comparison is repeated for new top triangles. If the first two vertices of successive triangles do not coincide, the neighbor attached to this edge was either already set in the step before, or the edge is located on the border of the considered mesh. In this case, the corresponding mesh triangle's member is not modified and will still be defined as -1. The comparison of every pair of triangles has constant complexity. As a list of size $3 n_T$ is considered, the complexity of setting the neighbors given this list is $O(n_T)$.
 
 In summary, the method {\ttfamily setAdjacencyViaList} has complexity $O(n_Tlogn_T) + O(n_T) = O(n_Tlogn_T)$.
 
 \subsubsection{Vergleich}
 
-Laufzeitvergleich, komplexität
+Laufzeitvergleich, komplexität\\
+
+list average execution time: 0.0750262\\
+multimap average execution time: 0.0887504\\
+
+best / worst case
+
 
 \subsection{L'algorithme promenade} \label{promenade}
 
