@@ -3,17 +3,17 @@
 \contentsline {section}{\numberline {2}The template class T3 and the class Triangle}{2}{section.2}
 \contentsline {subsection}{\numberline {2.1}The template class T3}{2}{subsection.2.1}
 \contentsline {subsection}{\numberline {2.2}The class Triangle}{2}{subsection.2.2}
-\contentsline {section}{\numberline {3}The class Mesh}{2}{section.3}
+\contentsline {section}{\numberline {3}The class Mesh}{3}{section.3}
 \contentsline {subsection}{\numberline {3.1}LoadVertices and LoadTriangles}{3}{subsection.3.1}
 \contentsline {subsection}{\numberline {3.2}Find the adjacent triangle}{3}{subsection.3.2}
 \contentsline {subsubsection}{\numberline {3.2.1}setAdjacencyViaMultimap}{3}{subsubsection.3.2.1}
 \contentsline {subsubsection}{\numberline {3.2.2}setAdjacencyViaList}{4}{subsubsection.3.2.2}
 \contentsline {subsubsection}{\numberline {3.2.3}Vergleich}{5}{subsubsection.3.2.3}
-\contentsline {subsection}{\numberline {3.3}L'algorithme promenade}{5}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.3}The algorithm Promenade}{5}{subsection.3.3}
 \contentsline {subsubsection}{\numberline {3.3.1}Random neighbor selection}{6}{subsubsection.3.3.1}
 \contentsline {subsubsection}{\numberline {3.3.2}Selection of neighbor with minimal oriented volume}{6}{subsubsection.3.3.2}
-\contentsline {subsubsection}{\numberline {3.3.3}Can an arbitrary choice of the consecutive triangle be a better choice?}{6}{subsubsection.3.3.3}
+\contentsline {subsubsection}{\numberline {3.3.3}Can an arbitrary choice of the consecutive triangle be a better choice?}{7}{subsubsection.3.3.3}
 \contentsline {subsubsection}{\numberline {3.3.4}Empirical demonstration that the deterministic choice of the consecutive triangle is better in regular meshs}{7}{subsubsection.3.3.4}
 \contentsline {subsection}{\numberline {3.4}The visualization via gnuplot}{7}{subsection.3.4}
-\contentsline {section}{\numberline {4}Cover vertices of a mesh by another mesh}{8}{section.4}
+\contentsline {section}{\numberline {4}Cover vertices of a mesh by another mesh}{9}{section.4}
 \contentsline {section}{\numberline {5}Test environment- the main function}{9}{section.5}

@@ -41,15 +41,15 @@ int main(){
            cin >> triangleIndex;
            assert(triangleIndex >= 1 && triangleIndex <= numbTri);
            Triangle* triangles = m.GetTriangles();
-           Triangle T = triangles[triangleIndex-1];
+           Triangle t = triangles[triangleIndex-1];
            vector<Triangle> neighbors;
-           neighbors.push_back(T);
-           if(T.getNeighbor1() != -1)
-               neighbors.push_back(triangles[T.getNeighbor1()]);
-           if(T.getNeighbor2() != -1)
-               neighbors.push_back(triangles[T.getNeighbor2()]);
-           if(T.getNeighbor3() != -1)
-               neighbors.push_back(triangles[T.getNeighbor3()]);
+           neighbors.push_back(t);
+           if(t.getNeighbor1() != -1)
+               neighbors.push_back(triangles[t.getNeighbor1()]);
+           if(t.getNeighbor2() != -1)
+               neighbors.push_back(triangles[t.getNeighbor2()]);
+           if(t.getNeighbor3() != -1)
+               neighbors.push_back(triangles[t.getNeighbor3()]);
            
            m.exportGnuplot(neighbors,nullptr,0);
            break;
@@ -83,11 +83,11 @@ int main(){
            cin >> triangleIndex;
            assert(triangleIndex >= 1 && triangleIndex <= numbTri);
            Triangle* triangles = m.GetTriangles();
-           Triangle T = triangles[triangleIndex-1];
+           Triangle t = triangles[triangleIndex-1];
            
            T3<double>* vertices = m.GetVertices();
-           cout << "The starting triangle is " << endl << vertices[T[0]-1] << endl  << vertices[T[1]-1] << endl  << vertices[T[2]-1] << endl;
-           Triangle P = m.Promenade(T,p,path);
+           cout << "The starting triangle is " << endl << vertices[t[0]-1] << endl  << vertices[t[1]-1] << endl  << vertices[t[2]-1] << endl;
+           Triangle P = m.Promenade(t,p,path);
            cout << "If " << p << " lies in the mesh it is in the triangle with vertices " << endl << vertices[P[0]-1] << endl << vertices[P[1]-1] << endl << vertices[P[2]-1] << endl;
            cout << "If " << p << " is not in the mesh then the above triangle is the triangle with the shortest distance to the chosen point " << endl;
            
