@@ -374,21 +374,28 @@ $selectAdjacentPoint$ to select Triangle to start $promenade$ (if the vertex is 
 	\begin{enumerate}
 		\item 
 		Find the neighbors of a triangle.
-		If a valid triangle is index chosen, the triangles and its neighbors are marked in the chosen mesh. This case offers the extra option to choose if the adjacency should be set via list or mutlimap. Essentially the functions 
+		If a valid triangle index is chosen, the triangles and its neighbors are marked in the chosen mesh. This case offers the extra option to choose if the adjacency should be set via list or multimap. Essentially, the functions 
 		{\ttfamily setAdjacencyViaList } or {\ttfamily setAdjacencyViaMultimap} and {\ttfamily exportGnuplot} are called. 
 		\item 
-		Find the triangle for a point (the point can be chosen). 
+		Find the covering triangle for a selectable point. 
 		As a result, the path to the covering triangle of the point is displayed. 
 		If the point lies outside of the mesh, the path to the nearest triangle is marked in the mesh. 
-		In this case, the functions {\ttfamily Promenade} and {\ttfamily exportGnuplot} are called. 
+		In this case, the functions {\ttfamily promenade} and {\ttfamily exportGnuplot} are called. 
 		\item 
-		Find the covering triangles for the vertices of another mesh. These option offers to display all covering triangles of a the vertices of a second mesh. Note that the mesh whose vertices is supposed to be broader (a finer mesh can be embedded in a broader mesh as well but then each triangle serves as a covering triangle).
+		Find the covering triangles for the vertices of another mesh. These option offers to display all covering triangles of a the vertices of a second mesh. Note that the mesh whose vertices is supposed to be broader (a finer mesh can be embedded in a broader mesh as well but then each triangle serves as a covering triangle). XXX DOMAIN
 	\end{enumerate}
-	All three options contain the option to choose the mesh where the mesh becomes finer from maillage1.msh increasingly to maillage5.msh. 
-	Of course, it is also possible to add own meshs. In this case yet, it has to be respected that the triangle's indices ordering must be increasing, as mentioned in the sections before. 
+	All three options allow to choose the mesh where the mesh becomes increasingly finer from maillage1.msh to maillage5.msh. 
+	Of course, it is also possible to add own meshes. In this case yet, it has to be respected that the vertex indices within a triangle must be sorted in ascending order, as mentioned in the sections before. 
 	Moreover, the mesh's interval should be at maximum $ [1.5,1.5] $ for a convenient display since the axis of the plot for gnuplot are predefined as the interval $ [2,2] $.  \\
-	The test environment is not robust face to wrong inputs. That means that, for example, if an integer is demanded but a letter is typed, the program has to be started again. The same happens it an index is demanded but a the typed input lies outside of the range (an assert exception is thrown then).  
+	XXXX
+	The test environment is not robust face to wrong inputs. That means that, for example, if an integer is demanded but a letter is typed, the program has to be started again. The same happens if an index is demanded but a the typed input lies outside of the range (an assert exception is thrown then).  
+	XXXX
 	
+	special structure of mesh files is needed
+	
+	prepareMaillageFiles.cpp
+	
+	TimeMeasurements.cpp
 	
 \end{document}
 
