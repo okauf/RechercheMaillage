@@ -459,27 +459,22 @@ void Triangle_Recurrence(vector<Triangle> & coveringTriangles, Maillage & m, Mai
 
 vector<Triangle>& findVertices(Maillage & m, Maillage & M, vector<Triangle> & coveringTriangles){
     
-    //search for vertices of m in M 
-    
-    // int numbVertices_m = m.GetNumbVertices();
+    //search for covering triangles in M for the vertices of m
+
     T3<double> * vertices_m = m.GetVertices();
     Triangle * triangles_m = m.GetTriangles();
-    
-    //int numbVertices_M = M.GetNumbVertices();
-    int numbTri_M = M.GetNumbTri();
-    // T3<double> * vertices_M = M.GetVertices();
     Triangle * triangles_M = M.GetTriangles();
     
     srand(time(NULL));
     
     //choose a random start triangle whose vertices shall be searched
     Triangle firstTriangle_m = triangles_m[rand()%m.GetNumbTri()];
-    
-    //choose the first vertex for which a covering triangle shall be found
+
+    //choose the first vertex of this triangle -> covering triangle shall be found
     T3<double> firstVertex = vertices_m[firstTriangle_m[0]-1];
     
-    //choose a random start triangle for the algorithm promenade
-    Triangle firstStartTri = triangles_M[rand()%numbTri_M];
+    //choose a random starting triangle for the algorithm promenade
+    Triangle firstStartTri = triangles_M[rand()%M.GetNumbTri()];
     
     //find the first covering triangle for the vertex
     Triangle firstTriangle_M = M.Promenade(firstStartTri, firstVertex);

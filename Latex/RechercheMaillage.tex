@@ -258,7 +258,7 @@ If there are two neighboring triangles to chose from, different approaches can b
 
 \subsubsection{Random neighbor selection} \label{ran_neighb_sel}
 
-The method {\ttfamily T3::random\_neg} is given three numbers of the type {\ttfamily double} and returns an integer. If at least one input variable is strictly negative, the output takes a value between one and three indicating the handover position of a negative input variable. Otherwise, if non of the input variables is negative, -1 is returned. In the case of several negative input variables, the variable is chosen randomly. Hereby, the time XXX is used to generate random numbers.
+The method {\ttfamily random\_neg} is given three numbers of the type {\ttfamily double} and returns an integer. If at least one input variable is strictly negative, the output takes a value between one and three indicating the handover position of a negative input variable. Otherwise, if non of the input variables is negative, -1 is returned. In the case of several negative input variables, the variable is chosen randomly. Hereby, the time XXX is used to generate random numbers.
 
 Using this approach for the choice of the neighbor triangle in {\ttfamily Mesh::promenade}, the algorithms returns different paths when executing it repeatedly with the same starting triangle and point $p$.
 
@@ -270,9 +270,9 @@ details zu return wert?? XXX
 
 \subsubsection{Selection of neighbor with minimal oriented volume} \label{min_neg_vol}
 
-Another option to choose the consecutive triangle is to select the edge forming the triangle with minimal oriented volume with the point to cover. The method {\ttfamily T3::min\_neg} returns the smallest of the three given numbers or -1 if none of them is negative.
+Another option to choose the consecutive triangle is to select the edge forming the triangle with minimal oriented volume with the point to cover. The method {\ttfamily min\_neg} returns the smallest of the three given numbers or -1 if none of them is negative.
 
-Unlike {\ttfamily T3::random\_neg}, the neighbor choice with {\ttfamily T3::min\_neg} XXX \\
+Unlike {\ttfamily random\_neg}, the neighbor choice with {\ttfamily min\_neg} XXX \\
 
 same path length for multiply execution with same starting triangle and point $p$ in most cases\\
 only case in which neighbor selection is not uniquely determined: $p$ on half plane
@@ -339,7 +339,7 @@ In this case, the mesh 'maillage5.msh', USED FOR THE CREATION OF FIGURE X, is re
 	\begin{enumerate}
 		\item 
 		The result of the algorithm promenade, that is a sequence of adjacent triangles from a starting triangle to a triangle covering the searched point. 
-		In this case, the input variable {\ttfamily vector<triangle> triangles\_path} contains the sequence of triangles and the input variable {\ttfamily const T3<double>* points} contains just one point, hence, the input {\ttfamily int numbpoint}, denoting the VECTOR/ARRAY LENGTH/SIZE of {\ttfamily points}, is $ 1 $. 
+		In this case, the input variable {\ttfamily vector<triangle> triangles\_path} contains the sequence of triangles and the input variable {\ttfamily const T3<double>* points} contains just one point, hence, the input {\ttfamily int numbpoint}, denoting the size of the array {\ttfamily points}, is $ 1 $. 
 		\item 
 		Given a mesh and the vertices of another mesh, it can visualize the set of the covering triangles (a subset of triangles of the first mesh) of the points of the second mesh. 
 		In this case, the input variable {\ttfamily vector<triangle> triangles\_path} contains the covering triangles and {\ttfamily points} stores the vertices of the second mesh. 
@@ -350,28 +350,22 @@ The actual execution in the terminal is achieved by the command {\ttfamily syste
 
 \section{Cover vertices of a mesh by another mesh}
 
-The aim of this section is to find the covering triangle for every vertex of another mesh in the same domain. This can be useful when a mesh is refined or coarsened. For this purpose, the promenade algorithm is executed frequently, once for every vertex. In order nevertheless to obtain a good running time, the starting triangle for {\ttfamily promenade} should be chosen in an efficient way. The idea is to use starting triangle for which we already know that they are located close to the vertex to cover.
+The aim of this section is to find the covering triangle for every vertex of another mesh in the same domain. This can be useful when a mesh is refined or coarsened. For this purpose, the promenade algorithm is executed many times, once for every vertex. In order nevertheless to obtain a good running time, the starting triangle for {\ttfamily promenade} should be chosen in an efficient way. The idea is to use starting triangles for which we already know that they are located close to the vertex to cover.
 
-The function {\ttfamily findVertices} is given two meshes {\ttfamily Mesh m} and {\ttfamily Mesh M} and a reference of a vector of triangles {\ttfamily coveringTriangles} and returns {\ttfamily coveringTriangle} after modification. The function's goal is to search for covering triangles in {\ttfamily M} for the vertices in {\ttfamily  m}. At the position $i$ of {\ttfamily coveringTriangles} the triangle in {\ttfamily M} covering the $i$-th vertex of the mesh {\ttfamily m} is stored.
+The function {\ttfamily findVertices} is given two meshes, {\ttfamily Mesh m} and {\ttfamily Mesh M}, and a reference of a vector of triangles {\ttfamily coveringTriangles} and returns {\ttfamily coveringTriangle} after modification. The function's goal is to search for covering triangles in {\ttfamily M} for the vertices of {\ttfamily  m}. At the position $i$ of {\ttfamily coveringTriangles} the triangle in {\ttfamily M} covering the $i$-th vertex of the mesh {\ttfamily m} is stored. All covering triangles are initialized by 0. Note that the indexing of the vertices in the mesh files starts at 1.
 
-First, two random triangles, one in {\ttfamily m} and one in {\ttfamily M}, are chosen. In {\ttfamily findVertices} covering triangles for the vertices of the triangle randomly chosen in {\ttfamily m} are computed.
+First, two random triangles, one in {\ttfamily m} and one in {\ttfamily M}, are chosen. In {\ttfamily findVertices} covering triangles for the vertices of the randomly chosen triangle {\ttfamily firstTriangle\_m = (firstVertex, secondVertex, thirdVertex)} in {\ttfamily m} are computed. In order to find a covering triangle for {\ttfamily firstVertex}, {\ttfamily Mesh::promenade} is executed given the random triangle {\ttfamily firstStartTri} chosen in the {\ttfamily M}. After calculation of the covering triangle for {\ttfamily firstVertex} indexed by {\ttfamily firstTriangle\_M}, we can use that triangle as starting triangle for the search of a covering triangle for {\ttfamily secondVertex}. As {\ttfamily firstVertex} and {\ttfamily secondVertex} belong to one edge in {\ttfamily m}, we expect the covering triangles of those vertices to be close in {\ttfamily M}. In the same manner, we use the covering triangle of {\ttfamily secondVertex} as starting triangle for covering {\ttfamily thirdVertex}. Hereby, the version of {\ttfamily Mesh::promenade} not storing the taken path is executed.\\
 
-start with random triangle of mesh m (JUST START WITH FIRST TRI?)
+why start with random triangle of mesh m (JUST START WITH FIRST TRI?)\\
 
-random triangle in mesh $M$, use as a starting triangle for {\ttfamily promenade}, find covering triangle in $M$ for the vertex XX
-call promenade (not that we do not store the path taken by promenade here)
+Now, we computed covering triangles for all the vertices of {\ttfamily firstTriangle\_m}. Originating from this triangle, we start a recurrence to find the remaining covering triangles. Neighboring triangles, neighbors of the neighboring triangles and so on will be considered.
 
-covering triangle: as triangles initialized as with vertex with index 0 (start at 1 in mesh files)
+In {\ttfamily findVertices} the function {\ttfamily Triangle\_Recurrence} is called. The two meshes, the vector {\ttfamily coveringTriangles} and the already covered triangle {\ttfamily firstTriangle\_m} are passed. {\ttfamily Triangle\_Recurrence} modifies the vector {\ttfamily coveringTriangles} and, thereafter, {\ttfamily findVertices} returns the completed vector.
 
-choose triangle in $m$, cover all vertices of this triangle (use covering tri in $M$ for neighboring vertex as starting tri)
+covers vertices of one triangle and calls {\ttfamily Triangle\_Recurrence}, pass the two meshes, the vector {\ttfamily coveringTriangles} and the triangle in {\ttfamily m} which we started with and which is already covered
 
-RECURRENCE
 
-covers vertices of one triangle and calls {\ttfamily Triangle\_Recurrence}, pass the two meshes, the vector {\ttfamily coveringTriangles} and the triangle in $m$ which we started with and which is already covered
-
-recurrence modifies the vector of coveringTriangles
-
-searhc for covering triangles for the vertices of the neighbpring triangles of the already covered triangle, the covering triangles are 'relatively' close, so we hope to have a fast termination of the algorithm $promenade$ like this
+searhc for covering triangles for the vertices of the neighboring triangles of the already covered triangle, the covering triangles are 'relatively' close, so we hope to have a fast termination of the algorithm $promenade$ like this
 
 start with member neighbor1 then 2 3 (have to check for existence of the neighbors)
 
