@@ -9,14 +9,14 @@
 #include <time.h>
 using namespace std;
 
-class Maillage{
+class Mesh{
     
 private:
     T3<double>* vertices;
     Triangle* triangles;
     int numbVertices, numbTri;
 public:
-    Maillage(string input):vertices(LoadVertices(input)), triangles(LoadTriangles(input)){};
+    Mesh(string input):vertices(LoadVertices(input)), triangles(LoadTriangles(input)){};
     
     T3<double>* GetVertices() {return vertices;}
     Triangle* GetTriangles() {return triangles;}
@@ -30,16 +30,16 @@ public:
         
         string line;
         
-        fstream mshmaillage;
-        mshmaillage.open(input);
+        fstream mshmesh;
+        mshmesh.open(input);
         
         //save the first line in line
-        getline(mshmaillage,line);
+        getline(mshmesh,line);
         //searching for the number
         while(line != "# Nombre de sommets"){
-            getline(mshmaillage,line);
+            getline(mshmesh,line);
         }
-        getline(mshmaillage,line);
+        getline(mshmesh,line);
         // saving the number of vertices
         int numbVertices = stoi(line);
         SetNumbVertices(numbVertices);
@@ -48,11 +48,11 @@ public:
         T3<double> * tab = new T3<double>[numbVertices];
         
         //ignoring the next line
-        getline(mshmaillage,line);
+        getline(mshmesh,line);
         
         int i = 0;
         while(i < numbVertices){
-            getline(mshmaillage,line);
+            getline(mshmesh,line);
             double a,b,c;
             stringstream linestream;
             linestream << line;
@@ -63,7 +63,7 @@ public:
             i++;
         }
         
-        mshmaillage.close();
+        mshmesh.close();
         return tab;
     }
     
@@ -71,17 +71,17 @@ public:
         
         string line;
         
-        fstream mshmaillage;
-        mshmaillage.open(input);
+        fstream mshmesh;
+        mshmesh.open(input);
         
         //save the first line in line
-        getline(mshmaillage,line);
+        getline(mshmesh,line);
         
         //searching for the number
         while(line != "# Nombre de triangle"){
-            getline(mshmaillage,line);
+            getline(mshmesh,line);
         }
-        getline(mshmaillage,line);
+        getline(mshmesh,line);
         
         // saving the number of triangles
         int numbTri = stoi(line);
@@ -91,19 +91,19 @@ public:
         Triangle* triangles = new Triangle[numbTri];
         
         //ignoring the nextline
-        getline(mshmaillage,line);
+        getline(mshmesh,line);
         
         int i = 0;
         while(i < numbTri){
             int a,b,c;     // save the positions of the points
-            getline(mshmaillage,line);
+            getline(mshmesh,line);
             stringstream linestream;
             linestream << line;
             linestream >> a >>  b >> c;
             triangles[i] = Triangle(a,b,c);
             i++;
         }
-        mshmaillage.close();
+        mshmesh.close();
         
         return triangles;
     }  
@@ -136,7 +136,7 @@ public:
             case 3:
                 return Promenade(triangles[T.getNeighbor3()],p,path);
 			default:
-				return T; // XXXXX avoid warning
+				return T; // will never be reached, avoid warning
         }
          
     }
@@ -373,7 +373,7 @@ int selectAdjacentVertex(const pair<int,int> & edge, const Triangle & Neighbor_m
     }
 }
 
-void Triangle_Recurrence(vector<Triangle> & coveringTriangles, Maillage & m, Maillage & M, Triangle firstTriangle_m){
+void Triangle_Recurrence(vector<Triangle> & coveringTriangles, Mesh & m, Mesh & M, Triangle firstTriangle_m){
     
     Triangle * triangles_m = m.GetTriangles();
     T3<double> * vertices_m = m.GetVertices();
@@ -457,7 +457,7 @@ void Triangle_Recurrence(vector<Triangle> & coveringTriangles, Maillage & m, Mai
     
 }
 
-vector<Triangle>& findVertices(Maillage & m, Maillage & M, vector<Triangle> & coveringTriangles){
+vector<Triangle>& findVertices(Mesh & m, Mesh & M, vector<Triangle> & coveringTriangles){
     
     //search for covering triangles in M for the vertices of m
 

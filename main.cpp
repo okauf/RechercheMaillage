@@ -1,4 +1,4 @@
-#include "Maillage.hpp"
+#include "Mesh.hpp"
 #include <iostream>
 #include <vector>
 #include <cassert>
@@ -16,20 +16,20 @@ int main(){
    switch(option) {
        
        case 1: {
-           cout << "Choose a maillage file: " << endl << "1: maillage1.msh" << endl << "2: maillage2.msh" << endl << "3: maillage3.msh" << endl << "4: maillage4.msh" << endl <<  "5: maillage5.msh" << endl;
+           cout << "Choose a mesh file: " << endl << "1: mesh1.msh" << endl << "2: mesh2.msh" << endl << "3: mesh3.msh" << endl << "4: mesh4.msh" << endl <<  "5: mesh5.msh" << endl;
            int mOption;
            cin >> mOption;
            assert(mOption >= 0 && mOption < 6);
            string name;
            switch (mOption) {
-               case 1: {name = "maillage1.msh";    break;}
-               case 2: {name = "maillage2.msh";    break;}
-               case 3: {name = "maillage3.msh";    break;}
-               case 4: {name = "maillage4.msh";    break;}
-               case 5: {name = "maillage5.msh";    break;}
+               case 1: {name = "mesh1.msh";    break;}
+               case 2: {name = "mesh2.msh";    break;}
+               case 3: {name = "mesh3.msh";    break;}
+               case 4: {name = "mesh4.msh";    break;}
+               case 5: {name = "mesh5.msh";    break;}
            }
            
-           Maillage m(name);
+           Mesh m(name);
            int numbTri = m.GetNumbTri();
            cout << "How should the adjacency be initialized?" << endl << "1: Via List" << endl << "2: Via Map" << endl;
            int adjoption;
@@ -56,20 +56,20 @@ int main(){
        }
            
        case 2: {
-           cout << "Choose a maillage file: " << endl << "1: maillage1.msh" << endl << "2: maillage2.msh" << endl << "3: maillage3.msh" << endl << "4: maillage4.msh" << endl <<  "5: maillage5.msh" << endl;
+           cout << "Choose a mesh file: " << endl << "1: mesh1.msh" << endl << "2: mesh2.msh" << endl << "3: mesh3.msh" << endl << "4: mesh4.msh" << endl <<  "5: mesh5.msh" << endl;
            int mOption;
            cin >> mOption;
            assert(mOption >= 0 && mOption < 6);
            string name;
            switch (mOption) {
-               case 1: {name = "maillage1.msh";    break;}
-               case 2: {name = "maillage2.msh";    break;}
-               case 3: {name = "maillage3.msh";    break;}
-               case 4: {name = "maillage4.msh";    break;}
-               case 5: {name = "maillage5.msh";    break;}
+               case 1: {name = "mesh1.msh";    break;}
+               case 2: {name = "mesh2.msh";    break;}
+               case 3: {name = "mesh3.msh";    break;}
+               case 4: {name = "mesh4.msh";    break;}
+               case 5: {name = "mesh5.msh";    break;}
            }
            
-           Maillage m(name);
+           Mesh m(name);
            int numbTri = m.GetNumbTri();
            cout << "Choose a point of the format <double> <double> " << endl;
            double x,y;
@@ -96,34 +96,34 @@ int main(){
        }
            
        case 3: {
-           cout << "Choose two maillage files, the maillages become finer with increasing index. " << endl;
-           cout << "Choose the maillage whose sommets should be covered by triangles of the finer maillage " << endl << "1: maillage1.msh" << endl << "2: maillage2.msh" << endl << "3: maillage3.msh" << endl << "4: maillage4.msh" << endl << "5: maillage5.msh" << endl;
+           cout << "Choose two mesh files, the meshs become finer with increasing index. " << endl;
+           cout << "Choose the mesh whose sommets should be covered by triangles of the finer mesh " << endl << "1: mesh1.msh" << endl << "2: mesh2.msh" << endl << "3: mesh3.msh" << endl << "4: mesh4.msh" << endl << "5: mesh5.msh" << endl;
            int mOption;
            cin >> mOption;
            assert(mOption >= 0 && mOption < 6);
            string name;
            switch (mOption) {
-               case 1: {name = "maillage1.msh";    break;}
-               case 2: {name = "maillage2.msh";    break;}
-               case 3: {name = "maillage3.msh";    break;}
-               case 4: {name = "maillage4.msh";    break;}
-               case 5: {name = "maillage5.msh";    break;}
+               case 1: {name = "mesh1.msh";    break;}
+               case 2: {name = "mesh2.msh";    break;}
+               case 3: {name = "mesh3.msh";    break;}
+               case 4: {name = "mesh4.msh";    break;}
+               case 5: {name = "mesh5.msh";    break;}
            }
            
-           Maillage m(name);
+           Mesh m(name);
            
            
-           cout << "Chose the finer maillage file " << endl << "1: maillage1.msh" << endl << "2: maillage2.msh" << endl << "3: maillage3.msh" << endl << "4: maillage4.msh" << endl << "5: maillage5.msh" << endl;
+           cout << "Chose the finer mesh file " << endl << "1: mesh1.msh" << endl << "2: mesh2.msh" << endl << "3: mesh3.msh" << endl << "4: mesh4.msh" << endl << "5: mesh5.msh" << endl;
            cin >> mOption;
            assert(mOption >= 0 && mOption < 6);
            switch (mOption) {
-               case 1: {name = "maillage1.msh";    break;}
-               case 2: {name = "maillage2.msh";    break;}
-               case 3: {name = "maillage3.msh";    break;}
-               case 4: {name = "maillage4.msh";    break;}
-               case 5: {name = "maillage5.msh";    break;}
+               case 1: {name = "mesh1.msh";    break;}
+               case 2: {name = "mesh2.msh";    break;}
+               case 3: {name = "mesh3.msh";    break;}
+               case 4: {name = "mesh4.msh";    break;}
+               case 5: {name = "mesh5.msh";    break;}
            }
-           Maillage M(name);
+           Mesh M(name);
            m.setAdjacencyViaMultimap(); M.setAdjacencyViaList();
            
            vector<Triangle> coveringTriangles;

@@ -16,4 +16,4 @@
 \contentsline {subsubsection}{\numberline {3.3.4}Empirical demonstration that the deterministic choice of the consecutive triangle is better in regular meshs}{8}{subsubsection.3.3.4}
 \contentsline {subsection}{\numberline {3.4}The visualization via gnuplot}{8}{subsection.3.4}
 \contentsline {section}{\numberline {4}Cover vertices of a mesh by another mesh}{9}{section.4}
-\contentsline {section}{\numberline {5}Test environment- the main function}{10}{section.5}
+\contentsline {section}{\numberline {5}Test environment- the main function}{9}{section.5}

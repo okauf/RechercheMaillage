@@ -1,4 +1,4 @@
-#include "Maillage.hpp"
+#include "Mesh.hpp"
 #include <iostream>
 #include <vector>
 #include <cassert>
@@ -8,8 +8,8 @@
 using namespace std;
 using namespace std::chrono;
 
-void defineTriandPoints(Maillage & m, string input, int numbExp);
-void runPromenade(Maillage & m, string input, string name1, string name2);
+void defineTriandPoints(Mesh & m, string input, int numbExp);
+void runPromenade(Mesh & m, string input, string name1, string name2);
 void exportGnuplot(string file1, string file2,bool runTime);
 
 
@@ -17,8 +17,8 @@ int main(){
 	
 	// THIS PART IS USED FOR THE COMPARISON OF APPROACHES FOR THE CHOICE OF THE CONSECUTIVE TRIANGLE IN PROMENADE
 	
-    string name = "maillage5.msh";
-    Maillage m(name);
+    string name = "mesh5.msh";
+    Mesh m(name);
     m.setAdjacencyViaList();
     int numbExp = 2000;
 
@@ -33,8 +33,8 @@ int main(){
 	
 	// THIS PART IS USED FOR THE RUNTIME COMPARISON OF SETTING THE NEIGHBORS VIA MULTIMAPS AND LISTS
 	
-	// string name = "maillage5.msh";
-    // Maillage m(name);
+	// string name = "mesh5.msh";
+    // Mesh m(name);
 	// int numbExp = 1000;
 	// duration<double>* durationIns = new duration<double>[numbExp];
 	// double avg_time;
@@ -49,7 +49,7 @@ int main(){
 	// cout << "average execution time: " << avg_time << endl;
 }
 
-double trianglePointDistance(Maillage & m,const int triIndex, T3<double> &p){
+double trianglePointDistance(Mesh & m,const int triIndex, T3<double> &p){
     //distance is defined to be the distance of the centroid of the triangle and the point
     Triangle t = m.GetTriangles()[triIndex-1];
     T3<double>* vertices = m.GetVertices();
@@ -59,7 +59,7 @@ double trianglePointDistance(Maillage & m,const int triIndex, T3<double> &p){
     return s.dist(p);
 }
 
-void defineTriandPoints(Maillage & m, string input,const int numbExp){
+void defineTriandPoints(Mesh & m, string input,const int numbExp){
 	
 	ofstream randomData;
 	randomData.open(input);
@@ -90,7 +90,7 @@ void defineTriandPoints(Maillage & m, string input,const int numbExp){
 	randomData.close();
 };
 
-void runPromenade(Maillage & m, string input, string name1, string name2){
+void runPromenade(Mesh & m, string input, string name1, string name2){
 	
 	fstream randomData;
 	randomData.open(input);
