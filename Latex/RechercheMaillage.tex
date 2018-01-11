@@ -362,18 +362,11 @@ Now, we computed covering triangles for all the vertices of {\ttfamily firstTria
 
 In {\ttfamily findVertices} the function {\ttfamily Triangle\_Recurrence} is called. The two meshes, the vector {\ttfamily coveringTriangles} and the already covered triangle {\ttfamily firstTriangle\_m} are passed. {\ttfamily Triangle\_Recurrence} modifies the vector {\ttfamily coveringTriangles} and, thereafter, {\ttfamily findVertices} returns the completed vector.
 
-covers vertices of one triangle and calls {\ttfamily Triangle\_Recurrence}, pass the two meshes, the vector {\ttfamily coveringTriangles} and the triangle in {\ttfamily m} which we started with and which is already covered
+{\ttfamily Triangle\_Recurrence} searches for covering triangles for the vertices of neighboring triangles of the already covered triangle. Again, 'close' covering triangle that are already found are used to accelerate the termination of the algorithm {\ttfamily promenade}.
 
-
-searhc for covering triangles for the vertices of the neighboring triangles of the already covered triangle, the covering triangles are 'relatively' close, so we hope to have a fast termination of the algorithm $promenade$ like this
-
-start with member neighbor1 then 2 3 (have to check for existence of the neighbors)
-
-searching structure is similar to approach of depth-first search
+We start with the member {\ttfamily neighbor1} of {\ttfamily firstTriangle\_m}. If this neighbor triangle exists and its vertices are not yet covered, we do so using the same procedure as in {\ttfamily findVertices}. After the triangle is covered, we consider its member {\ttfamily neighbor1}. At the moment when either a neighbor does not exist or is already covered, we go on to the member {\ttfamily neighbor2} and afterwards to the member {\ttfamily neighbor3}. If all members are covered, we return to the calling triangle and considered its next neighbor. This terminates when a cover triangle for all vertices of the mesh {\ttfamily m} is found and the vector {\ttfamily coveringTriangles} is completed. WHY? XXXX Observe that this searching structure is similar to the approach of depth-first search. 
 
 $selectAdjacentPoint$ to select Triangle to start $promenade$ (if the vertex is not already covered), then cover neighbors of this triangle
-
-
 
 
 \section{Test environment- the main function}

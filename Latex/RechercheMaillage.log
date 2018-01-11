@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.10.19)  11 JAN 2018 11:52
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.10.19)  11 JAN 2018 12:13
 entering extended mode
 **RechercheMaillage.tex
 (C:\msys64\home\Olli\RechercheMaillage\Latex\RechercheMaillage.tex
@@ -1174,27 +1174,20 @@ T1/lmtt/m/n/10 Triangle_Recurrence \T1/lmr/m/n/10 is called. The two meshes, th
 e vec-tor \T1/lmtt/m/n/10 coveringTriangles
  []
 
-
-Overfull \hbox (40.81201pt too wide) in paragraph at lines 365--366
-[]\T1/lmr/m/n/10 covers ver-tices of one tri-an-gle and calls \T1/lmtt/m/n/10 T
-riangle_Recurrence\T1/lmr/m/n/10 , pass the two meshes, the vec-tor \T1/lmtt/m/
-n/10 coveringTriangles
- []
-
 [9]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 400.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 398.
  [10 <C:/msys64/home/Olli/RechercheMaillage/Figures/Pathlength30.jpg> <C:/msys6
 4/home/Olli/RechercheMaillage/Figures/Runtime30.jpg>] [11 <C:/msys64/home/Olli/
 RechercheMaillage/Figures/Pathlength2000.jpg> <C:/msys64/home/Olli/RechercheMai
 llage/Figures/Runtime2000.jpg>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 400.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 398.
 
 (C:\msys64\home\Olli\RechercheMaillage\Latex\RechercheMaillage.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 400.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 400.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 398.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 398.
 Package rerunfilecheck Info: File `RechercheMaillage.out' has not changed.
 (rerunfilecheck)             Checksum: 377EF4444EF2897B40A8448E3A389E7E;1520.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 400.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 398.
  ) 
 Here is how much of TeX's memory you used:
  16825 strings out of 493921
@@ -1222,7 +1215,7 @@ gram Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmr5.pfb><C:/Program Files (x
 e1/public/lm/lmsy10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/l
 m/lmsy5.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmtt10.pfb
 >
-Output written on RechercheMaillage.pdf (12 pages, 4869534 bytes).
+Output written on RechercheMaillage.pdf (12 pages, 4869842 bytes).
 PDF statistics:
  289 PDF objects out of 1000 (max. 8388607)
  55 named destinations out of 1000 (max. 500000)
