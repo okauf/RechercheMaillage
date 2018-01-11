@@ -363,6 +363,8 @@ void exportGnuplot(vector<Triangle> & triangles_path, const T3<double>* points, 
 
 };
 
+// edge is a shared edge between a previously considered triangle and Neighbor_m, this method is used to
+// find out which vertex of Neighbor_m is not contained in the previously considered triangle
 int selectAdjacentVertex(const pair<int,int> & edge, const Triangle & Neighbor_m){
     if (Neighbor_m[0] != edge.first && Neighbor_m[0] != edge.second){
         return 0;
@@ -393,7 +395,7 @@ void Triangle_Recurrence(vector<Triangle> & coveringTriangles, Mesh & m, Mesh & 
     //check if it has a neighbor
     if (firstTriangle_m.getNeighbor1() != -1){
         
-        //selesct neighbor1_m
+        //select neighbor1_m
         Triangle Neighbor1_m = triangles_m[firstTriangle_m.getNeighbor1()];
         
         //find the vertex of the neighbor1_m that is possibly not covered yet
@@ -404,9 +406,6 @@ void Triangle_Recurrence(vector<Triangle> & coveringTriangles, Mesh & m, Mesh & 
         if (coveringTriangles[Neighbor1_m[adjVertex]-1][0] == 0){
 			
 			if (adjVertex == 0) {
-            // if the first vertex of neighbor1_m is possibly not covered yet we will start the algorithm with the covering triangle of
-            // a vertex of the adjacent triangle neghbor1_m of firstTriangle_m; these are secondTriangle_M and thirdTriangle_M
-            //they are closer to this vertex than firstTriangle_M XXXXXX????
 				Start = secondTriangle_M;
 			} else if (adjVertex == 1){
 				Start = thirdTriangle_M;

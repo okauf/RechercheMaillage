@@ -95,7 +95,7 @@
 %\pagenumbering{arabic}
 %\pagestyle{headings}
 	
-%\title{Recherche rapide d’un triangle contenant un point dans un maillage}
+%\title{Recherche rapide d’un triangle contenant un point dans un mesh}
 
 \begin{wrapfigure}{r}{0.4\textwidth} 
 	\begin{center}
@@ -248,7 +248,7 @@ In summary, the method {\ttfamily setAdjacencyViaList} has complexity $O(n_Tlogn
 
 \subsubsection{Runtime comparison of setAdjacencyViaMultimap and setAdjacencyViaList}
 
-The complexity for both methods, {\ttfamily setAdjacencyViaMultimap} and {\ttfamily setAdjacencyViaList}, lies in $O(n_Tlogn_T)$. Measuring the average runtime for setting the neighbor for the 21870 vertices of maillage5.msh leads to the following results: 
+The complexity for both methods, {\ttfamily setAdjacencyViaMultimap} and {\ttfamily setAdjacencyViaList}, lies in $O(n_Tlogn_T)$. Measuring the average runtime for setting the neighbor for the 21870 vertices of mesh5.msh leads to the following results: 
 
 \begin{itemize}
 	\item {\ttfamily setAdjacencyViaMultimap}: $ 0.0887504 s$
@@ -278,7 +278,7 @@ Following the algorithm, there are three cases for the number of possible walkin
 	\item two neighboring triangles are valid choices or
 	\item the current triangle already covers $p$.
 \end{enumerate}
-If there are two neighboring triangles to choose from, different approaches can be pursued. We implemented a random neighbor selection (see \ref{ran_neighb_sel}) and a method choosing the edge forming the triangle with minimal oriented volume with $p$ (see \ref{min_neg_vol}). In order to switch between the two approaches, adapt the switch-condition in the method {\ttfamily Promenade} in line 128 and 160 in Maillage.hpp {\ttfamily Maillage.hpp }. XXXXXXXXXXXXX
+If there are two neighboring triangles to choose from, different approaches can be pursued. We implemented a random neighbor selection (see \ref{ran_neighb_sel}) and a method choosing the edge forming the triangle with minimal oriented volume with $p$ (see \ref{min_neg_vol}). In order to switch between the two approaches, adapt the switch-condition in the method {\ttfamily Promenade} in line 128 and 160 in Mesh.hpp {\ttfamily Mesh.hpp }. XXXXXXXXXXXXX
 
 \subsubsection{Random neighbor selection} \label{ran_neighb_sel}
 
@@ -320,12 +320,12 @@ In Figure \ref{path} the path of {\ttfamily Promenade} returned for a specified 
 If we take a look at the figures \ref{30} and \ref{2000}, it becomes empirically clear that the minimum choice of the consecutive triangle speeds up the algorithm. Figure \ref{30} even states that the path created by the minimum choice is always shorter or as long as the path created by the random choice. Looking at the runtime in \ref{2000}, we see that the runtime is about as twice as high for the random choice when the starting triangle and the given point are remote. 
  \\
 Nevertheless, it has to be kept in mind that the underlying mesh plays an important role.
-In this case, the mesh 'maillage5.msh', used for the figures \ref{30} and \ref{2000}, is regular in the sense explained in the previous section (see \ref{Question}). These {\ttfamily gnuplot} figures are created in the file TimeMeasurements.cpp.
+In this case, the mesh 'mesh5.msh', used for the figures \ref{30} and \ref{2000}, is regular in the sense explained in the previous section (see \ref{Question}). These {\ttfamily gnuplot} figures are created in the file TimeMeasurements.cpp.
 
 \begin{figure}[h] 
 	\subfigure{\includegraphics[width=0.8\linewidth, height=0.5\linewidth]{../Figures/Pathlength30.jpg}}
 	\subfigure{\includegraphics[width=0.8\linewidth,height=0.5\linewidth]{../Figures/Runtime30.jpg}}
-	\caption{The pathlength and the runtime compared using $ min_neg $ and $ random_neg $. In this example, $ 30 $ data points were randomly created in the file 'TimeMeasurements.cpp'.  The underlying mesh is 'maillage5.msh'.}
+	\caption{The pathlength and the runtime compared using $ min_neg $ and $ random_neg $. In this example, $ 30 $ data points were randomly created in the file 'TimeMeasurements.cpp'.  The underlying mesh is 'mesh5.msh'.}
 	\label{30}
 \end{figure}
 
@@ -352,56 +352,45 @@ In this case, the mesh 'maillage5.msh', used for the figures \ref{30} and \ref{2
 	\end{enumerate}
 The function writes four text files, one for all triangles of the mesh, one for the triangles in {\ttfamily triangles\_path}, one for the points in {\ttfamily points} and one for the commands which shall be executed by {\ttfamily gnuplot}. This is all realized by a simple {\ttfamily std::ofstream} variable, allowing to create and manipulate a text file. \\
 The script for {\ttfamily gnuplot} contains a line which keeps the plot open until some key is hit in the terminal. 
-The actual execution in the terminal is achieved by the command {\ttfamily system} which executes its input string in the terminal. XXXX The actual execution is achieved by typing the command {\ttfamily system} in the terminal. ???
+The actual execution in the terminal is achieved by the command {\ttfamily system} which executes an input string in the terminal in order to call {\ttfamily gnuplot}.
 
 \section{Cover vertices of a mesh by another mesh}
 
-The aim of this section is to find the covering triangle for every vertex of another mesh in the same domain. This can be useful when a mesh is refined or coarsened. For this purpose, the Promenade algorithm is executed many times, once for every vertex. In order nevertheless to obtain a good running time, the starting triangle for {\ttfamily Promenade} should be chosen in an efficient way. The idea is to use starting triangles for which we already know that they are located close to the vertex to cover.
+The aim of this section is to find the covering triangle for every vertex of another mesh in the same domain. For this purpose, the Promenade algorithm is executed many times, once for every vertex. In order to still obtain a good runtime, the starting triangle for {\ttfamily Promenade} should be chosen in an efficient way. The idea is to use starting triangles for which we already know that they are located close to the vertex to cover.
 
-The function {\ttfamily findVertices} is given two meshes, {\ttfamily Mesh m} and {\ttfamily Mesh M}, and a reference of a vector of triangles {\ttfamily coveringTriangles} and returns {\ttfamily coveringTriangle} after modification. The function's goal is to search for covering triangles in {\ttfamily M} for the vertices of {\ttfamily  m}. At the position $i$ of {\ttfamily coveringTriangles} the triangle in {\ttfamily M} covering the $i$-th vertex of the mesh {\ttfamily m} is stored. All covering triangles are initialized by 0. Note that the indexing of the vertices in the mesh files starts at 1.
+The function {\ttfamily findVertices} has two meshes, {\ttfamily Mesh m} and {\ttfamily Mesh M}, and a vector of triangles called {\ttfamily coveringTriangles} as input variables and returns these {\ttfamily coveringTriangle} after modification. The function's goal is to search for covering triangles in {\ttfamily M} for the vertices of {\ttfamily  m}. After execution of {\ttfamily findVertices} the $i$-th array entry of {\ttfamily coveringTriangles} stores the triangle in {\ttfamily M} which covers the $i$-th vertex of the mesh {\ttfamily m}. All covering triangles are initialized by $0$. Note that the indexing of the vertices in the mesh files starts at $1$.
 
-First, two random triangles, one in {\ttfamily m} and one in {\ttfamily M}, are chosen. In {\ttfamily findVertices} covering triangles for the vertices of the randomly chosen triangle {\ttfamily firstTriangle\_m = (firstVertex, secondVertex, thirdVertex)} in {\ttfamily m} are computed. In order to find a covering triangle for {\ttfamily firstVertex}, {\ttfamily Promenade} is executed given the random triangle {\ttfamily firstStartTri} chosen in the {\ttfamily M}. After calculation of the covering triangle for {\ttfamily firstVertex} indexed by {\ttfamily firstTriangle\_M}, we can use that triangle as starting triangle for the search of a covering triangle for {\ttfamily secondVertex}. As {\ttfamily firstVertex} and {\ttfamily secondVertex} belong to one edge in {\ttfamily m}, we expect the covering triangles of those vertices to be close in {\ttfamily M}. In the same manner, we use the covering triangle of {\ttfamily secondVertex} as starting triangle for covering {\ttfamily thirdVertex}. Hereby, the version of {\ttfamily Promenade} not storing the taken path is executed.\\
-
-why start with random triangle of mesh m (JUST START WITH FIRST TRI?)\\
+First, two random triangles, one in {\ttfamily m} and one in {\ttfamily M}, are chosen. In {\ttfamily findVertices} covering triangles for the vertices of the randomly chosen triangle {\ttfamily firstTriangle\_m = (firstVertex, secondVertex, thirdVertex)} in {\ttfamily m} are computed. In order to find a covering triangle for {\ttfamily firstVertex}, {\ttfamily Promenade} is executed given the random triangle {\ttfamily firstStartTri} chosen in the {\ttfamily M} as input. After calculation of the covering triangle for {\ttfamily firstVertex}, indexed by {\ttfamily firstTriangle\_M}, we can use that triangle as the starting triangle for the search of a covering triangle for {\ttfamily secondVertex}. As {\ttfamily firstVertex} and {\ttfamily secondVertex} belong to one edge in {\ttfamily m}, we expect the covering triangles of those vertices to be close in {\ttfamily M}. In the same manner, we use the covering triangle of {\ttfamily secondVertex} as starting triangle for covering {\ttfamily thirdVertex}. Hereby, the version of {\ttfamily Promenade} not storing the taken path is executed.
 
 Now, we computed covering triangles for all the vertices of {\ttfamily firstTriangle\_m}. Originating from this triangle, we start a recurrence to find the remaining covering triangles. Neighboring triangles, neighbors of the neighboring triangles and so on will be considered.
 
-In {\ttfamily findVertices} the function {\ttfamily Triangle\_Recurrence} is called. The two meshes, the vector {\ttfamily coveringTriangles} and the already covered triangle {\ttfamily firstTriangle\_m} are passed. {\ttfamily Triangle\_Recurrence} modifies the vector {\ttfamily coveringTriangles} and, thereafter, {\ttfamily findVertices} returns the completed vector.
+{\ttfamily findVertices} calls the function {\ttfamily Triangle\_Recurrence}. The two meshes, the vector {\ttfamily coveringTriangles} and the already covered triangle {\ttfamily firstTriangle\_m} are passed. {\ttfamily Triangle\_Recurrence} modifies the vector {\ttfamily coveringTriangles} and, thereafter, {\ttfamily findVertices} returns the completed vector. {\ttfamily Triangle\_Recurrence} searches for covering triangles for the vertices of neighboring triangles of the already covered triangle. Again, 'close' covering triangles that are already found are used to accelerate the termination of the algorithm {\ttfamily Promenade}.
 
-{\ttfamily Triangle\_Recurrence} searches for covering triangles for the vertices of neighboring triangles of the already covered triangle. Again, 'close' covering triangle that are already found are used to accelerate the termination of the algorithm {\ttfamily Promenade}.
+We start with the member {\ttfamily neighbor1} of {\ttfamily firstTriangle\_m}. If this neighbor triangle exists and its vertices are not yet covered, we do so using the same procedure as in {\ttfamily findVertices}. After the triangle is covered, we consider its member {\ttfamily neighbor1}. At the moment when either a neighbor does not exist or is already covered, we go on to the member {\ttfamily neighbor2} and afterwards to the member {\ttfamily neighbor3}. If all members are covered, we return to the calling triangle and considered its next neighbor. This terminates when a covering triangle for all vertices of the mesh {\ttfamily m} is found and, consequently, the vector {\ttfamily coveringTriangles} is completed. Observe that this searching structure is similar to the approach of depth-first search.
 
-We start with the member {\ttfamily neighbor1} of {\ttfamily firstTriangle\_m}. If this neighbor triangle exists and its vertices are not yet covered, we do so using the same procedure as in {\ttfamily findVertices}. After the triangle is covered, we consider its member {\ttfamily neighbor1}. At the moment when either a neighbor does not exist or is already covered, we go on to the member {\ttfamily neighbor2} and afterwards to the member {\ttfamily neighbor3}. If all members are covered, we return to the calling triangle and considered its next neighbor. This terminates when a cover triangle for all vertices of the mesh {\ttfamily m} is found and the vector {\ttfamily coveringTriangles} is completed. WHY? XXXX Observe that this searching structure is similar to the approach of depth-first search. 
-
-$selectAdjacentPoint$ to select Triangle to start {\ttfamily Promenade} (if the vertex is not already covered), then cover neighbors of this triangle
+XXX FIGURE
 
 
 \section{Test environment- the main function}
-	The cpp file main offers the possibility to test the properties of the program:
+	The file main.cpp offers the possibility to test the properties of the program:
 	\begin{enumerate}
 		\item 
 		Find the neighbors of a triangle.
 		If a valid triangle index is chosen, the triangles and its neighbors are marked in the chosen mesh. This case offers the extra option to choose if the adjacency should be set via list or multimap. Essentially, the functions 
-		{\ttfamily setAdjacencyViaList } or {\ttfamily setAdjacencyViaMultimap} and {\ttfamily exportGnuplot} are called. 
+		{\ttfamily setAdjacencyViaList} or {\ttfamily setAdjacencyViaMultimap} and {\ttfamily exportGnuplot} are called. 
 		\item 
 		Find the covering triangle for a selectable point. 
 		As a result, the path to the covering triangle of the point is displayed. 
 		If the point lies outside of the mesh, the path to the nearest triangle is marked in the mesh. 
-		In this case, the functions {\ttfamily Promenade} and {\ttfamily exportGnuplot} are called. 
+		In this case, the functions {\ttfamily Promenade} and {\ttfamily exportGnuplot} are called.
 		\item 
-		Find the covering triangles for the vertices of another mesh. These option offers to display all covering triangles of a the vertices of a second mesh. Note that the mesh whose vertices is supposed to be broader (a finer mesh can be embedded in a broader mesh as well but then each triangle serves as a covering triangle). XXX DOMAIN
+		Find the covering triangles for the vertices of another mesh. These option offers to display all covering triangles of a the vertices of a second mesh. Note that the mesh whose vertices is supposed to be coarser (a finer mesh can be embedded in a coarser mesh as well but then each triangle serves as a covering triangle). By covering the vertices of a coarser mesh with the finer mesh, we can guarantee that all vertices can actually be covered by triangles of the finer mesh. This holds since the domain of the coarser mesh is included in the domain of the finer mesh if the domain defining intervals coincide.
 	\end{enumerate}
-	All three options allow to choose the mesh where the mesh becomes increasingly finer from maillage1.msh to maillage5.msh. 
-	Of course, it is also possible to add own meshes. In this case yet, it has to be respected that the vertex indices within a triangle must be sorted in ascending order, as mentioned in the sections before. 
-	Moreover, the mesh's interval should be at maximum $ [1.5,1.5] $ for a convenient display since the axis of the plot for {\ttfamily gnuplot} are predefined as the interval $ [2,2] $.  \\
-	XXXX
-	The test environment is not robust face to wrong inputs. That means that, for example, if an integer is demanded but a letter is typed, the program has to be started again. The same happens if an index is demanded but a the typed input lies outside of the range (an assert exception is thrown then).  
-	XXXX
-	 
-	special structure of mesh files is needed
+	All three options allow to choose the mesh where the mesh becomes increasingly finer from mesh1.msh to mesh5.msh. 
+	Of course, it is also possible to add own meshes. This can be done with {\ttfamily Gmsh}. Afterwards, the mesh files exported from {\ttfamily Gmsh} have to be prepared in order to provide the needed file structure and the ascending order of the vertices' indices within a triangle. This can be done with prepareMeshFile.cpp. Moreover, the mesh's interval should be at maximum $ [1.5,1.5] $ for a convenient display since the axis of the plot for {\ttfamily gnuplot} are predefined as the interval $ [2,2] $. \\
+	The test environment is not robust face to wrong inputs. That means that, for example, if an integer is demanded but a letter is typed, the program has to be started again. The same happens if an index is demanded but a the typed input lies outside of the range (an assert exception is thrown then).
 	
-	prepareMaillageFiles.cpp: mesh with Gmsh -> generate mesh file in required format
-	
-	runtime of promenade ?
+	The program main.cpp can be launched by typing the command {\ttfamily make do} in the terminal (the {\ttfamily Makefile} is called). By typing {\ttfamily make clean} the current .txt and .o files are erased.
 	
 	\begin{figure}[h]
 		\subfigure{\includegraphics[width=0.55\linewidth, height=0.55\linewidth]{../Figures/StartTri600_p(1,0)_min_neg}}
