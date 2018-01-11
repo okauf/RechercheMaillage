@@ -90,7 +90,8 @@ int main(){
            Triangle P = m.Promenade(t,p,path);
            cout << "If " << p << " lies in the mesh it is in the triangle with vertices " << endl << vertices[P[0]-1] << endl << vertices[P[1]-1] << endl << vertices[P[2]-1] << endl;
            cout << "If " << p << " is not in the mesh then the above triangle is the triangle with the shortest distance to the chosen point " << endl;
-           
+           cout << "The pathlength (number passed triangles) is " << path.size() << endl;
+
            m.exportGnuplot(path,&p,1);
            break; 
        }
