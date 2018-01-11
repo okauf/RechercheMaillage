@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.10.19)  11 JAN 2018 14:01
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.10.19)  11 JAN 2018 15:41
 entering extended mode
 **RechercheMaillage.tex
 (C:\msys64\home\Olli\RechercheMaillage\Latex\RechercheMaillage.tex
@@ -935,13 +935,18 @@ ABD: EveryShipout initializing macros
 File: UPMC_Sorbonne_Universites.png Graphic file (type png)
 
 <use UPMC_Sorbonne_Universites.png>
-Package pdftex.def Info: UPMC_Sorbonne_Universites.png used on input line 66.
-(pdftex.def)             Requested size: 128.48752pt x 46.1752pt.
- [1
+Package pdftex.def Info: UPMC_Sorbonne_Universites.png used on input line 74.
+(pdftex.def)             Requested size: 227.62204pt x 81.79648pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 82--83
+
+ []
+
+[1
 
 {C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map} <C:/msys64/home/Olli/Reche
-rcheMaillage/Latex/UPMC_Sorbonne_Universites.png>] (C:\msys64\home\Olli\Recherc
-heMaillage\Latex\RechercheMaillage.toc
+rcheMaillage/Latex/UPMC_Sorbonne_Universites.png>]
+(C:\msys64\home\Olli\RechercheMaillage\Latex\RechercheMaillage.toc
 LaTeX Font Info:    Try loading font information for OT1+lmr on input line 4.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\ot1lmr.fd"
@@ -983,171 +988,170 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.84 \newpage
-              [1] <../Figures/ex_mesh.jpg, id=114, 480.79625pt x 412.54124pt>
+l.93 \newpage
+              [1] <../Figures/ex_mesh.jpg, id=114, 364.36125pt x 383.4325pt>
 File: ../Figures/ex_mesh.jpg Graphic file (type jpg)
 
 <use ../Figures/ex_mesh.jpg>
-Package pdftex.def Info: ../Figures/ex_mesh.jpg used on input line 95.
-(pdftex.def)             Requested size: 159.33473pt x 136.71815pt.
+Package pdftex.def Info: ../Figures/ex_mesh.jpg used on input line 102.
+(pdftex.def)             Requested size: 109.25801pt x 114.97212pt.
 
 
-LaTeX Warning: Reference `fig:ex_mesh' on page 2 undefined on input line 102.
+Package wrapfig Warning: Stationary wrapfigure forced to float on input line 10
+7.
 
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 108.
+
+Package hyperref Warning: Suppressing empty link on input line 111.
+
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 114.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\t1lmtt.fd"
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+) [2 <C:/msys64/home/Olli/RechercheMaillage/Figures/ex_mesh.jpg>] [3]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[4] [5]
+Overfull \hbox (22.05965pt too wide) in paragraph at lines 250--251
+\T1/lmr/m/n/10 The com-plex-ity for both meth-ods, \T1/lmtt/m/n/10 setAdjacency
+ViaMultimap \T1/lmr/m/n/10 and \T1/lmtt/m/n/10 setAdjacencyViaList\T1/lmr/m/n/1
+0 , lies in $\OML/lmm/m/it/10 O\OT1/lmr/m/n/10 (\OML/lmm/m/it/10 n[]logn[]\OT1/
+lmr/m/n/10 )$\T1/lmr/m/n/10 .
+ []
+
+LaTeX Font Info:    Try loading font information for OMS+lmr on input line 253.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\omslmr.fd"
+File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-Overfull \hbox (18.74625pt too wide) in paragraph at lines 121--126
-\T1/lmr/m/n/10 has no neigh-bors when it is cre-ated. The neigh-bors are set vi
-a the func-tions \T1/lmtt/m/n/10 Mesh::setAdjacencyViaMultimap
- []
+LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 253.
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 121--126
-
- []
-
-[2 <C:/msys64/home/Olli/RechercheMaillage/Figures/ex_mesh.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 128--131
-
- []
-
-[3] [4]
-Underfull \hbox (badness 10000) in paragraph at lines 234--235
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 236--238
-
- []
-
-[5]
-Underfull \hbox (badness 10000) in paragraph at lines 254--255
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 256--257
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 282--283
+Underfull \hbox (badness 10000) in paragraph at lines 272--273
 
  []
 
 [6]
-<../Figures/StartTri600_p(1,0)_min_neg.png, id=170, 2168.1pt x 1070.49937pt>
+Underfull \hbox (badness 10000) in paragraph at lines 274--275
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 300--301
+
+ []
+
+<../Figures/StartTri600_p(1,0)_min_neg.png, id=174, 2168.1pt x 1070.49937pt>
 File: ../Figures/StartTri600_p(1,0)_min_neg.png Graphic file (type png)
 
 <use ../Figures/StartTri600_p(1,0)_min_neg.png>
 Package pdftex.def Info: ../Figures/StartTri600_p(1,0)_min_neg.png used on inpu
-t line 289.
+t line 307.
 (pdftex.def)             Requested size: 250.36836pt x 250.37497pt.
 
-<../Figures/StartTri600_p(1,0)_random_neg1.png, id=171, 2168.1pt x 1070.49937pt
+<../Figures/StartTri600_p(1,0)_random_neg1.png, id=175, 2168.1pt x 1070.49937pt
 >
 File: ../Figures/StartTri600_p(1,0)_random_neg1.png Graphic file (type png)
  <use ../Figures/StartTri600_p(1,0)_random_neg1.png>
 Package pdftex.def Info: ../Figures/StartTri600_p(1,0)_random_neg1.png used on 
-input line 291.
+input line 309.
 (pdftex.def)             Requested size: 250.36836pt x 250.37497pt.
 
-Overfull \hbox (47.71486pt too wide) in paragraph at lines 289--292
-[][] [][] 
- []
-
-
-<../Figures/StartTri600_p(1,0)_random_neg2.png, id=172, 2168.1pt x 1070.49937pt
->
-File: ../Figures/StartTri600_p(1,0)_random_neg2.png Graphic file (type png)
- <use ../Figures/StartTri600_p(1,0)_random_neg2.png>
-Package pdftex.def Info: ../Figures/StartTri600_p(1,0)_random_neg2.png used on 
-input line 295.
-(pdftex.def)             Requested size: 250.36836pt x 250.37497pt.
-
-<../Figures/StartTri600_p(1,0)_random_neg3.png, id=173, 2168.1pt x 1070.49937pt
->
-File: ../Figures/StartTri600_p(1,0)_random_neg3.png Graphic file (type png)
- <use ../Figures/StartTri600_p(1,0)_random_neg3.png>
-Package pdftex.def Info: ../Figures/StartTri600_p(1,0)_random_neg3.png used on 
-input line 296.
-(pdftex.def)             Requested size: 250.36836pt x 250.37497pt.
-
-Overfull \hbox (47.71486pt too wide) in paragraph at lines 295--297
+Overfull \hbox (47.71486pt too wide) in paragraph at lines 307--310
 [][] [][] 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<../Figures/Example.jpg, id=174, 929.4725pt x 695.59875pt>
+
+<../Figures/StartTri600_p(1,0)_random_neg2.png, id=176, 2168.1pt x 1070.49937pt
+>
+File: ../Figures/StartTri600_p(1,0)_random_neg2.png Graphic file (type png)
+ <use ../Figures/StartTri600_p(1,0)_random_neg2.png>
+Package pdftex.def Info: ../Figures/StartTri600_p(1,0)_random_neg2.png used on 
+input line 313.
+(pdftex.def)             Requested size: 250.36836pt x 250.37497pt.
+
+<../Figures/StartTri600_p(1,0)_random_neg3.png, id=177, 2168.1pt x 1070.49937pt
+>
+File: ../Figures/StartTri600_p(1,0)_random_neg3.png Graphic file (type png)
+ <use ../Figures/StartTri600_p(1,0)_random_neg3.png>
+Package pdftex.def Info: ../Figures/StartTri600_p(1,0)_random_neg3.png used on 
+input line 314.
+(pdftex.def)             Requested size: 250.36836pt x 250.37497pt.
+
+Overfull \hbox (47.71486pt too wide) in paragraph at lines 313--315
+[][] [][] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<../Figures/Example.jpg, id=178, 929.4725pt x 695.59875pt>
 File: ../Figures/Example.jpg Graphic file (type jpg)
 
 <use ../Figures/Example.jpg>
-Package pdftex.def Info: ../Figures/Example.jpg used on input line 303.
+Package pdftex.def Info: ../Figures/Example.jpg used on input line 321.
 (pdftex.def)             Requested size: 185.8912pt x 139.11728pt.
 
-Overfull \hbox (49.3166pt too wide) in paragraph at lines 303--304
+Overfull \hbox (49.3166pt too wide) in paragraph at lines 321--322
 [][] 
  []
 
-<../Figures/Calculation.jpg, id=175, 712.6625pt x 695.59875pt>
+<../Figures/Calculation.jpg, id=179, 712.6625pt x 695.59875pt>
 File: ../Figures/Calculation.jpg Graphic file (type jpg)
 
 <use ../Figures/Calculation.jpg>
-Package pdftex.def Info: ../Figures/Calculation.jpg used on input line 307.
+Package pdftex.def Info: ../Figures/Calculation.jpg used on input line 325.
 (pdftex.def)             Requested size: 142.52997pt x 139.11728pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<../Figures/Pathlength30.jpg, id=183, 634.37pt x 453.695pt>
+[7] <../Figures/Pathlength30.jpg, id=194, 634.37pt x 453.695pt>
 File: ../Figures/Pathlength30.jpg Graphic file (type jpg)
 
 <use ../Figures/Pathlength30.jpg>
-Package pdftex.def Info: ../Figures/Pathlength30.jpg used on input line 328.
+Package pdftex.def Info: ../Figures/Pathlength30.jpg used on input line 346.
 (pdftex.def)             Requested size: 364.20816pt x 227.6223pt.
 
-<../Figures/Runtime30.jpg, id=184, 632.3625pt x 451.6875pt>
+<../Figures/Runtime30.jpg, id=195, 632.3625pt x 451.6875pt>
 File: ../Figures/Runtime30.jpg Graphic file (type jpg)
 
 <use ../Figures/Runtime30.jpg>
-Package pdftex.def Info: ../Figures/Runtime30.jpg used on input line 329.
+Package pdftex.def Info: ../Figures/Runtime30.jpg used on input line 347.
 (pdftex.def)             Requested size: 364.20386pt x 227.62827pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 328--330
+Underfull \hbox (badness 10000) in paragraph at lines 346--348
 [][]
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<../Figures/Pathlength2000.jpg, id=185, 635.37375pt x 449.68pt>
+<../Figures/Pathlength2000.jpg, id=196, 635.37375pt x 449.68pt>
 File: ../Figures/Pathlength2000.jpg Graphic file (type jpg)
 
 <use ../Figures/Pathlength2000.jpg>
-Package pdftex.def Info: ../Figures/Pathlength2000.jpg used on input line 335.
+Package pdftex.def Info: ../Figures/Pathlength2000.jpg used on input line 353.
 (pdftex.def)             Requested size: 364.21245pt x 227.62523pt.
 
-<../Figures/Runtime2000.jpg, id=186, 630.355pt x 450.68375pt>
+<../Figures/Runtime2000.jpg, id=197, 630.355pt x 450.68375pt>
 File: ../Figures/Runtime2000.jpg Graphic file (type jpg)
 
 <use ../Figures/Runtime2000.jpg>
-Package pdftex.def Info: ../Figures/Runtime2000.jpg used on input line 336.
+Package pdftex.def Info: ../Figures/Runtime2000.jpg used on input line 354.
 (pdftex.def)             Requested size: 364.20186pt x 227.62444pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 335--337
+Underfull \hbox (badness 10000) in paragraph at lines 353--355
 [][]
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[7 <C:/msys64/home/Olli/RechercheMaillage/Figures/StartTri600_p(1,0)_min_neg.pn
+[8 <C:/msys64/home/Olli/RechercheMaillage/Figures/StartTri600_p(1,0)_min_neg.pn
 g
 
 pdfTeX warning: pdflatex.exe (file C:/msys64/home/Olli/RechercheMaillage/Figure
@@ -1160,13 +1164,18 @@ pdfTeX warning: pdflatex.exe (file C:/msys64/home/Olli/RechercheMaillage/Figure
 s/StartTri600_p(1,0)_random_neg1.png): large interlaced PNG might cause out of 
 memory (use non-interlaced PNG to fix this)
 >]
-Overfull \hbox (3.58882pt too wide) in paragraph at lines 354--357
+Overfull \hbox (3.58882pt too wide) in paragraph at lines 372--375
 \T1/lmr/m/n/10 The func-tion writes four text files, one for all tri-an-gles of
  the mesh, one for the tri-an-gles in \T1/lmtt/m/n/10 triangles_path\T1/lmr/m/n
 /10 ,
  []
 
-[8 <C:/msys64/home/Olli/RechercheMaillage/Figures/StartTri600_p(1,0)_random_neg
+
+Underfull \hbox (badness 10000) in paragraph at lines 382--383
+
+ []
+
+[9 <C:/msys64/home/Olli/RechercheMaillage/Figures/StartTri600_p(1,0)_random_neg
 2.png
 
 pdfTeX warning: pdflatex.exe (file C:/msys64/home/Olli/RechercheMaillage/Figure
@@ -1178,51 +1187,48 @@ memory (use non-interlaced PNG to fix this)
 pdfTeX warning: pdflatex.exe (file C:/msys64/home/Olli/RechercheMaillage/Figure
 s/StartTri600_p(1,0)_random_neg3.png): large interlaced PNG might cause out of 
 memory (use non-interlaced PNG to fix this)
-> <C:/msys64/home/Olli/RechercheMaillage/Figures/Example.jpg> <C:/msys64/home/O
-lli/RechercheMaillage/Figures/Calculation.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 364--365
+>]
+Underfull \hbox (badness 10000) in paragraph at lines 384--385
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 366--367
-
- []
-
-
-Overfull \hbox (25.69017pt too wide) in paragraph at lines 370--371
+Overfull \hbox (25.69017pt too wide) in paragraph at lines 388--389
 []\T1/lmr/m/n/10 In \T1/lmtt/m/n/10 findVertices \T1/lmr/m/n/10 the func-tion \
 T1/lmtt/m/n/10 Triangle_Recurrence \T1/lmr/m/n/10 is called. The two meshes, th
 e vec-tor \T1/lmtt/m/n/10 coveringTriangles
  []
 
-[9] [10]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 409.
- [11 <C:/msys64/home/Olli/RechercheMaillage/Figures/Pathlength30.jpg> <C:/msys6
-4/home/Olli/RechercheMaillage/Figures/Runtime30.jpg>] [12 <C:/msys64/home/Olli/
+[10 <C:/msys64/home/Olli/RechercheMaillage/Figures/Example.jpg> <C:/msys64/home
+/Olli/RechercheMaillage/Figures/Calculation.jpg>] [11]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 427.
+ [12 <C:/msys64/home/Olli/RechercheMaillage/Figures/Pathlength30.jpg> <C:/msys6
+4/home/Olli/RechercheMaillage/Figures/Runtime30.jpg>] [13 <C:/msys64/home/Olli/
 RechercheMaillage/Figures/Pathlength2000.jpg> <C:/msys64/home/Olli/RechercheMai
 llage/Figures/Runtime2000.jpg>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 409.
-
-(C:\msys64\home\Olli\RechercheMaillage\Latex\RechercheMaillage.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 409.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 409.
-Package rerunfilecheck Info: File `RechercheMaillage.out' has not changed.
-(rerunfilecheck)             Checksum: A3352480026E6BF8F0A155E7BEC2EC15;1521.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 427.
+ (C:\msys64\home\Olli\RechercheMaillage\Latex\RechercheMaillage.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 427.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 427.
 
 
-LaTeX Warning: There were undefined references.
+Package rerunfilecheck Warning: File `RechercheMaillage.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 409.
+Package rerunfilecheck Info: Checksums for `RechercheMaillage.out':
+(rerunfilecheck)             Before: 908DB56F13A3436EF44DBD4FA742A3BA;1584
+(rerunfilecheck)             After:  B35CA5C467045EA560A162EE6C1F1DFC;1581.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 427.
  ) 
 Here is how much of TeX's memory you used:
- 16924 strings out of 493921
- 311330 string characters out of 3144878
- 368229 words of memory out of 3000000
- 19812 multiletter control sequences out of 15000+200000
- 44265 words of font info for 42 fonts, out of 3000000 for 9000
+ 16949 strings out of 493921
+ 311690 string characters out of 3144878
+ 368263 words of memory out of 3000000
+ 19827 multiletter control sequences out of 15000+200000
+ 48528 words of font info for 43 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 55i,14n,54p,1357b,692s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 55i,14n,54p,1345b,692s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}{C:/Program F
 iles (x86)/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Program Files (x86)/
 MiKTeX 2.9/fonts/enc/dvips/lm/lm-rm.enc}{C:/Program Files (x86)/MiKTeX 2.9/font
@@ -1237,13 +1243,13 @@ lic/lm/lmr10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmr12
 .pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmr17.pfb><C:/Pro
 gram Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmr5.pfb><C:/Program Files (x
 86)/MiKTeX 2.9/fonts/type1/public/lm/lmr7.pfb><C:/Program Files (x86)/MiKTeX 2.
-9/fonts/type1/public/lm/lmsy10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/typ
-e1/public/lm/lmsy5.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm
-/lmtt10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmtt8.pfb>
-
-Output written on RechercheMaillage.pdf (13 pages, 4926288 bytes).
+9/fonts/type1/public/lm/lmri10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/typ
+e1/public/lm/lmsy10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/l
+m/lmsy5.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmtt10.pfb
+><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmtt8.pfb>
+Output written on RechercheMaillage.pdf (14 pages, 4938467 bytes).
 PDF statistics:
- 296 PDF objects out of 1000 (max. 8388607)
- 57 named destinations out of 1000 (max. 500000)
+ 311 PDF objects out of 1000 (max. 8388607)
+ 63 named destinations out of 1000 (max. 500000)
  217 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -15,34 +15,38 @@ void exportGnuplot(string file1, string file2,bool runTime);
 
 int main(){
 	
-    // string name = "maillage5.msh";
-    // Maillage m(name);
-    // m.setAdjacencyViaList();
-    // int numbExp = 2000;
-
-    //// file stores starting triangles and points to cover
-    //string input = "randomData.txt";
-    //// do not execute defineTriandPoints in order to compare the results of min_neg and random_neg
-    ////defineTriandPoints(m, input, numbExp);
-    
-    ////runPromenade(m,"RandomData.txt", "MinMeasRunTime.txt", "MinMeasPathlength.txt");
-    // exportGnuplot("Minimum Choice","Random Choice",true);  
+	// THIS PART IS USED FOR THE COMPARISON OF APPROACHES FOR THE CHOICE OF THE CONSECUTIVE TRIANGLE IN PROMENADE
 	
-	string name = "maillage5.msh";
+    string name = "maillage5.msh";
     Maillage m(name);
-	int numbExp = 1000;
-	duration<double>* durationIns = new duration<double>[numbExp];
-	double avg_time;
-	for (int i = 0; i < numbExp; i++){
-		auto t1 = high_resolution_clock::now();
-		m.setAdjacencyViaList();
-		auto t2 = high_resolution_clock::now();
-		durationIns[i] = t2-t1;
-		// cout << durationIns[i].count() << endl;
-		avg_time += durationIns[i].count();
-	}
-	avg_time = avg_time / numbExp;
-	cout << "average execution time: " << avg_time << endl;
+    m.setAdjacencyViaList();
+    int numbExp = 2000;
+
+    // file stores starting triangles and points to cover
+    string input = "randomData.txt";
+    // do not execute defineTriandPoints in order to compare the results of min_neg and random_neg
+    //defineTriandPoints(m, input, numbExp);
+    
+    //runPromenade(m,"RandomData.txt", "MinMeasRunTime.txt", "MinMeasPathlength.txt");
+    exportGnuplot("Minimum Choice","Random Choice",true);  
+	
+	
+	// THIS PART IS USED FOR THE RUNTIME COMPARISON OF SETTING THE NEIGHBORS VIA MULTIMAPS AND LISTS
+	
+	// string name = "maillage5.msh";
+    // Maillage m(name);
+	// int numbExp = 1000;
+	// duration<double>* durationIns = new duration<double>[numbExp];
+	// double avg_time;
+	// for (int i = 0; i < numbExp; i++){
+		// auto t1 = high_resolution_clock::now();
+		// m.setAdjacencyViaList();
+		// auto t2 = high_resolution_clock::now();
+		// durationIns[i] = t2-t1;
+		// avg_time += durationIns[i].count();
+	// }
+	// avg_time = avg_time / numbExp;
+	// cout << "average execution time: " << avg_time << endl;
 }
 
 double trianglePointDistance(Maillage & m,const int triIndex, T3<double> &p){

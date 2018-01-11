@@ -12,12 +12,6 @@ class T3{
         f   << v.x << "\t" << v.y << "\t" << v.z;
         return f;
     }
-    friend std::istream& operator >>(std::istream& f,  T3 &v){
-        char a;
-        
-        f >> a >> v.x >> a >> v.y >> a >> v.z >> a;
-        return f;
-    }
     
 private:
     T x,y,z;

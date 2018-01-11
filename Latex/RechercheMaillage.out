@@ -7,7 +7,7 @@
 \BOOKMARK [2][-]{subsection.3.2}{Find the adjacent triangle}{section.3}% 7
 \BOOKMARK [3][-]{subsubsection.3.2.1}{setAdjacencyViaMultimap}{subsection.3.2}% 8
 \BOOKMARK [3][-]{subsubsection.3.2.2}{setAdjacencyViaList}{subsection.3.2}% 9
-\BOOKMARK [3][-]{subsubsection.3.2.3}{Vergleich}{subsection.3.2}% 10
+\BOOKMARK [3][-]{subsubsection.3.2.3}{Runtime comparison of setAdjacencyViaMultimap and setAdjacencyViaList}{subsection.3.2}% 10
 \BOOKMARK [2][-]{subsection.3.3}{The algorithm Promenade}{section.3}% 11
 \BOOKMARK [3][-]{subsubsection.3.3.1}{Random neighbor selection}{subsection.3.3}% 12
 \BOOKMARK [3][-]{subsubsection.3.3.2}{Selection of neighbor with minimal oriented volume}{subsection.3.3}% 13

@@ -242,21 +242,21 @@ public:
 
 void setAdjacencyViaList(){
     
-    list<Triangle> adjacency;
+    list<T3<int> > adjacency;
     
 	// each triangle is inserted three times in the list (once for each edge)
     for (int i = 0; i < numbTri; i++){
-        adjacency.push_front(Triangle(triangles[i][0],triangles[i][1],i));
-        adjacency.push_front(Triangle(triangles[i][0],triangles[i][2],i));
-        adjacency.push_front(Triangle(triangles[i][1],triangles[i][2],i));
+        adjacency.push_front(T3<int>(triangles[i][0],triangles[i][1],i));
+        adjacency.push_front(T3<int>(triangles[i][0],triangles[i][2],i));
+        adjacency.push_front(T3<int>(triangles[i][1],triangles[i][2],i));
     }
     
 	// lexicographical ordering of the list to enable finding adjacent triangles
     adjacency.sort();
     
-    Triangle prev_tri = adjacency.front();
+    T3<int> prev_tri = adjacency.front();
     adjacency.pop_front();
-    Triangle curr_tri;
+    T3<int> curr_tri;
     while (!adjacency.empty()){
         curr_tri = adjacency.front();
         adjacency.pop_front();
