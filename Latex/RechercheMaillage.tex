@@ -278,7 +278,7 @@ Following the algorithm, there are three cases for the number of possible walkin
 	\item two neighboring triangles are valid choices or
 	\item the current triangle already covers $p$.
 \end{enumerate}
-If there are two neighboring triangles to choose from, different approaches can be pursued. We implemented a random neighbor selection (see \ref{ran_neighb_sel}) and a method choosing the edge forming the triangle with minimal oriented volume with $p$ (see \ref{min_neg_vol}). In order to switch between the two approaches, adapt the switch-condition in the method {\ttfamily Promenade} in line 128 and 160 in Mesh.hpp {\ttfamily Mesh.hpp }. XXXXXXXXXXXXX
+If there are two neighboring triangles to choose from, different approaches can be pursued. We implemented a random neighbor selection (see \ref{ran_neighb_sel}) and a method choosing the edge forming the triangle with minimal oriented volume with $p$ (see \ref{min_neg_vol}). In order to switch between the two approaches, adapt the switch-condition in the method {\ttfamily Promenade} in line 128 and 160 in Mesh.hpp {\ttfamily Mesh.hpp }.
 
 \subsubsection{Random neighbor selection} \label{ran_neighb_sel}
 
@@ -328,18 +328,7 @@ In this case, the mesh 'mesh5.msh', used for the figures \ref{30} and \ref{2000}
 	\caption{The pathlength and the runtime compared using $ min_neg $ and $ random_neg $. In this example, $ 30 $ data points were randomly created in the file 'TimeMeasurements.cpp'.  The underlying mesh is 'mesh5.msh'.}
 	\label{30}
 \end{figure}
-
-\begin{figure}[h] 
-	\subfigure{\includegraphics[width=0.8\linewidth, height=0.5\linewidth]{../Figures/Pathlength2000.jpg}}
-	\subfigure{\includegraphics[width=0.8\linewidth,height=0.5\linewidth]{../Figures/Runtime2000.jpg}}
-	\caption{Here, $ 2000 $ data points were randomly created.}
-	\label{2000}
-\end{figure}
 		
-		
-		
-
-
 \subsection{The visualization via gnuplot} \label{visualization}
 	The visualization is done by the function {\ttfamily Mesh::exportGnuplot} which is able to visualize two different inputs: 
 	\begin{enumerate}
@@ -354,6 +343,8 @@ The function writes four text files, one for all triangles of the mesh, one for 
 The script for {\ttfamily gnuplot} contains a line which keeps the plot open until some key is hit in the terminal. 
 The actual execution in the terminal is achieved by the command {\ttfamily system} which executes an input string in the terminal in order to call {\ttfamily gnuplot}.
 
+Figure \ref{coveringTri} depicts the result for the covering of mesh1.msh by mesh2.msh.
+	
 \section{Cover vertices of a mesh by another mesh}
 
 The aim of this section is to find the covering triangle for every vertex of another mesh in the same domain. For this purpose, the Promenade algorithm is executed many times, once for every vertex. In order to still obtain a good runtime, the starting triangle for {\ttfamily Promenade} should be chosen in an efficient way. The idea is to use starting triangles for which we already know that they are located close to the vertex to cover.
@@ -367,11 +358,6 @@ Now, we computed covering triangles for all the vertices of {\ttfamily firstTria
 {\ttfamily findVertices} calls the function {\ttfamily Triangle\_Recurrence}. The two meshes, the vector {\ttfamily coveringTriangles} and the already covered triangle {\ttfamily firstTriangle\_m} are passed. {\ttfamily Triangle\_Recurrence} modifies the vector {\ttfamily coveringTriangles} and, thereafter, {\ttfamily findVertices} returns the completed vector. {\ttfamily Triangle\_Recurrence} searches for covering triangles for the vertices of neighboring triangles of the already covered triangle. Again, 'close' covering triangles that are already found are used to accelerate the termination of the algorithm {\ttfamily Promenade}.
 
 We start with the member {\ttfamily neighbor1} of {\ttfamily firstTriangle\_m}. If this neighbor triangle exists and its vertices are not yet covered, we do so using the same procedure as in {\ttfamily findVertices}. After the triangle is covered, we consider its member {\ttfamily neighbor1}. At the moment when either a neighbor does not exist or is already covered, we go on to the member {\ttfamily neighbor2} and afterwards to the member {\ttfamily neighbor3}. If all members are covered, we return to the calling triangle and considered its next neighbor. This terminates when a covering triangle for all vertices of the mesh {\ttfamily m} is found and, consequently, the vector {\ttfamily coveringTriangles} is completed. Observe that this searching structure is similar to the approach of depth-first search.
-
-\begin{figure}
-	\includegraphics[width=0.55\linewidth,height=0.55\linewidth]{../Figures/CoveringTriangles.png}
-	\caption{Covering of mesh1.msh by mesh2.msh.}
-\end{figure}
 
 
 \section{Test environment - the main function}
@@ -405,6 +391,13 @@ We start with the member {\ttfamily neighbor1} of {\ttfamily firstTriangle\_m}. 
 		\subfigure{\includegraphics[width=0.55\linewidth,height=0.55\linewidth]{../Figures/StartTri600_p(1,0)_random_neg3}}
 		\label{path}
 		\caption{ Illustration of path returned by Promenade. The first path was generated by choosing the consecutive triangle using {\ttfamily min\_neg} whereas the other three ones are created using {\ttfamily random\_neg}.}
+	\end{figure}
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.55\linewidth,height=0.55\linewidth]{../Figures/CoveringTriangles.png}
+		\caption{Covering of mesh1.msh by mesh2.msh.}
+		\label{coveringTri}
 	\end{figure}
 	
 \end{document}
