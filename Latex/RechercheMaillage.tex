@@ -368,10 +368,13 @@ Now, we computed covering triangles for all the vertices of {\ttfamily firstTria
 
 We start with the member {\ttfamily neighbor1} of {\ttfamily firstTriangle\_m}. If this neighbor triangle exists and its vertices are not yet covered, we do so using the same procedure as in {\ttfamily findVertices}. After the triangle is covered, we consider its member {\ttfamily neighbor1}. At the moment when either a neighbor does not exist or is already covered, we go on to the member {\ttfamily neighbor2} and afterwards to the member {\ttfamily neighbor3}. If all members are covered, we return to the calling triangle and considered its next neighbor. This terminates when a covering triangle for all vertices of the mesh {\ttfamily m} is found and, consequently, the vector {\ttfamily coveringTriangles} is completed. Observe that this searching structure is similar to the approach of depth-first search.
 
-XXX FIGURE
+\begin{figure}
+	\includegraphics[width=0.55\linewidth,height=0.55\linewidth]{../Figures/CoveringTriangles.png}
+	\caption{Covering of mesh1.msh by mesh2.msh.}
+\end{figure}
 
 
-\section{Test environment- the main function}
+\section{Test environment - the main function}
 	The file main.cpp offers the possibility to test the properties of the program:
 	\begin{enumerate}
 		\item 

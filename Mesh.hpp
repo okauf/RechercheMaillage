@@ -168,7 +168,7 @@ public:
             case 3:
                 return Promenade(triangles[T.getNeighbor3()],p);
 			default:
-				return T; // XXXXX avoid warning
+				return T; // will never be reachd
         }
 
     }
@@ -352,7 +352,7 @@ void exportGnuplot(vector<Triangle> & triangles_path, const T3<double>* points, 
         GnuCom << "plot 'outputNetwork.txt' with lines linetype 4,  'outputtriangles.txt' with lines lt -1 " << endl;
 	}
 	
-	// GnuCom << "set output 'b.png'" << endl;
+	
     // In order to keep the file open
     GnuCom << "pause -1 'Hit any key to continue' " << endl;
     GnuCom.close();
